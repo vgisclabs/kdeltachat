@@ -2,6 +2,7 @@ import DeltaChat 1.0
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Dialogs 1.3
 
 Pane {
     id: root
@@ -21,8 +22,34 @@ Pane {
 
     padding: 0
 
+    FileDialog {
+        id: attachFileDialog
+        title: "Attach"
+        folder: shortcuts.home
+
+        onAccepted: {
+            var url = attachFileDialog.fileUrl.toString()
+            if (url.startsWith("file://")) {
+                var filename = url.substring(7)
+                console.log("Attaching " + filename)
+            }
+        }
+    }
+
     RowLayout {
         width: parent.width
+
+        Button {
+            id: attachButton
+            visible: root.canSend
+            text: qsTr("Attach")
+
+            Layout.alignment: Qt.AlignBottom
+
+            icon.name: "mail-attachment"
+
+            onClicked: attachFileDialog.open()
+        }
 
         TextArea {
             id: messageField
