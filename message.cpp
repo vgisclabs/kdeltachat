@@ -68,6 +68,13 @@ DcMessage::getText()
     return result;
 }
 
+void
+DcMessage::setFile(QString file)
+{
+    QByteArray utf8File = file.toUtf8();
+    return dc_msg_set_file(m_message, utf8File.constData(), NULL);
+}
+
 QString
 DcMessage::getSubject()
 {

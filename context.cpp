@@ -267,12 +267,8 @@ Context::newMessage(int viewtype)
 }
 
 uint32_t
-Context::sendMessage(uint32_t chatId, DcMessage *message, QString attachment)
+Context::sendMessage(uint32_t chatId, DcMessage *message)
 {
-    if (!attachment.isEmpty()) {
-        QByteArray utf8attachFilename = attachment.toUtf8();
-        dc_msg_set_file(message->m_message, utf8attachFilename.constData(), NULL);
-    }
     return dc_send_msg(m_context, chatId, message->m_message);
 }
 

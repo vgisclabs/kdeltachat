@@ -17,7 +17,7 @@ class DcMessage : public QObject {
     Q_PROPERTY(QDateTime timestamp READ getTimestamp CONSTANT)
     Q_PROPERTY(QString text READ getText WRITE setText)
     Q_PROPERTY(QString subject READ getSubject CONSTANT)
-    Q_PROPERTY(QString file READ getFile CONSTANT)
+    Q_PROPERTY(QString file READ getFile WRITE setFile)
     Q_PROPERTY(QString filename READ getFilename CONSTANT)
     Q_PROPERTY(int width READ getWidth CONSTANT)
     Q_PROPERTY(int height READ getHeight CONSTANT)
@@ -45,6 +45,7 @@ public:
     //Q_INVOKABLE int64_t getReceivedTimestamp();
     //Q_INVOKABLE int64_t getSortTimestamp();
     Q_INVOKABLE void setText(QString);
+    Q_INVOKABLE void setFile(QString);
     Q_INVOKABLE QString getText();
     Q_INVOKABLE QString getSubject();
     QString getFile();

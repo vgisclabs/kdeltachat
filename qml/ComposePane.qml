@@ -18,10 +18,12 @@ Pane {
         let DC_MSG_TEXT = 10;
         let DC_MSG_FILE = 60;
 
-        if (attachFileUrl.length > 0)
+        if (attachFileUrl.length > 0) {
             var msg = root.context.newMessage(DC_MSG_FILE);
-        else
+            msg.setFile(attachFileUrl)
+        } else
             var msg = root.context.newMessage(DC_MSG_TEXT);
+
         msg.setText(messageField.text);
         return msg;
     }
@@ -92,10 +94,7 @@ Pane {
             enabled: messageField.length > 0 | attachFileUrl.length > 0
             onClicked: {
                 let msg = root.createMessage();
-                if (attachFileUrl.length > 0)
-                    root.context.sendMessage(root.chatId, msg, attachFileUrl)
-                else
-                    root.context.sendMessage(root.chatId, msg, "")
+                root.context.sendMessage(root.chatId, msg)
 
                 attachFileUrl = "";
                 messageField.text = "";

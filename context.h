@@ -53,7 +53,7 @@ public:
     Q_INVOKABLE QString getMessageInfo(uint32_t msgId);
     Q_INVOKABLE QString getMessageHtml(uint32_t msgId);
     Q_INVOKABLE DcMessage *newMessage(int viewtype);
-    Q_INVOKABLE uint32_t sendMessage(uint32_t chatId, DcMessage *message, QString attachment);
+    Q_INVOKABLE uint32_t sendMessage(uint32_t chatId, DcMessage *message);
     Q_INVOKABLE void importBackup(QString tarfile);
 
 private:
