@@ -50,13 +50,19 @@ Pane {
         Button {
             id: attachButton
             visible: root.canSend
-            text: qsTr("Attach")
+            text: attachFileUrl.length > 0 ? qsTr("Detach") : qsTr("Attach")
 
             Layout.alignment: Qt.AlignBottom
 
             icon.name: "mail-attachment"
 
-            onClicked: attachFileDialog.open()
+            onClicked: {
+                if (attachFileUrl.length > 0) {
+                    attachFileUrl = ""
+                } else {
+                    attachFileDialog.open()
+                }
+            }
         }
 
         TextArea {
