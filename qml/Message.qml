@@ -1,0 +1,83 @@
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Layouts 1.14
+import QtQml.Models 2.1
+import org.kde.kirigami 2.12 as Kirigami
+
+import DeltaChat 1.0
+
+RowLayout {
+    id: messageObject
+
+    property DcMessage message
+    readonly property DcContact from: context.getContact(message.fromId)
+
+    width: ListView.view.width
+    layoutDirection: message.fromId == 1 ? Qt.RightToLeft : Qt.LeftToRight
+
+    Rectangle {
+        Layout.preferredWidth: messageContents.width
+        Layout.preferredHeight: messageContents.height
+
+        Component {
+            id: imageMessageView
+
+            ColumnLayout {
+                Image {
+                    source: "file:" + messageObject.message.file
+                    sourceSize.width: messageObject.message.width
+                    sourceSize.height: messageObject.message.height
+                    fillMode: Image.PreserveAspectFit
+                    Layout.maximumWidth: messageObject.width
+                }
+                Label {
+                    font.bold: true
+                    color: messageObject.message.fromId > 0 ? messageObject.from.color : "black"
+                    text: messageObject.message.fromId > 0 ? messageObject.from.displayName : ""
+                    textFormat: Text.PlainText
+                }
+            }
+        }
+
+        Component {
+            id: textMessageView
+
+            Label {
+                font.bold: true
+                color: messageObject.message.fromId > 0 ? messageObject.from.color : "black"
+                text: messageObject.message.fromId > 0 ? messageObject.from.displayName : ""
+                textFormat: Text.PlainText
+            }
+        }
+
+        color: Kirigami.Theme.backgroundColor
+        radius: 5
+
+        ColumnLayout {
+            id: messageContents
+
+            anchors.centerIn: parent
+
+            Loader {
+                sourceComponent: messageObject.message.viewtype == 20 ? imageMessageView : textMessageView
+            }
+            TextEdit {
+                Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
+                text: messageObject.message.text
+                textFormat: Text.PlainText
+                selectByMouse: true
+                readOnly: true
+                color: "black"
+                wrapMode: Text.Wrap
+                font.pixelSize: 14
+            }
+            Label {
+                Layout.fillWidth: true
+                text: messageObject.message.state == 26 ? "✓"
+                    : messageObject.message.state == 28 ? "✓✓"
+                    : messageObject.message.state == 24 ? "✗"
+                    : "";
+            }
+        }
+    }
+}
