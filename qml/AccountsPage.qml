@@ -58,7 +58,6 @@ Kirigami.Page {
 
             Button {
                 width: 100
-                palette.button: "light green"
                 text: "Select"
                 onClicked: {
                    while (pageStack.depth > 1) {
@@ -76,7 +75,6 @@ Kirigami.Page {
 
              Button {
                  width: 100
-                 palette.button: "red"
                  text: "Delete"
                  onClicked: accountsModel.removeAccount(model.number)
              }
