@@ -29,7 +29,7 @@ Kirigami.Page {
         onAccepted: {
             var url = importAccountDialog.fileUrl.toString()
             if (url.startsWith("file://")) {
-                var filename = url.substring(7);
+                var filename = url.substring(7)
                 console.log("Importing " + filename)
                 var accountId = accountsModel.importAccount (filename)
                 if (accountId == 0) {
