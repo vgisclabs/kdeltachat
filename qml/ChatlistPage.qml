@@ -90,6 +90,8 @@ Kirigami.Page {
                     pageStack.currentIndex = 2
                     pageStack.replace(myPage)
                 }
+            } else if (chatPageComponent.status == Component.Error) {
+                console.log("Error loading chat page: " + chatPageComponent.errorString())
             }
         }
 
