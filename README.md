@@ -34,7 +34,7 @@ zypper install -y libopenssl-devel perl-FindBin-Real
 
 # Install KDeltaChat dependencies
 zypper install -y cmake gcc-c++
-zypper install -y libqt5-qtbase-devel libQt5QuickControls2-devel kirigami2-devel
+zypper install -y libqt5-qtbase-devel libQt5QuickControls2-devel kirigami2-devel libqt5-quickcontrols
 ```
 
 # Building
