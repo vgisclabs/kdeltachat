@@ -90,3 +90,12 @@ DcMessage::isInfo()
 {
     return dc_msg_is_info(m_message);
 }
+
+QString
+DcMessage::getQuotedText()
+{
+    char *text = dc_msg_get_quoted_text(m_message);
+    QString result{text};
+    dc_str_unref(text);
+    return result;
+}

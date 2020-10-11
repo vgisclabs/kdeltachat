@@ -17,6 +17,7 @@ class DcMessage : public QObject {
     Q_PROPERTY(int width READ getWidth CONSTANT)
     Q_PROPERTY(int height READ getHeight CONSTANT)
     Q_PROPERTY(bool isInfo READ isInfo CONSTANT)
+    Q_PROPERTY(QString quotedText READ getQuotedText CONSTANT)
 
     dc_msg_t *m_message{nullptr};
 public:
@@ -52,4 +53,5 @@ public:
     bool isInfo();
     //isIncreation
     //isSetupmessage
+    Q_INVOKABLE QString getQuotedText();
 };

@@ -63,7 +63,7 @@ RowLayout {
             }
             TextEdit {
                 Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
-                text: messageObject.message.text
+                text: (messageObject.message.quotedText ? "> " + messageObject.message.quotedText + "\n\n" : "") + messageObject.message.text
                 textFormat: Text.PlainText
                 selectByMouse: true
                 readOnly: true
