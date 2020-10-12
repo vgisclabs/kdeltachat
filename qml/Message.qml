@@ -61,9 +61,21 @@ RowLayout {
             Loader {
                 sourceComponent: messageObject.message.viewtype == 20 ? imageMessageView : textMessageView
             }
+
             TextEdit {
                 Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
-                text: (messageObject.message.quotedText ? "> " + messageObject.message.quotedText + "\n\n" : "") + messageObject.message.text
+                text: messageObject.message.quotedText ? messageObject.message.quotedText : ""
+                textFormat: Text.PlainText
+                selectByMouse: true
+                readOnly: true
+                color: "grey"
+                wrapMode: Text.Wrap
+                font.pixelSize: 12
+            }
+
+            TextEdit {
+                Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
+                text: messageObject.message.text
                 textFormat: Text.PlainText
                 selectByMouse: true
                 readOnly: true
