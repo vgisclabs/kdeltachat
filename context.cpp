@@ -85,6 +85,15 @@ Context::getBlobdir()
     return result;
 }
 
+QString
+Context::getMessageInfo(uint32_t msgId)
+{
+    char *info = dc_get_msg_info(m_context, msgId);
+    QString result{info};
+    dc_str_unref(info);
+    return result;
+}
+
 uint32_t
 Context::sendTextMessage(uint32_t chatId, QString textToSend)
 {
