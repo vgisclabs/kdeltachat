@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQml.Models 2.1
+import QtQuick.Dialogs 1.1
 import org.kde.kirigami 2.12 as Kirigami
 
 import DeltaChat 1.0
@@ -53,10 +54,40 @@ RowLayout {
         color: Kirigami.Theme.backgroundColor
         radius: 5
 
+        MouseArea {
+            anchors.fill: parent
+
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            onClicked: {
+                if (mouse.button === Qt.RightButton)
+                    contextMenu.popup()
+            }
+            onPressAndHold: {
+                if (mouse.source === Qt.MouseEventNotSynthesized)
+                    contextMenu.popup()
+            }
+
+            MessageDialog {
+                id: messageDialog
+                title: "Message info"
+                text: context.getMessageInfo(messageObject.message.id)
+                onAccepted: { }
+            }
+
+            Menu {
+                id: contextMenu
+                Action {
+                    text: "Info"
+                    onTriggered: messageDialog.open()
+                }
+            }
+        }
+
         ColumnLayout {
             id: messageContents
 
             anchors.centerIn: parent
+
 
             Loader {
                 sourceComponent: messageObject.message.viewtype == 20 ? imageMessageView : textMessageView
