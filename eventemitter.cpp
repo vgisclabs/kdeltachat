@@ -33,13 +33,6 @@ DcAccountsEventEmitter::start()
 }
 
 void
-DcAccountsEventEmitter::stop()
-{
-    qInfo("Stopping event emitter");
-    dc_accounts_event_emitter_unref(m_accounts_event_emitter);
-}
-
-void
 DcAccountsEventEmitter::processEvent(DcEvent *event)
 {
     emit incomingEvent();

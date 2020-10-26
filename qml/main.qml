@@ -53,6 +53,5 @@ Kirigami.ApplicationWindow {
         console.log('stopping')
         pageStack.pop(null)
         delete root.accountsModel
-        eventEmitter.stop()
     }
 }

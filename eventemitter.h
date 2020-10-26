@@ -17,6 +17,8 @@ class EventLoopThread : public QThread
         while((event = dc_accounts_get_next_event(m_eventEmitter))) {
             emit emitEvent(new DcEvent{event});
         }
+        dc_accounts_event_emitter_unref(m_eventEmitter);
+
         std::cout << "NO MORE EVENTS!" << std::endl;
     }
 public:
@@ -44,7 +46,6 @@ public:
     ~DcAccountsEventEmitter();
 
     Q_INVOKABLE void start();
-    Q_INVOKABLE void stop();
     Q_INVOKABLE void processEvent(DcEvent *event);
 
 signals:
