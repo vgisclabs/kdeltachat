@@ -48,4 +48,9 @@ Kirigami.ApplicationWindow {
         eventEmitter = accountsModel.getEventEmitter()
         eventEmitter.start();
     }
+
+    onClosing: {
+        // Cancel all tasks that may block the termination of event loop.
+        accountsModel.stopIo()
+    }
 }
