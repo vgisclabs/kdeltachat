@@ -113,7 +113,7 @@ AccountsModel::getSelectedAccount()
 {
     dc_context_t *context = dc_accounts_get_selected_account(m_accounts);
 
-    return new Context(context);
+    return new Context(this, context);
 }
 
 void

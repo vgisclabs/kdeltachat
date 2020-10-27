@@ -16,7 +16,7 @@ class Context : public QObject {
 
 public:
     explicit Context(QObject *parent = nullptr);
-    explicit Context(dc_context_t *context);
+    explicit Context(QObject *parent, dc_context_t *context);
     ~Context();
 
     Q_INVOKABLE void configure();

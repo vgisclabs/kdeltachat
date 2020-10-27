@@ -5,8 +5,8 @@ Context::Context(QObject *parent)
 {
 }
 
-Context::Context(dc_context_t *context)
-    : QObject(nullptr)
+Context::Context(QObject *parent, dc_context_t *context)
+    : QObject(parent)
     , m_context(context)
 {
 }
