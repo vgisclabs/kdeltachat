@@ -9,7 +9,7 @@ import DeltaChat 1.0
 Kirigami.Page {
     id: chatPage
 
-    title: messageListView.chat ? messageListView.chat.name : qsTr("Chat")
+    title: chat ? chat.name : qsTr("Chat")
 
     property var chatId
     readonly property DcChat chat: context.getChat(chatId)
