@@ -48,10 +48,4 @@ Kirigami.ApplicationWindow {
         eventEmitter = accountsModel.getEventEmitter()
         eventEmitter.start();
     }
-
-    onClosing: {
-        console.log('stopping')
-        pageStack.pop(null)
-        delete root.accountsModel
-    }
 }
