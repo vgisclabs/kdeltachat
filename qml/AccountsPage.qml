@@ -101,7 +101,6 @@ Kirigami.Page {
             }
 
             Button {
-                width: 100
                 text: "Select"
                 onClicked: {
                    while (pageStack.depth > 1) {
@@ -118,7 +117,6 @@ Kirigami.Page {
              }
 
              Button {
-                 width: 100
                  text: "Delete"
                  onClicked: {
                      dcAccounts.removeAccount(model.number)
