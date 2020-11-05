@@ -86,6 +86,16 @@ Context::getBlobdir()
 }
 
 QString
+Context::getConfig(QString key)
+{
+    QByteArray utf8Key = key.toUtf8();
+    char *value = dc_get_config(m_context, utf8Key.constData());
+    QString result{value};
+    dc_str_unref(value);
+    return result;
+}
+
+QString
 Context::getMessageInfo(uint32_t msgId)
 {
     char *info = dc_get_msg_info(m_context, msgId);
