@@ -12,7 +12,10 @@ Kirigami.Page {
     mainAction: Kirigami.Action {
         iconName: "list-add-user"
         text: "Add account"
-        onTriggered: accountsModel.addAccount()
+        onTriggered: {
+            let accountId = dcAccounts.addAccount()
+            accountsModel.insert(accountsModel.count, { number: accountId })
+        }
     }
 
     contextualActions: [
@@ -31,7 +34,7 @@ Kirigami.Page {
             if (url.startsWith("file://")) {
                 var filename = url.substring(7)
                 console.log("Importing " + filename)
-                var accountId = accountsModel.importAccount (filename)
+                var accountId = dcAccounts.importAccount(filename)
                 if (accountId == 0) {
                     console.log("Import failed")
                 } else {
@@ -39,6 +42,23 @@ Kirigami.Page {
                 }
             }
         }
+    }
+
+    ListModel {
+        id: accountsModel
+    }
+
+    function updateAccounts() {
+        let accountsList = dcAccounts.getAll()
+
+        accountsModel.clear()
+        for (let i = 0; i < accountsList.length; i++) {
+            accountsModel.insert(i, { number: accountsList[i] })
+        }
+    }
+
+    Component.onCompleted: {
+        updateAccounts()
     }
 
     ListView {
@@ -63,8 +83,8 @@ Kirigami.Page {
                    while (pageStack.depth > 1) {
                        pageStack.pop()
                    }
-                   accountsModel.selectedAccount = model.number
-                   let context = accountsModel.getSelectedAccount()
+                   dcAccounts.selectAccount(model.number)
+                   let context = dcAccounts.getSelectedAccount()
                    if (context.isConfigured()) {
                        pageStack.push("qrc:/qml/ChatlistPage.qml", {context: context})
                    } else {
@@ -76,7 +96,10 @@ Kirigami.Page {
              Button {
                  width: 100
                  text: "Delete"
-                 onClicked: accountsModel.removeAccount(model.number)
+                 onClicked: {
+                     dcAccounts.removeAccount(model.number)
+                     accountsModel.remove(model.index)
+                 }
              }
         }
     }

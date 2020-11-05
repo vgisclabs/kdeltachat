@@ -19,9 +19,9 @@ Kirigami.ApplicationWindow {
             text: "Start IO"
             onCheckedChanged: {
                 if (checked) {
-                    accountsModel.startIo()
+                    dcAccounts.startIo()
                 } else {
-                    accountsModel.stopIo()
+                    dcAccouts.stopIo()
                 }
             }
         }
@@ -30,7 +30,7 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Maybe network"
                 iconName: "view-refresh"
-                onTriggered: accountsModel.maybeNetwork()
+                onTriggered: dcAccounts.maybeNetwork()
             }
         ]
     }
@@ -39,18 +39,18 @@ Kirigami.ApplicationWindow {
         id: contextDrawer
     }
 
-    AccountsModel {
-        id: accountsModel
+    DcAccounts {
+        id: dcAccounts
     }
 
     Component.onCompleted: {
         console.log('starting')
-        eventEmitter = accountsModel.getEventEmitter()
+        eventEmitter = dcAccounts.getEventEmitter()
         eventEmitter.start();
     }
 
     onClosing: {
         // Cancel all tasks that may block the termination of event loop.
-        accountsModel.stopIo()
+        dcAccounts.stopIo()
     }
 }

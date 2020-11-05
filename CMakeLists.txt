@@ -31,7 +31,7 @@ add_executable(kdeltachat
   main.cpp
   message.cpp
   context.cpp
-  accounts_model.cpp
+  accounts.cpp
   chatlist.cpp
   contact.cpp
   chat.cpp

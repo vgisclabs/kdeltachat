@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QMetaType>
 
-#include "accounts_model.h"
+#include "accounts.h"
 #include "message.h"
 #include "chat.h"
 #include "chatlist.h"
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("delta.chat");
 
     // TODO: switch to using Qt 5.15 QML_ELEMENT macro
-    if (qmlRegisterType<AccountsModel>("DeltaChat", 1, 0, "AccountsModel") == -1)
+    if (qmlRegisterType<DcAccounts>("DeltaChat", 1, 0, "DcAccounts") == -1)
       {
         QCoreApplication::exit(-1);
       }
