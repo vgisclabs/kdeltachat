@@ -14,7 +14,19 @@ Kirigami.Page {
         text: "Add account"
         onTriggered: {
             let accountId = dcAccounts.addAccount()
-            accountsModel.insert(accountsModel.count, { number: accountId })
+            let context = dcAccounts.getAccount(accountId);
+
+            let title;
+            if (context.isConfigured()) {
+                title = context.getConfig("addr");
+            } else {
+                title = `Unconfigured ${accountId}`
+            }
+
+            accountsModel.insert(accountsModel.count, {
+                number: accountId,
+                title: title
+            })
         }
     }
 
@@ -53,7 +65,19 @@ Kirigami.Page {
 
         accountsModel.clear()
         for (let i = 0; i < accountsList.length; i++) {
-            accountsModel.insert(i, { number: accountsList[i] })
+            let accountId = accountsList[i];
+            let title;
+            let context = dcAccounts.getAccount(accountId);
+            if (context.isConfigured()) {
+                title = context.getConfig("addr");
+            } else {
+                title = `Unconfigured ${accountId}`
+            }
+
+            accountsModel.insert(i, {
+                number: accountId,
+                title: title
+            })
         }
     }
 
@@ -71,7 +95,7 @@ Kirigami.Page {
 
             Label {
                 Layout.fillWidth: true
-                text: model.number
+                text: model.title
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
