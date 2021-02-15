@@ -16,6 +16,11 @@ RowLayout {
     width: ListView.view.width
     layoutDirection: message.fromId == 1 ? Qt.RightToLeft : Qt.LeftToRight
 
+    readonly property string overrideName: message.getOverrideSenderName()
+    readonly property string displayName: overrideName != "" ? ("~" + overrideName)
+                                                             : messageObject.message.fromId > 0 ? messageObject.from.displayName
+                                                                                                : ""
+
     Rectangle {
         Layout.preferredWidth: messageContents.width
         Layout.preferredHeight: messageContents.height
@@ -34,7 +39,7 @@ RowLayout {
                 Label {
                     font.bold: true
                     color: messageObject.message.fromId > 0 ? messageObject.from.color : "black"
-                    text: messageObject.message.fromId > 0 ? messageObject.from.displayName : ""
+                    text: messageObject.displayName
                     textFormat: Text.PlainText
                 }
             }
@@ -46,7 +51,7 @@ RowLayout {
             Label {
                 font.bold: true
                 color: messageObject.message.fromId > 0 ? messageObject.from.color : "black"
-                text: messageObject.message.fromId > 0 ? messageObject.from.displayName : ""
+                text: messageObject.displayName
                 textFormat: Text.PlainText
             }
         }

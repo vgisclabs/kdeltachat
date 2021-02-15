@@ -45,6 +45,7 @@ public:
     //uint32_t getEphemeralTimer();
     //int64_t getEphemeralTimestamp();
     //... getsummary ...
+    Q_INVOKABLE QString getOverrideSenderName();
     //hasDeviatingTimestamp
     //hasLocation
     //isSent

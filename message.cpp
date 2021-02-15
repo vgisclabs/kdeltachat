@@ -85,6 +85,15 @@ DcMessage::getHeight()
     return dc_msg_get_height(m_message);
 }
 
+QString
+DcMessage::getOverrideSenderName()
+{
+    char *name = dc_msg_get_override_sender_name(m_message);
+    QString result{name};
+    dc_str_unref(name);
+    return result;
+}
+
 bool
 DcMessage::isInfo()
 {
