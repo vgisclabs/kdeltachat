@@ -41,7 +41,7 @@ Kirigami.Page {
             const item = {
                 chatId: chatId,
                 msgId: chatlist.getMsgId(i),
-                username: summary.text1
+                username: (summary.text1 != "" ? summary.text1 + ": " : "") + summary.text2
             }
 
             let j;
