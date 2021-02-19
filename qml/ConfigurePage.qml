@@ -4,8 +4,13 @@ import QtQuick.Layouts 1.12
 import QtQml.Models 2.1
 import org.kde.kirigami 2.12 as Kirigami
 
+import DeltaChat 1.0
+
 Kirigami.Page {
     title: qsTr("Configure account")
+    id: configurePage
+
+    property DcContext context
 
     ColumnLayout {
         anchors.fill: parent
@@ -25,6 +30,9 @@ Kirigami.Page {
             text: "Login"
             onClicked: {
                 console.log("Login")
+                configurePage.context.setConfig("addr", addressField.text)
+                configurePage.context.setConfig("mail_pw", passwordField.text)
+                configurePage.context.configure()
             }
         }
     }

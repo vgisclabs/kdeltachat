@@ -111,7 +111,7 @@ Kirigami.Page {
                    if (context.isConfigured()) {
                        pageStack.push("qrc:/qml/ChatlistPage.qml", {context: context})
                    } else {
-                       pageStack.push("qrc:/qml/ConfigurePage.qml", {})
+                       pageStack.push("qrc:/qml/ConfigurePage.qml", {context: context})
                    }
                 }
              }
