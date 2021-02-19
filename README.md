@@ -46,6 +46,31 @@ cmake ..
 make
 ```
 
+# Building with upstream Kirigami
+
+If you want to use upstream Kirigami, for example to avoid bugs fixed
+upstream but not in the packaged version, you can use
+[kdesrc-build](https://kdesrc-build.kde.org/).
+
+Install it with:
+```
+mkdir -p ~/kde/src
+cd ~/kde/src
+git clone https://invent.kde.org/sdk/kdesrc-build.git
+cd kdesrc-build
+./kdesrc-build-setup
+./kdesrc-build kirigami
+```
+
+Then, run
+```
+source ~/.config/kde-env-master.sh
+```
+in your shell and rebuild the app, starting with a complete removal of
+the `build` directory.
+
+The source of Kirigami will be available in `~/kde/src/kirigami` then.
+
 # Running
 
 Run `./kdeltachat`. Import existing account from backup and start IO in the main menu to connect.
