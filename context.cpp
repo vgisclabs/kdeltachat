@@ -103,6 +103,14 @@ Context::getBlobdir()
     return result;
 }
 
+bool
+Context::setConfig(QString key, QString value)
+{
+    QByteArray utf8Key = key.toUtf8();
+    QByteArray utf8Value = value.toUtf8();
+    return dc_set_config(m_context, utf8Key.constData(), utf8Value.constData());
+}
+
 QString
 Context::getConfig(QString key)
 {

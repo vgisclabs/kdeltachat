@@ -32,6 +32,7 @@ public:
     Q_INVOKABLE DcContact *getContact(uint32_t contactId);
     Q_INVOKABLE uint32_t sendTextMessage(uint32_t chatId, QString textToSend);
     QString getBlobdir();
+    Q_INVOKABLE bool setConfig(QString key, QString value);
     Q_INVOKABLE QString getConfig(QString key);
     Q_INVOKABLE QString getMessageInfo(uint32_t msgId);
 
