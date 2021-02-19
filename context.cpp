@@ -28,6 +28,24 @@ Context::isConfigured() const
     return dc_is_configured(m_context);
 }
 
+void
+Context::startIo()
+{
+    dc_start_io(m_context);
+}
+
+void
+Context::stopIo()
+{
+    dc_stop_io(m_context);
+}
+
+void
+Context::maybeNetwork()
+{
+    dc_maybe_network(m_context);
+}
+
 QString
 Context::getInfo()
 {

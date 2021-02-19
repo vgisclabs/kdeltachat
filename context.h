@@ -22,6 +22,9 @@ public:
     Q_INVOKABLE void configure();
     Q_INVOKABLE bool isConfigured() const;
     Q_INVOKABLE QString getInfo();
+    Q_INVOKABLE void startIo();
+    Q_INVOKABLE void stopIo();
+    Q_INVOKABLE void maybeNetwork();
     Q_INVOKABLE DcChatlist *getChatlist();
     Q_INVOKABLE DcChat *getChat(uint32_t chatId);
     Q_INVOKABLE QVariantList getMsgIdList(uint32_t chatId);
