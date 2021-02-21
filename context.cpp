@@ -136,3 +136,9 @@ Context::sendTextMessage(uint32_t chatId, QString textToSend)
     QByteArray utf8Text = textToSend.toUtf8();
     return dc_send_text_msg(m_context, chatId, utf8Text.constData());
 }
+
+bool
+Context::setChatMuteDuration(uint32_t chatId, int64_t duration)
+{
+    return dc_set_chat_mute_duration(m_context, chatId, duration);
+}
