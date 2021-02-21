@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQml.Models 2.1
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami 2.13 as Kirigami
 
 import DeltaChat 1.0
 
@@ -37,11 +37,15 @@ Kirigami.Page {
         for (let i = 0; i < chatlist.getChatCount(); i++) {
             const summary = chatlist.getSummary(i)
             const chatId = chatlist.getChatId(i)
+            const chat = chatlistPage.context.getChat(chatId)
+            const profileImage = chat.getProfileImage()
 
             const item = {
                 chatId: chatId,
                 msgId: chatlist.getMsgId(i),
-                username: (summary.text1 != "" ? summary.text1 + ": " : "") + summary.text2
+                username: (summary.text1 != "" ? summary.text1 + ": " : "") + summary.text2,
+                avatarSource: profileImage ? "file:" + profileImage : "",
+                chatName: chat.name
             }
 
             let j;
@@ -100,6 +104,12 @@ Kirigami.Page {
 
             label: chatlistPage.context.getChat(model.chatId).getName()
             subtitle: model.username
+
+            leading: Kirigami.Avatar {
+                source: model.avatarSource
+                name: model.chatName
+                implicitWidth: height
+            }
         }
 
         ScrollBar.vertical: ScrollBar {}
