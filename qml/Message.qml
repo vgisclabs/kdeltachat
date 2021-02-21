@@ -85,6 +85,10 @@ RowLayout {
                     text: "Info"
                     onTriggered: messageDialog.open()
                 }
+                Action {
+                    text: "Start chat"
+                    onTriggered: context.decideOnContactRequest(message.id, 0)
+                }
             }
         }
 
