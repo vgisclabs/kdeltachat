@@ -142,3 +142,9 @@ Context::setChatMuteDuration(uint32_t chatId, int64_t duration)
 {
     return dc_set_chat_mute_duration(m_context, chatId, duration);
 }
+
+uint32_t
+Context::decideOnContactRequest(uint32_t msgId, int decision)
+{
+    return dc_decide_on_contact_request(m_context, msgId, decision);
+}

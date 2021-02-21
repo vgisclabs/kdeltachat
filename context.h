@@ -36,6 +36,7 @@ public:
     Q_INVOKABLE QString getConfig(QString key);
     Q_INVOKABLE bool setChatMuteDuration(uint32_t chatId, int64_t duration);
     Q_INVOKABLE QString getMessageInfo(uint32_t msgId);
+    Q_INVOKABLE uint32_t decideOnContactRequest(uint32_t msgId, int decision);
 
 private:
     dc_context_t *m_context{nullptr};
