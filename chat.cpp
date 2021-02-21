@@ -37,13 +37,14 @@ DcChat::getName()
     return result;
 }
 
-/*
 QString
 DcChat::getProfileImage()
 {
-  char *profileImage = dc_chat_get_profile_image(m_chat);
+    char *profileImage = dc_chat_get_profile_image(m_chat);
+    QString result{profileImage};
+    dc_str_unref(profileImage);
+    return result;
 }
-*/
 
 QColor
 DcChat::getColor()

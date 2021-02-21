@@ -20,7 +20,7 @@ public:
     Q_INVOKABLE uint32_t getId();
     Q_INVOKABLE int getType();
     Q_INVOKABLE QString getName();
-    // Q_INVOKABLE QString getProfileImage();
+    Q_INVOKABLE QString getProfileImage();
     Q_INVOKABLE QColor getColor();
     Q_INVOKABLE bool canSend();
     Q_INVOKABLE bool isMuted();
