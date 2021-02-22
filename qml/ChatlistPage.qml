@@ -116,6 +116,7 @@ Kirigami.Page {
             trailing: Label {
                 text: model.freshMsgCnt
                 visible: model.freshMsgCnt > 0
+                verticalAlignment: Text.AlignVCenter
             }
         }
 
