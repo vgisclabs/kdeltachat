@@ -45,7 +45,8 @@ Kirigami.Page {
                 msgId: chatlist.getMsgId(i),
                 username: (summary.text1 != "" ? summary.text1 + ": " : "") + summary.text2,
                 avatarSource: profileImage ? "file:" + profileImage : "",
-                chatName: chat.name
+                chatName: chat.name,
+                freshMsgCnt: chatlistPage.context.getFreshMsgCnt(chatId)
             }
 
             let j;
@@ -109,6 +110,11 @@ Kirigami.Page {
                 source: model.avatarSource
                 name: model.chatName
                 implicitWidth: height
+            }
+
+            trailing: Label {
+                text: model.freshMsgCnt
+                visible: model.freshMsgCnt > 0
             }
         }
 
