@@ -4,7 +4,26 @@ KDeltaChat is a [Delta Chat](https://delta.chat/) client using [Kirigami](https:
 
 # Dependencies
 
-## Debian
+KDeltaChat build depends on Rust for core building, Kirigami framework and several QML modules.
+
+## Rust
+
+Install Rust from https://rustup.rs/ with
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
+```
+
+Clone [`deltachat-core-rust` repository](https://github.com/deltachat/deltachat-core-rust/) alongside
+`kdeltachat` repository, for example into `~/src/deltachat-core-rust/` if `kdeltachat` is checked out at `~/src/kdeltachat`:
+```
+git clone https://github.com/deltachat/deltachat-core-rust.git
+```
+
+## Kirigami and Qt
+
+Install Kirigami and required QML modules from your distribution repositories.
+
+### Debian
 
 Build time dependencies:
 - `qtdeclarative5-dev` (for `/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake`)
@@ -15,7 +34,7 @@ Runtime dependencies:
 - `qml-module-qtquick-dialogs` - used for account import file dialog
 - `qml-module-qtquick-layouts`
 
-## Arch Linux
+### Arch Linux
 
 Install FileDialog:
 - `pacman -S qt5-quickcontrols`
@@ -23,13 +42,12 @@ Install FileDialog:
 Install kirigami2:
 - `pacman -S kirigami2`
 
-## OpenSUSE
+### OpenSUSE
 
 OpenSUSE Leap 15.2:
 ```
 # Install Rust core dependencies
 zypper install -y curl
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
 zypper install -y libopenssl-devel perl-FindBin-Real
 
 # Install KDeltaChat dependencies
@@ -37,16 +55,7 @@ zypper install -y cmake gcc-c++
 zypper install -y libqt5-qtbase-devel libQt5QuickControls2-devel kirigami2-devel libqt5-quickcontrols
 ```
 
-# Building
-
-```
-mkdir build
-cd build
-cmake ..
-make
-```
-
-# Building with upstream Kirigami
+### Building with upstream Kirigami
 
 If you want to use upstream Kirigami, for example to avoid bugs fixed
 upstream but not in the packaged version, you can use
@@ -71,9 +80,23 @@ the `build` directory.
 
 The source of Kirigami will be available in `~/kde/src/kirigami` then.
 
+# Building
+
+In `kdeltachat` directory, run:
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
+This will build `deltachat-core-rust` and install core library into
+build directory automatically.
+
 # Running
 
-Run `./kdeltachat`. Import existing account from backup and start IO in the main menu to connect.
+Run `./kdeltachat`. Import existing account from backup or setup a
+new one. Start IO in the main menu to connect.
 
 # License
 
