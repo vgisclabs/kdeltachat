@@ -110,6 +110,7 @@ Kirigami.Page {
                 source: model.avatarSource
                 name: model.chatName
                 implicitWidth: height
+                color: chatlistPage.context.getChat(model.chatId).getColor()
             }
 
             trailing: Label {
