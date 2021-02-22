@@ -85,6 +85,11 @@ Context::getFreshMsgCnt(uint32_t chatId) {
     return dc_get_fresh_msg_cnt(m_context, chatId);
 }
 
+void
+Context::marknoticedChat(uint32_t chatId) {
+    return dc_marknoticed_chat(m_context, chatId);
+}
+
 DcMessage *
 Context::getMessage(uint32_t msgId)
 {
