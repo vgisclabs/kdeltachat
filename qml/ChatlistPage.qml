@@ -10,7 +10,7 @@ Kirigami.Page {
     title: qsTr("Chats")
     id: chatlistPage
 
-    property DcContext context
+    required property DcContext context
 
     signal messagesChanged
     onMessagesChanged: {
