@@ -86,6 +86,9 @@ DcAccountsEventEmitter::processEvent(DcEvent *event)
                                  event->getData2Int());
             std::cout << "Emitted incoming message!" << std::endl;
             break;
+        case DC_EVENT_MSGS_NOTICED:
+            emit messagesNoticed(event->getAccountId(), event->getData1Int());
+            break;
         default:
             std::cout << "Not processing " << event->getId() << std::endl;
     }

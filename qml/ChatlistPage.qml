@@ -18,8 +18,15 @@ Kirigami.Page {
         updateChatlist();
     }
 
+    signal messagesNoticed
+    onMessagesNoticed: {
+        // Reload chatlist
+        updateChatlist();
+    }
+
     Component.onCompleted: {
         eventEmitter.onMessagesChanged.connect(messagesChanged)
+        eventEmitter.onMessagesNoticed.connect(messagesNoticed)
         updateChatlist()
     }
 
@@ -81,6 +88,7 @@ Kirigami.Page {
 
         onCurrentItemChanged: {
             var chatId = chatlistModel.get(currentIndex).chatId
+            chatlistPage.context.marknoticedChat(chatId)
 
             console.log("Current index is " + currentIndex)
             console.log("Selected chat " + chatId)

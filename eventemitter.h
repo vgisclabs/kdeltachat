@@ -52,5 +52,6 @@ signals:
     void chatModified(uint32_t accountId, int chatId);
     void incomingMessage(uint32_t accountId, int chatId, int msgId);
     void messagesChanged(uint32_t accountId, int chatId, int msgId);
+    void messagesNoticed(uint32_t accountId, int chatId);
     void incomingEvent();
 };
