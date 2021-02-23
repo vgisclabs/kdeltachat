@@ -4,62 +4,15 @@ KDeltaChat is a [Delta Chat](https://delta.chat/) client using [Kirigami](https:
 
 # Dependencies
 
-KDeltaChat build depends on Rust for core building, Kirigami framework and several QML modules.
+KDeltaChat build depends on
+[libdeltachat](https://github.com/deltachat/deltachat-core-rust/),
+Kirigami framework and several QML modules.
 
-## Rust
+## kdesrc-build
 
-Install Rust from https://rustup.rs/ with
-```
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
-```
-
-Clone [`deltachat-core-rust` repository](https://github.com/deltachat/deltachat-core-rust/) alongside
-`kdeltachat` repository, for example into `~/src/deltachat-core-rust/` if `kdeltachat` is checked out at `~/src/kdeltachat`:
-```
-git clone https://github.com/deltachat/deltachat-core-rust.git
-```
-
-## Kirigami and Qt
-
-Install Kirigami and required QML modules from your distribution repositories.
-
-### Debian
-
-Build time dependencies:
-- `qtdeclarative5-dev` (for `/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake`)
-- `kirigami2-dev`
-
-Runtime dependencies:
-- `qml-module-qtquick-controls`
-- `qml-module-qtquick-dialogs` - used for account import file dialog
-- `qml-module-qtquick-layouts`
-
-### Arch Linux
-
-Install FileDialog:
-- `pacman -S qt5-quickcontrols`
-
-Install kirigami2:
-- `pacman -S kirigami2`
-
-### OpenSUSE
-
-OpenSUSE Leap 15.2:
-```
-# Install Rust core dependencies
-zypper install -y curl
-zypper install -y libopenssl-devel perl-FindBin-Real
-
-# Install KDeltaChat dependencies
-zypper install -y cmake gcc-c++
-zypper install -y libqt5-qtbase-devel libQt5QuickControls2-devel kirigami2-devel libqt5-quickcontrols
-```
-
-### Building with upstream Kirigami
-
-If you want to use upstream Kirigami, for example to avoid bugs fixed
-upstream but not in the packaged version, you can use
-[kdesrc-build](https://kdesrc-build.kde.org/).
+It's recommended to build KDeltaChat with [kdesrc-build](https://kdesrc-build.kde.org/).
+This allows to avoid installing `libdeltachat` system-wide and use
+upstream Kirigami instead of usually outdated packaged versions.
 
 Install it with:
 ```
@@ -71,14 +24,80 @@ cd kdesrc-build
 ./kdesrc-build kirigami
 ```
 
-Then, run
+Run
 ```
 source ~/.config/kde-env-master.sh
 ```
-in your shell and rebuild the app, starting with a complete removal of
-the `build` directory.
+in your shell to enter `kdesrc-build` environment.
 
-The source of Kirigami will be available in `~/kde/src/kirigami` then.
+## Rust
+
+Building `libdeltachat` requires Rust.
+Install it from https://rustup.rs/ with
+```
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
+```
+
+## libdeltachat
+
+If you are using [`kdesrc-build`](https://kdesrc-build.kde.org/),
+add module into `~/.kdesrc-buildrc` as follows
+```
+module deltachat
+   repository https://github.com/deltachat/deltachat-core-rust.git
+end module
+```
+Then build `libdeltachat` with `kdesrc-build deltachat`.
+
+Alternatively, if you are not using `kdesrc-build`, install `libdeltachat` system-wide:
+```
+$ git clone https://github.com/deltachat/deltachat-core-rust.git
+$ cd deltachat-core-rust
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ sudo make install
+```
+
+## Qt
+
+Install QtQuick and required QML modules using your system package manager.
+
+### Debian
+
+Build time dependencies:
+- `qtdeclarative5-dev` (for `/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake`)
+
+Runtime dependencies:
+- `qml-module-qtquick-controls`
+- `qml-module-qtquick-dialogs` - used for account import file dialog
+- `qml-module-qtquick-layouts`
+
+### Arch Linux
+
+Install FileDialog:
+- `pacman -S qt5-quickcontrols`
+
+### OpenSUSE
+
+OpenSUSE Leap 15.2:
+```
+# Install Rust core dependencies
+zypper install -y curl
+zypper install -y libopenssl-devel perl-FindBin-Real
+
+# Install KDeltaChat dependencies
+zypper install -y cmake gcc-c++
+zypper install -y libqt5-qtbase-devel libQt5QuickControls2-devel libqt5-quickcontrols
+```
+
+## Kirigami
+
+Build Kirigami with `kdesrc-build kirigami`.
+
+Alternatively, if you are not using `kdesrc-build`, install system package for Kirigami,
+such as `kirigami2-dev` on Debian or Ubuntu, `kirigami2` on Arch Linux or `kirigami2-devel` on OpenSUSE.
 
 # Building
 
@@ -89,9 +108,6 @@ cd build
 cmake ..
 make
 ```
-
-This will build `deltachat-core-rust` and install core library into
-build directory automatically.
 
 # Running
 
