@@ -41,6 +41,7 @@ Kirigami.Page {
     FileDialog {
         id: importAccountDialog
         title: "Import account"
+        folder: shortcuts.home
         onAccepted: {
             var url = importAccountDialog.fileUrl.toString()
             if (url.startsWith("file://")) {
