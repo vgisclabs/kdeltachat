@@ -79,6 +79,9 @@ Runtime dependencies:
 Install FileDialog:
 - `pacman -S qt5-quickcontrols`
 
+Install `extra-cmake-modules`(https://api.kde.org/ecm/manual/ecm-kde-modules.7.html):
+- `pacman -S extra-cmake-modules`
+
 ### OpenSUSE
 
 OpenSUSE Leap 15.2:

@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.14)
 
 project(kdeltachat LANGUAGES CXX)
 
+find_package(ECM REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_MODULE_DIR})
+include(KDEInstallDirs)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -41,3 +45,5 @@ target_link_libraries(kdeltachat
   PRIVATE KF5::Kirigami2
   PRIVATE PkgConfig::DeltaChat
   m dl)
+
+install(TARGETS kdeltachat ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
