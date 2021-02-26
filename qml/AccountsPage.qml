@@ -110,9 +110,9 @@ Kirigami.Page {
                    dcAccounts.selectAccount(model.number)
                    let context = dcAccounts.getSelectedAccount()
                    if (context.isConfigured()) {
-                       pageStack.push("qrc:/qml/ChatlistPage.qml", {context: context})
+                       pageStack.replace("qrc:/qml/ChatlistPage.qml", {context: context})
                    } else {
-                       pageStack.push("qrc:/qml/ConfigurePage.qml", {context: context})
+                       pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: context})
                    }
                 }
              }

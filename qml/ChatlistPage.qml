@@ -97,10 +97,10 @@ Kirigami.Page {
             let chatPageComponent = Qt.createComponent("qrc:/qml/ChatPage.qml")
             if (chatPageComponent.status == Component.Ready) {
                 let myPage = chatPageComponent.createObject(chatlistPage, {chatId: chatId})
-                if (pageStack.depth == 2) {
+                if (pageStack.depth == 1) {
                     pageStack.push(myPage)
-                } else if (pageStack.depth == 3) {
-                    pageStack.currentIndex = 2
+                } else if (pageStack.depth == 2) {
+                    pageStack.currentIndex = 1
                     pageStack.replace(myPage)
                 }
             } else if (chatPageComponent.status == Component.Error) {
