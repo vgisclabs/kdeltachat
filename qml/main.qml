@@ -36,7 +36,7 @@ Kirigami.ApplicationWindow {
             },
             Kirigami.Action {
                 text: "Switch account"
-                iconName: "view-refresh"
+                iconName: "system-switch-user"
                 onTriggered: pageStack.layers.push(accountsPage)
             }
         ]
