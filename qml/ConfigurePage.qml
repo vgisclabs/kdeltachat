@@ -10,7 +10,7 @@ Kirigami.Page {
     title: qsTr("Configure account")
     id: configurePage
 
-    property DcContext context
+    required property DcContext context
 
     ColumnLayout {
         anchors.fill: parent
