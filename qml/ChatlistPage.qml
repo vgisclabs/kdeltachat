@@ -30,6 +30,20 @@ Kirigami.Page {
         updateChatlist()
     }
 
+    contextualActions: [
+        Kirigami.Action {
+            text: "Settings"
+            iconName: "configure"
+            onTriggered: {
+                let settingsPageComponent = Qt.createComponent("qrc:/qml/SettingsPage.qml")
+                if (settingsPageComponent.status == Component.Ready) {
+                    let settingsPage = settingsPageComponent.createObject(chatlistPage, {context: chatlistPage.context})
+                    pageStack.layers.push(settingsPage)
+                }
+            }
+        }
+    ]
+
     ListModel {
         id: chatlistModel
     }
