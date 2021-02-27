@@ -14,18 +14,14 @@ DcAccountsEventEmitter::DcAccountsEventEmitter(dc_accounts_event_emitter_t *emit
 DcAccountsEventEmitter::~DcAccountsEventEmitter()
 {
     if (m_eventLoopThread) {
-        qInfo("Waiting");
         m_eventLoopThread->wait();
-        qInfo("Waiting finished");
     }
 }
 
 void
 DcAccountsEventEmitter::start()
 {
-    std::cerr << "Starting loop thread" << std::endl;
     m_eventLoopThread = new EventLoopThread(this);
-    std::cerr << "Started loop thread" << std::endl;
     QObject::connect(m_eventLoopThread, &EventLoopThread::emitEvent,
                      this, &DcAccountsEventEmitter::processEvent);
     m_eventLoopThread->setEventEmitter(m_accounts_event_emitter);
@@ -80,11 +76,9 @@ DcAccountsEventEmitter::processEvent(DcEvent *event)
             emit messagesChanged(event->getAccountId(), event->getData1Int(), event->getData2Int());
             break;
         case DC_EVENT_INCOMING_MSG:
-            std::cout << "Emitting incoming message!" << std::endl;
             emit incomingMessage(event->getAccountId(),
                                  event->getData1Int(),
                                  event->getData2Int());
-            std::cout << "Emitted incoming message!" << std::endl;
             break;
         case DC_EVENT_MSGS_NOTICED:
             emit messagesNoticed(event->getAccountId(), event->getData1Int());
