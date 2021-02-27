@@ -11,7 +11,7 @@ Kirigami.Page {
 
     title: chat ? chat.name : qsTr("Chat")
 
-    property var chatId
+    required property var chatId
     readonly property DcChat chat: context.getChat(chatId)
 
     function updateMessagelist() {
