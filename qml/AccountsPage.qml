@@ -114,6 +114,7 @@ Kirigami.Page {
                    } else {
                        pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: context})
                    }
+                   pageStack.layers.pop()
                 }
              }
 

@@ -12,7 +12,9 @@ Kirigami.ApplicationWindow {
 
     title: qsTr("Delta Chat")
 
-    pageStack.initialPage: AccountsPage {}
+    Component {id: accountsPage; AccountsPage {}}
+
+    pageStack.initialPage: SplashPage {}
 
     globalDrawer: Kirigami.GlobalDrawer {
         header: Controls.Switch {
@@ -31,6 +33,11 @@ Kirigami.ApplicationWindow {
                 text: "Maybe network"
                 iconName: "view-refresh"
                 onTriggered: dcAccounts.maybeNetwork()
+            },
+            Kirigami.Action {
+                text: "Switch account"
+                iconName: "view-refresh"
+                onTriggered: pageStack.layers.push(accountsPage)
             }
         ]
     }
