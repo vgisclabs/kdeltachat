@@ -30,6 +30,7 @@ Kirigami.Page {
             text: "Login"
             onClicked: {
                 console.log("Login")
+                configurePage.context.stopIo()
                 configurePage.context.setConfig("addr", addressField.text)
                 configurePage.context.setConfig("mail_pw", passwordField.text)
                 configurePage.context.configure()
