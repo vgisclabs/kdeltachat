@@ -133,43 +133,41 @@ Kirigami.Page {
                 name: model.chatName
                 implicitWidth: height
                 color: chatlistPage.context.getChat(model.chatId).getColor()
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.RightButton
+                    onClicked: {
+                        if (mouse.button === Qt.RightButton)
+                            contextMenu.popup()
+                    }
+
+                    Menu {
+                        id: contextMenu
+
+                        Action {
+                            text: "Pin chat"
+                            onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 2)
+                        }
+                        Action {
+                            text: "Unpin chat"
+                            onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
+                        }
+                        Action {
+                            text: "Archive chat"
+                            onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 1)
+                        }
+                        Action {
+                            text: "Delete chat"
+                            onTriggered: chatlistPage.context.deleteChat(model.chatId)
+                        }
+                    }
+                }
             }
 
             trailing: Label {
                 text: model.freshMsgCnt
                 visible: model.freshMsgCnt > 0
                 verticalAlignment: Text.AlignVCenter
-            }
-
-            MouseArea {
-                anchors.fill: parent
-
-                acceptedButtons: Qt.RightButton
-                onClicked: {
-                    if (mouse.button === Qt.RightButton)
-                        contextMenu.popup()
-                }
-
-                Menu {
-                    id: contextMenu
-
-                    Action {
-                        text: "Pin chat"
-                        onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 2)
-                    }
-                    Action {
-                        text: "Unpin chat"
-                        onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
-                    }
-                    Action {
-                        text: "Archive chat"
-                        onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 1)
-                    }
-                    Action {
-                        text: "Delete chat"
-                        onTriggered: chatlistPage.context.deleteChat(model.chatId)
-                    }
-                }
             }
         }
 
