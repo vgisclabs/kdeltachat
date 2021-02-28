@@ -140,6 +140,41 @@ Kirigami.Page {
                 visible: model.freshMsgCnt > 0
                 verticalAlignment: Text.AlignVCenter
             }
+
+            MouseArea {
+                anchors.fill: parent
+
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                onClicked: {
+                    if (mouse.button === Qt.RightButton)
+                        contextMenu.popup()
+                }
+                onPressAndHold: {
+                    if (mouse.source === Qt.MouseEventNotSynthesized)
+                        contextMenu.popup()
+                }
+
+                Menu {
+                    id: contextMenu
+
+                    Action {
+                        text: "Pin chat"
+                        onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 2)
+                    }
+                    Action {
+                        text: "Unpin chat"
+                        onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
+                    }
+                    Action {
+                        text: "Archive chat"
+                        onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 1)
+                    }
+                    Action {
+                        text: "Delete chat"
+                        onTriggered: chatlistPage.context.deleteChat(model.chatId)
+                    }
+                }
+            }
         }
 
         ScrollBar.vertical: ScrollBar {}
