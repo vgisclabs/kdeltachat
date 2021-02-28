@@ -62,6 +62,33 @@ Context::getChatlist()
     return new DcChatlist{chatlist};
 }
 
+void
+Context::setChatVisibility(uint32_t chatId, int visibility)
+{
+    dc_set_chat_visibility(m_context, chatId, visibility);
+}
+
+void
+Context::deleteChat(uint32_t chatId)
+{
+    dc_delete_chat(m_context, chatId);
+}
+
+QString
+Context::getChatEncrinfo(uint32_t chatId)
+{
+    char *encrinfo = dc_get_chat_encrinfo(m_context, chatId);
+    QString result{encrinfo};
+    dc_str_unref(encrinfo);
+    return result;
+}
+
+uint32_t
+Context::getChatEphemeralTimer(uint32_t chatId)
+{
+    return dc_get_chat_ephemeral_timer(m_context, chatId);
+}
+
 DcChat *
 Context::getChat(uint32_t chatId)
 {
