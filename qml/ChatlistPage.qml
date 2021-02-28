@@ -144,13 +144,9 @@ Kirigami.Page {
             MouseArea {
                 anchors.fill: parent
 
-                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                acceptedButtons: Qt.RightButton
                 onClicked: {
                     if (mouse.button === Qt.RightButton)
-                        contextMenu.popup()
-                }
-                onPressAndHold: {
-                    if (mouse.source === Qt.MouseEventNotSynthesized)
                         contextMenu.popup()
                 }
 
