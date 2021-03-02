@@ -6,7 +6,7 @@ import org.kde.kirigami 2.12 as Kirigami
 
 import DeltaChat 1.0
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     id: chatPage
 
     title: chat ? chat.name : qsTr("Chat")
@@ -144,8 +144,6 @@ Kirigami.Page {
         verticalLayoutDirection: ListView.BottomToTop
 
         delegate: Message {message: context.getMessage(msgId)}
-
-        ScrollBar.vertical: ScrollBar {}
     }
 
     footer: Loader {

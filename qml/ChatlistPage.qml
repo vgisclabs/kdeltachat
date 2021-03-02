@@ -6,7 +6,7 @@ import org.kde.kirigami 2.13 as Kirigami
 
 import DeltaChat 1.0
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     title: qsTr("Chats")
     id: chatlistPage
 
@@ -170,7 +170,5 @@ Kirigami.Page {
                 verticalAlignment: Text.AlignVCenter
             }
         }
-
-        ScrollBar.vertical: ScrollBar {}
     }
 }
