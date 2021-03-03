@@ -117,6 +117,15 @@ make
 Run `./kdeltachat`. Import existing account from backup or setup a
 new one. Start IO in the main menu to connect.
 
+# Troubleshooting
+
+## Buttons have no icons
+
+On Debian/Ubuntu, run `apt purge libqt5quick5-gles`. When `apt` offers
+to install `libqt5quick5` as a replacement, agree.
+
+Debian bugreport: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=976389
+
 # License
 
 This program is free software: you can redistribute it and/or modify
