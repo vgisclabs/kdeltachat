@@ -53,11 +53,9 @@ Alternatively, if you are not using `kdesrc-build`, install `libdeltachat` syste
 ```
 $ git clone https://github.com/deltachat/deltachat-core-rust.git
 $ cd deltachat-core-rust
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
-$ sudo make install
+$ cmake -B build .
+$ cmake --build build
+$ sudo cmake --install build
 ```
 
 ## Qt
@@ -106,15 +104,13 @@ such as `kirigami2-dev` on Debian or Ubuntu, `kirigami2` on Arch Linux or `kirig
 
 In `kdeltachat` directory, run:
 ```
-mkdir build
-cd build
-cmake ..
-make
+cmake -B build .
+cmake --build build
 ```
 
 # Running
 
-Run `./kdeltachat`. Import existing account from backup or setup a
+Run `build/kdeltachat`. Import existing account from backup or setup a
 new one. Start IO in the main menu to connect.
 
 # Troubleshooting
