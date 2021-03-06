@@ -14,7 +14,7 @@ Kirigami.ApplicationWindow {
 
     Component {id: accountsPage; AccountsPage {}}
 
-    pageStack.initialPage: SplashPage {}
+    pageStack.initialPage: Kirigami.Page {}
 
     globalDrawer: Kirigami.GlobalDrawer {
         header: Controls.Switch {
