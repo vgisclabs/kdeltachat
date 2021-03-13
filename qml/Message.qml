@@ -40,6 +40,7 @@ RowLayout {
                     sourceSize.height: messageObject.message.height
                     fillMode: Image.PreserveAspectCrop
                     Layout.maximumWidth: messageObject.width
+                    Layout.maximumHeight: Kirigami.Units.gridUnit * 10
                     asynchronous: true
                 }
                 Label {
