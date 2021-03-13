@@ -40,6 +40,7 @@ RowLayout {
                     sourceSize.height: messageObject.message.height
                     fillMode: Image.PreserveAspectCrop
                     Layout.maximumWidth: messageObject.width
+                    asynchronous: true
                 }
                 Label {
                     font.bold: true
