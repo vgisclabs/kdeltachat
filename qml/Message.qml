@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQml.Models 2.1
 import QtQuick.Dialogs 1.1
+import QtMultimedia 5.8
 import org.kde.kirigami 2.12 as Kirigami
 
 import DeltaChat 1.0
@@ -41,6 +42,26 @@ RowLayout {
                     color: messageObject.message.fromId > 0 ? messageObject.from.color : "black"
                     text: messageObject.displayName
                     textFormat: Text.PlainText
+                }
+            }
+        }
+
+        Component {
+            id: audioMessageView
+
+            ColumnLayout {
+                MediaPlayer {
+                    id: player
+                    source: Qt.resolvedUrl("file:" + messageObject.message.file)
+                }
+                Label {
+                    font.bold: true
+                    text: "Audio"
+                    textFormat: Text.PlainText
+                }
+                Button {
+                    text: "play"
+                    onPressed: player.play()
                 }
             }
         }
@@ -99,7 +120,8 @@ RowLayout {
 
 
             Loader {
-                sourceComponent: messageObject.message.viewtype == 20 ? imageMessageView : textMessageView
+                sourceComponent: [20, 21, 23].includes(messageObject.message.viewtype) ? imageMessageView
+                  : [40, 41].includes(messageObject.message.viewtype) ? audioMessageView : textMessageView
             }
 
             TextEdit {
