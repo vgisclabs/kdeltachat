@@ -13,6 +13,8 @@ RowLayout {
 
     property DcMessage message
     readonly property DcContact from: context.getContact(message.fromId)
+    readonly property DcMessage quoteMessage: message.quotedMessage
+    readonly property DcContact quoteFrom: quoteMessage ? context.getContact(quoteMessage.fromId) : null
 
     width: ListView.view.width
     layoutDirection: message.fromId == 1 ? Qt.RightToLeft : Qt.LeftToRight
@@ -120,17 +122,31 @@ RowLayout {
                   : [40, 41].includes(messageObject.message.viewtype) ? audioMessageView : textMessageView
             }
 
-            TextEdit {
-                Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
-                text: messageObject.message.quotedText ? messageObject.message.quotedText : ""
-                textFormat: Text.PlainText
-                selectByMouse: true
-                readOnly: true
-                color: "grey"
-                wrapMode: Text.Wrap
-                font.pixelSize: 12
+            // Quote
+            RowLayout {
+                Layout.leftMargin: Kirigami.Units.smallSpacing
+                visible: messageObject.message.quotedText
+                implicitHeight: quoteTextEdit.height
+                spacing: Kirigami.Units.smallSpacing
+                Rectangle {
+                    width: Kirigami.Units.smallSpacing
+                    color: quoteFrom ? quoteFrom.color : "black"
+                    Layout.fillHeight: true
+                }
+                TextEdit {
+                    id: quoteTextEdit
+                    Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
+                    text: messageObject.message.quotedText ? messageObject.message.quotedText : ""
+                    textFormat: Text.PlainText
+                    selectByMouse: true
+                    readOnly: true
+                    color: "grey"
+                    wrapMode: Text.Wrap
+                    font.pixelSize: 12
+                }
             }
 
+            // Message
             TextEdit {
                 Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
                 text: messageObject.message.text

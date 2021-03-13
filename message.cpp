@@ -108,3 +108,14 @@ DcMessage::getQuotedText()
     dc_str_unref(text);
     return result;
 }
+
+DcMessage *
+DcMessage::getQuotedMessage()
+{
+    dc_msg_t *quote = dc_msg_get_quoted_msg(m_message);
+    if (quote) {
+        return new DcMessage{quote};
+    } else {
+        return NULL;
+    }
+}
