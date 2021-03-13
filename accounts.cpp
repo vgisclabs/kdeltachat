@@ -1,11 +1,13 @@
 #include <QFile>
+#include <QStandardPaths>
 
 #include "accounts.h"
 
 DcAccounts::DcAccounts(QObject *parent)
   : QObject(parent)
 {
-    m_accounts = dc_accounts_new("Qt", "./deltachat-data");
+    QString path = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/db";
+    m_accounts = dc_accounts_new("Qt", path.toUtf8().constData());
 }
 
 DcAccounts::~DcAccounts()
