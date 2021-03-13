@@ -71,6 +71,7 @@ Runtime dependencies:
 - `qml-module-qtquick-controls`
 - `qml-module-qtquick-dialogs` - used for account import file dialog
 - `qml-module-qtquick-layouts`
+- `qt5-image-formats-plugins` - WebP support
 
 ### Arch Linux
 
