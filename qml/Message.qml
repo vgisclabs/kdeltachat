@@ -25,6 +25,8 @@ RowLayout {
     Rectangle {
         Layout.preferredWidth: messageContents.width
         Layout.preferredHeight: messageContents.height
+        color: Kirigami.Theme.backgroundColor
+        radius: 5
 
         Component {
             id: imageMessageView
@@ -77,9 +79,6 @@ RowLayout {
             }
         }
 
-        color: Kirigami.Theme.backgroundColor
-        radius: 5
-
         MouseArea {
             anchors.fill: parent
 
@@ -115,9 +114,6 @@ RowLayout {
 
         ColumnLayout {
             id: messageContents
-
-            anchors.centerIn: parent
-
 
             Loader {
                 sourceComponent: [20, 21, 23].includes(messageObject.message.viewtype) ? imageMessageView
