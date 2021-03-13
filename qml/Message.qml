@@ -143,7 +143,7 @@ RowLayout {
                     readOnly: true
                     color: "grey"
                     wrapMode: Text.Wrap
-                    font.pixelSize: 12
+                    font.pixelSize: 14
                 }
             }
 
