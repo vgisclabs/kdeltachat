@@ -34,7 +34,7 @@ RowLayout {
                     source: "file:" + messageObject.message.file
                     sourceSize.width: messageObject.message.width
                     sourceSize.height: messageObject.message.height
-                    fillMode: Image.PreserveAspectFit
+                    fillMode: Image.PreserveAspectCrop
                     Layout.maximumWidth: messageObject.width
                 }
                 Label {
