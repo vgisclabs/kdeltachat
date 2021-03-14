@@ -112,7 +112,7 @@ Kirigami.Page {
                    if (context.isConfigured()) {
                        pageStack.replace("qrc:/qml/ChatlistPage.qml", {context: context})
                    } else {
-                       pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: context})
+                       pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: context, eventEmitter: eventEmitter})
                    }
                    pageStack.layers.pop()
                 }

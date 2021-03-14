@@ -83,6 +83,11 @@ DcAccountsEventEmitter::processEvent(DcEvent *event)
         case DC_EVENT_MSGS_NOTICED:
             emit messagesNoticed(event->getAccountId(), event->getData1Int());
             break;
+        case DC_EVENT_CONFIGURE_PROGRESS:
+            emit configureProgress(event->getAccountId(),
+                                   event->getData1Int(),
+                                   event->getData2Str());
+            break;
         default:
             std::cout << "Not processing " << event->getId() << std::endl;
     }

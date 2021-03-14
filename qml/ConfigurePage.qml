@@ -11,6 +11,7 @@ Kirigami.Page {
     id: configurePage
 
     required property DcContext context
+    required property DcAccountsEventEmitter eventEmitter
 
     ColumnLayout {
         anchors.fill: parent
@@ -26,6 +27,10 @@ Kirigami.Page {
             placeholderText: "Password"
             echoMode: TextInput.PasswordEchoOnEdit
         }
+        ProgressBar {
+            id: progressBar
+            value: 0.0
+        }
         Button {
             text: "Login"
             onClicked: {
@@ -35,6 +40,13 @@ Kirigami.Page {
                 configurePage.context.setConfig("mail_pw", passwordField.text)
                 configurePage.context.configure()
             }
+        }
+    }
+
+    Connections {
+        target: configurePage.eventEmitter
+        function onConfigureProgress(accountId, progress, comment) {
+            progressBar.value = progress / 1000.0
         }
     }
 }
