@@ -132,7 +132,7 @@ RowLayout {
                 spacing: Kirigami.Units.smallSpacing
                 Rectangle {
                     width: Kirigami.Units.smallSpacing
-                    color: quoteFrom ? quoteFrom.color : "black"
+                    color: messageObject.quoteFrom ? messageObject.quoteFrom.color : "black"
                     Layout.fillHeight: true
                 }
                 TextEdit {

@@ -65,20 +65,20 @@ Kirigami.ScrollablePage {
             console.log("Incoming message for chat " + chatId)
 
             if (chatId == chatPage.chatId) {
-                updateMessagelist()
+                chatPage.updateMessagelist()
             }
         }
         function onMessagesChanged(accountId, chatId, msgId) {
             console.log("Messages changed for chat " + chatId)
 
             if (chatId == chatPage.chatId) {
-                updateMessagelist()
+                chatPage.updateMessagelist()
             }
         }
     }
 
     Component.onCompleted: {
-        updateMessagelist()
+        chatPage.updateMessagelist()
     }
 
     background: Rectangle {
@@ -111,7 +111,7 @@ Kirigami.ScrollablePage {
                     text: qsTr("Send")
                     enabled: messageField.length > 0
                     onClicked: {
-                        context.sendTextMessage(chatId, messageField.text)
+                        chatPage.context.sendTextMessage(chatPage.chatId, messageField.text)
                         messageField.text = ""
                     }
                 }
