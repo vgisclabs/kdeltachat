@@ -61,7 +61,7 @@ Kirigami.ScrollablePage {
         function onChatModified() {
             console.log("CHAT MODIFIED!")
         }
-        function onIncomingMessage() {
+        function onIncomingMessage(accountId, chatId, msgId) {
             console.log("Incoming message for chat " + chatId)
 
             if (chatId == chatPage.chatId) {
