@@ -19,6 +19,12 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets Quick REQUIRED)
 find_package(PkgConfig REQUIRED)
 
+# Ahead-of-Time Compilation
+#
+# See https://doc.qt.io/qt-5/qtquick-deployment.html#ahead-of-time-compilation
+find_package(Qt5QuickCompiler)
+qtquick_compiler_add_resources(KDELTACHAT_QML_QRC qml.qrc)
+
 add_executable(kdeltachat
   main.cpp
   message.cpp
@@ -30,7 +36,7 @@ add_executable(kdeltachat
   eventemitter.cpp
   lot.cpp
   dcevent.cpp
-  qml.qrc
+  ${KDELTACHAT_QML_QRC}
 )
 
 find_package(Threads REQUIRED)
