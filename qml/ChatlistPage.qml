@@ -111,7 +111,7 @@ Kirigami.ScrollablePage {
             console.log("Depth is " + pageStack.depth)
             let chatPageComponent = Qt.createComponent("qrc:/qml/ChatPage.qml")
             if (chatPageComponent.status == Component.Ready) {
-                let myPage = chatPageComponent.createObject(chatlistPage, {chatId: chatId})
+                let myPage = chatPageComponent.createObject(chatlistPage, {chatId: chatId, context: chatlistPage.context, eventEmitter: chatlistPage.eventEmitter})
                 if (pageStack.depth == 1) {
                     pageStack.push(myPage)
                 } else if (pageStack.depth == 2) {

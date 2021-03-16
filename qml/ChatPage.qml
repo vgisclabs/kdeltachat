@@ -11,6 +11,9 @@ Kirigami.ScrollablePage {
 
     title: chat ? chat.name : qsTr("Chat")
 
+    required property DcContext context
+    required property DcAccountsEventEmitter eventEmitter
+
     required property var chatId
     readonly property DcChat chat: context.getChat(chatId)
 
