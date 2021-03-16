@@ -135,7 +135,10 @@ Kirigami.ScrollablePage {
          */
         verticalLayoutDirection: ListView.BottomToTop
 
-        delegate: Message {message: context.getMessage(msgId)}
+        delegate: Message {
+            message: chatPage.context.getMessage(msgId)
+            context: chatPage.context
+        }
     }
 
     footer: Loader {

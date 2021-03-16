@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
       }
     qRegisterMetaType<size_t>("size_t");
     qRegisterMetaType<uint32_t>("uint32_t");
+    qRegisterMetaType<QVector<uint32_t>>("QVector<uint32_t>");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));

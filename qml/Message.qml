@@ -12,6 +12,8 @@ RowLayout {
     id: messageObject
 
     property DcMessage message
+    property DcContext context
+
     readonly property DcContact from: context.getContact(message.fromId)
     readonly property DcMessage quoteMessage: message.quotedMessage
     readonly property DcContact quoteFrom: quoteMessage ? context.getContact(quoteMessage.fromId) : null
@@ -23,6 +25,10 @@ RowLayout {
     readonly property string displayName: overrideName != "" ? ("~" + overrideName)
                                                              : messageObject.message.fromId > 0 ? messageObject.from.displayName
                                                                                                 : ""
+
+    Component.onCompleted: {
+        messageObject.context.markseenMsgs([messageObject.message.id])
+    }
 
     Rectangle {
         Layout.preferredWidth: messageContents.width

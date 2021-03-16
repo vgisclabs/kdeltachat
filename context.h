@@ -34,6 +34,7 @@ public:
     Q_INVOKABLE QVariantList getMsgIdList(uint32_t chatId);
     Q_INVOKABLE int getFreshMsgCnt(uint32_t chatId);
     Q_INVOKABLE void marknoticedChat(uint32_t chatId);
+    Q_INVOKABLE void markseenMsgs(QVector<uint32_t> msg_ids);
     Q_INVOKABLE DcMessage *getMessage(uint32_t msgId);
     Q_INVOKABLE DcContact *getContact(uint32_t contactId);
     Q_INVOKABLE uint32_t sendTextMessage(uint32_t chatId, QString textToSend);

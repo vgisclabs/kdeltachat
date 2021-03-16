@@ -117,6 +117,12 @@ Context::marknoticedChat(uint32_t chatId) {
     return dc_marknoticed_chat(m_context, chatId);
 }
 
+void
+Context::markseenMsgs(QVector<uint32_t> msg_ids)
+{
+    dc_markseen_msgs(m_context, msg_ids.constData(), msg_ids.count());
+}
+
 DcMessage *
 Context::getMessage(uint32_t msgId)
 {
