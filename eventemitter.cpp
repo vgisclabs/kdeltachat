@@ -31,7 +31,6 @@ DcAccountsEventEmitter::start()
 void
 DcAccountsEventEmitter::processEvent(DcEvent *event)
 {
-    emit incomingEvent();
     switch (event->getId()) {
         case DC_EVENT_INFO:
             qInfo("%s", qUtf8Printable(event->getData2Str()));

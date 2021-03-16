@@ -55,9 +55,6 @@ Kirigami.ScrollablePage {
     Connections {
         target: chatPage.eventEmitter
 
-        function onIncomingEvent() {
-            console.log("EVENT!")
-        }
         function onChatModified() {
             console.log("CHAT MODIFIED!")
         }
