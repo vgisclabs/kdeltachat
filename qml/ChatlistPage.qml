@@ -13,21 +13,20 @@ Kirigami.ScrollablePage {
     required property DcContext context
     required property DcAccountsEventEmitter eventEmitter
 
-    signal messagesChanged
-    onMessagesChanged: {
-        // Reload chatlist
-        updateChatlist();
-    }
+    Connections {
+        target: chatlistPage.eventEmitter
 
-    signal messagesNoticed
-    onMessagesNoticed: {
-        // Reload chatlist
-        updateChatlist();
+        function onMessagesChanged() {
+            // Reload chatlist
+            updateChatlist();
+        }
+        function onMessagesNoticed() {
+            // Reload chatlist
+            updateChatlist();
+        }
     }
 
     Component.onCompleted: {
-        eventEmitter.onMessagesChanged.connect(messagesChanged)
-        eventEmitter.onMessagesNoticed.connect(messagesNoticed)
         updateChatlist()
     }
 

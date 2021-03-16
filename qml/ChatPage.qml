@@ -48,44 +48,36 @@ Kirigami.ScrollablePage {
         }
     }
 
-    signal chatModified()
-    onChatModified: {
-        console.log("CHAT MODIFIED!")
-    }
-
-    signal incomingEvent()
-    onIncomingEvent: {
-        console.log("EVENT!")
-    }
-
     ListModel {
         id: messagelistModel
     }
 
-    signal incomingMessage()
-    onIncomingMessage: {
-        console.log("Incoming message for chat " + chatId)
+    Connections {
+        target: chatPage.eventEmitter
 
-        if (chatId == chatPage.chatId) {
-            updateMessagelist()
+        function onIncomingEvent() {
+            console.log("EVENT!")
         }
-    }
+        function onChatModified() {
+            console.log("CHAT MODIFIED!")
+        }
+        function onIncomingMessage() {
+            console.log("Incoming message for chat " + chatId)
 
-    signal messagesChanged(var accountId, int chatId, int msgId)
-    onMessagesChanged: {
-        console.log("Messages changed for chat " + chatId)
+            if (chatId == chatPage.chatId) {
+                updateMessagelist()
+            }
+        }
+        function onMessagesChanged(accountId, chatId, msgId) {
+            console.log("Messages changed for chat " + chatId)
 
-        if (chatId == chatPage.chatId) {
-            updateMessagelist()
+            if (chatId == chatPage.chatId) {
+                updateMessagelist()
+            }
         }
     }
 
     Component.onCompleted: {
-        eventEmitter.onIncomingEvent.connect(incomingEvent)
-        eventEmitter.onChatModified.connect(chatModified)
-        eventEmitter.onIncomingMessage.connect(incomingMessage)
-        eventEmitter.onMessagesChanged.connect(messagesChanged)
-
         updateMessagelist()
     }
 
