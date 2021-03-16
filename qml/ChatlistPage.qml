@@ -11,6 +11,7 @@ Kirigami.ScrollablePage {
     id: chatlistPage
 
     required property DcContext context
+    required property DcAccountsEventEmitter eventEmitter
 
     signal messagesChanged
     onMessagesChanged: {
