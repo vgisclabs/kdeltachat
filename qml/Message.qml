@@ -27,7 +27,11 @@ RowLayout {
                                                                                                 : ""
 
     Component.onCompleted: {
-        messageObject.context.markseenMsgs([messageObject.message.id])
+        // Only try to mark fresh and noticed messages as seen to
+        // avoid unnecessary database calls when viewing an already read chat.
+        if ([10, 13].includes(messageObject.message.state)) {
+            messageObject.context.markseenMsgs([messageObject.message.id])
+        }
     }
 
     Rectangle {
