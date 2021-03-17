@@ -144,6 +144,6 @@ Kirigami.ScrollablePage {
     footer: Loader {
         sourceComponent: composePane
         Layout.fillWidth: true
-        visible: chat && chat.canSend
+        visible: chatPage.chat && chatPage.chat.canSend
     }
 }

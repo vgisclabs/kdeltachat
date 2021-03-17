@@ -93,11 +93,11 @@ RowLayout {
             anchors.fill: parent
 
             acceptedButtons: Qt.LeftButton | Qt.RightButton
-            onClicked: {
+            onClicked: function(mouse) {
                 if (mouse.button === Qt.RightButton)
                     contextMenu.popup()
             }
-            onPressAndHold: {
+            onPressAndHold: function(mouse) {
                 if (mouse.source === Qt.MouseEventNotSynthesized)
                     contextMenu.popup()
             }
@@ -105,7 +105,7 @@ RowLayout {
             MessageDialog {
                 id: messageDialog
                 title: "Message info"
-                text: context.getMessageInfo(messageObject.message.id)
+                text: messageObject.context.getMessageInfo(messageObject.message.id)
                 onAccepted: { }
             }
 
@@ -117,7 +117,7 @@ RowLayout {
                 }
                 Action {
                     text: "Start chat"
-                    onTriggered: context.decideOnContactRequest(message.id, 0)
+                    onTriggered: messageObject.context.decideOnContactRequest(messageObject.message.id, 0)
                 }
             }
         }
