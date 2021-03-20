@@ -83,40 +83,6 @@ Kirigami.ScrollablePage {
         anchors.fill: parent
     }
 
-    Component {
-        id: composePane
-
-        Pane {
-            Layout.fillWidth: true
-            padding: 0
-
-            RowLayout {
-                width: parent.width
-
-                TextArea {
-                    id: messageField
-
-                    Layout.fillWidth: true
-                    placeholderText: qsTr("Message")
-                    wrapMode: TextArea.Wrap
-                    selectByMouse: true
-                }
-
-                Button {
-                    id: sendButton
-
-                    icon.name: "document-send"
-                    text: qsTr("Send")
-                    enabled: messageField.length > 0
-                    onClicked: {
-                        chatPage.context.sendTextMessage(chatPage.chatId, messageField.text)
-                        messageField.text = ""
-                    }
-                }
-            }
-        }
-    }
-
     ListView {
         id: messageListView
 
@@ -142,9 +108,10 @@ Kirigami.ScrollablePage {
         }
     }
 
-    footer: Loader {
-        sourceComponent: composePane
-        Layout.fillWidth: true
+    footer: ComposePane {
+        context: chatPage.context
+        chatId: chatPage.chatId
+
         visible: chatPage.chat && chatPage.chat.canSend
     }
 }
