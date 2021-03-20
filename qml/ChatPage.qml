@@ -88,6 +88,7 @@ Kirigami.ScrollablePage {
 
         Pane {
             Layout.fillWidth: true
+            padding: 0
 
             RowLayout {
                 width: parent.width
