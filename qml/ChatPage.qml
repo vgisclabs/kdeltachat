@@ -92,7 +92,7 @@ Kirigami.ScrollablePage {
             RowLayout {
                 width: parent.width
 
-                TextField {
+                TextArea {
                     id: messageField
 
                     Layout.fillWidth: true
