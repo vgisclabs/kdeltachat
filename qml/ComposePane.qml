@@ -26,6 +26,8 @@ Pane {
         Button {
             id: sendButton
 
+            Layout.alignment: Qt.AlignBottom
+
             icon.name: "document-send"
             text: qsTr("Send")
             enabled: messageField.length > 0
