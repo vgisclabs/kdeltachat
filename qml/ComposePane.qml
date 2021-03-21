@@ -5,11 +5,10 @@ import QtQuick.Layouts 1.12
 import DeltaChat 1.0
 
 Pane {
-    Layout.fillWidth: true
-    padding: 0
-
     required property DcContext context
     required property var chatId
+
+    padding: 0
 
     RowLayout {
         width: parent.width

@@ -112,6 +112,7 @@ Kirigami.ScrollablePage {
         context: chatPage.context
         chatId: chatPage.chatId
 
+        Layout.fillWidth: true
         visible: chatPage.chat && chatPage.chat.canSend
     }
 }
