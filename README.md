@@ -66,6 +66,9 @@ Install QtQuick and required QML modules using your system package manager.
 
 Build time dependencies:
 - `qtdeclarative5-dev` (for `/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake`)
+- `cmake`
+- `extra-cmake-modules`
+- `pkg-config`
 
 Runtime dependencies:
 - `qml-module-qtquick-controls`
