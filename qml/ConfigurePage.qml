@@ -13,18 +13,19 @@ Kirigami.Page {
     required property DcContext context
     required property DcAccountsEventEmitter eventEmitter
 
-    ColumnLayout {
+    Kirigami.FormLayout {
         anchors.fill: parent
 
         TextField {
             id: addressField
 
-            placeholderText: "Address"
+            Kirigami.FormData.label: "Address: "
         }
         TextField {
             id: passwordField
 
-            placeholderText: "Password"
+            Kirigami.FormData.label: "Password: "
+
             echoMode: TextInput.PasswordEchoOnEdit
         }
         ProgressBar {
