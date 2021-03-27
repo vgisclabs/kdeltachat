@@ -12,7 +12,7 @@ Kirigami.Page {
 
     required property DcContext context
 
-    ColumnLayout {
+    Kirigami.FormLayout {
         anchors.fill: parent
 
         Switch {
