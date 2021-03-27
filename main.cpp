@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     app.setApplicationName("KDeltaChat");
-    app.setOrganizationName("DeltaChat");
+    app.setOrganizationName("KDeltaChat");
     app.setOrganizationDomain("delta.chat");
 
     // TODO: switch to using Qt 5.15 QML_ELEMENT macro
