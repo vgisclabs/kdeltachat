@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QVector>
 
 #include <deltachat.h>
 
