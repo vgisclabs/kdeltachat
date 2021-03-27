@@ -28,7 +28,7 @@ find_package(PkgConfig REQUIRED)
 # Ahead-of-Time Compilation
 #
 # See https://doc.qt.io/qt-5/qtquick-deployment.html#ahead-of-time-compilation
-find_package(Qt5QuickCompiler)
+find_package(Qt5QuickCompiler REQUIRED)
 qtquick_compiler_add_resources(KDELTACHAT_QML_QRC qml.qrc)
 
 add_executable(
