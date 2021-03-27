@@ -53,3 +53,5 @@ target_link_libraries(kdeltachat
   m dl)
 
 install(TARGETS kdeltachat ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
+add_subdirectory(res)

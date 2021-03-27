@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=KDeltaChat
+Comment=Delta Chat client built with Kirigami
+Icon=chat.delta.KDeltaChat
+TryExec=kdeltachat
+Exec=kdeltachat
+Categories=Network;Email;InstantMessaging;Chat;KDE;Qt;
+StartupWMClass=KDeltaChat
