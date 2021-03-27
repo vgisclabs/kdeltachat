@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    app.setApplicationName("DeltaChat");
+    app.setApplicationName("KDeltaChat");
     app.setOrganizationName("DeltaChat");
     app.setOrganizationDomain("delta.chat");
 
