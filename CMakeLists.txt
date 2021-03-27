@@ -40,7 +40,7 @@ add_executable(kdeltachat
 )
 
 find_package(Threads REQUIRED)
-find_package(KF5Kirigami2)
+find_package(KF5Kirigami2 REQUIRED)
 pkg_check_modules(DeltaChat IMPORTED_TARGET deltachat)
 
 target_compile_definitions(kdeltachat
