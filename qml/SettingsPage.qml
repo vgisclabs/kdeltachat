@@ -60,6 +60,12 @@ Kirigami.Page {
         }
 
         Switch {
+            text: "Send copy to self"
+            checked: settingsPageRoot.context.getConfig("bcc_self") == "1"
+            onToggled: settingsPageRoot.context.setConfig("bcc_self", checked ? "1" : "0")
+        }
+
+        Switch {
             text: "Move to DeltaChat"
             checked: settingsPageRoot.context.getConfig("mvbox_move") == "1"
             onToggled: settingsPageRoot.context.setConfig("mvbox_move", checked ? "1" : "0")
