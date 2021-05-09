@@ -84,6 +84,9 @@ Install FileDialog:
 Install `extra-cmake-modules`(https://api.kde.org/ecm/manual/ecm-kde-modules.7.html):
 - `pacman -S extra-cmake-modules`
 
+WebP support:
+- `qt5-imageformats`
+
 ### OpenSUSE
 
 OpenSUSE Leap 15.2:
