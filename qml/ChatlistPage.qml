@@ -101,24 +101,35 @@ Kirigami.ScrollablePage {
         model: chatlistModel
 
         onCurrentItemChanged: {
-            var chatId = chatlistModel.get(currentIndex).chatId
-            chatlistPage.context.marknoticedChat(chatId)
+            console.log("Current index is " + chatlist.currentIndex)
+            if (currentIndex == -1) {
+                return;
+            }
 
-            console.log("Current index is " + currentIndex)
-            console.log("Selected chat " + chatId)
+            var chatId = chatlistModel.get(chatlist.currentIndex).chatId
 
-            console.log("Depth is " + pageStack.depth)
-            let chatPageComponent = Qt.createComponent("qrc:/qml/ChatPage.qml")
-            if (chatPageComponent.status == Component.Ready) {
-                let myPage = chatPageComponent.createObject(chatlistPage, {chatId: chatId, context: chatlistPage.context, eventEmitter: chatlistPage.eventEmitter})
-                if (pageStack.depth == 1) {
-                    pageStack.push(myPage)
-                } else if (pageStack.depth == 2) {
-                    pageStack.currentIndex = 1
-                    pageStack.replace(myPage)
+            if (chatId > 9) {
+                // > DC_CHAT_ID_LAST_SPECIAL
+
+                chatlistPage.context.marknoticedChat(chatId)
+
+                console.log("Selected chat " + chatId)
+
+                console.log("Depth is " + pageStack.depth)
+                let chatPageComponent = Qt.createComponent("qrc:/qml/ChatPage.qml")
+                if (chatPageComponent.status == Component.Ready) {
+                    let myPage = chatPageComponent.createObject(chatlistPage, {chatId: chatId, context: chatlistPage.context, eventEmitter: chatlistPage.eventEmitter})
+                    if (pageStack.depth == 1) {
+                        pageStack.push(myPage)
+                    } else if (pageStack.depth == 2) {
+                        pageStack.currentIndex = 1
+                        pageStack.replace(myPage)
+                    }
+                } else if (chatPageComponent.status == Component.Error) {
+                    console.log("Error loading chat page: " + chatPageComponent.errorString())
                 }
-            } else if (chatPageComponent.status == Component.Error) {
-                console.log("Error loading chat page: " + chatPageComponent.errorString())
+            } else if (chatId == 6) {
+                console.log("Clicked on archived chat link")
             }
         }
 
