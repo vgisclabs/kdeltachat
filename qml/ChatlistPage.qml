@@ -122,52 +122,76 @@ Kirigami.ScrollablePage {
             }
         }
 
-        delegate: Kirigami.BasicListItem {
+        delegate: Kirigami.AbstractListItem {
             width: chatlist.width
 
-            label: chatlistPage.context.getChat(model.chatId).getName()
-            subtitle: model.username
-
-            leading: Kirigami.Avatar {
-                source: model.avatarSource
-                name: model.chatName
-                implicitWidth: height
-                color: chatlistPage.context.getChat(model.chatId).getColor()
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.RightButton
-                    onClicked: {
-                        if (mouse.button === Qt.RightButton)
-                            contextMenu.popup()
-                    }
-
-                    Menu {
-                        id: contextMenu
-
-                        Action {
-                            text: "Pin chat"
-                            onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 2)
+            RowLayout {
+                Kirigami.Avatar {
+                    source: model.avatarSource
+                    name: model.chatName
+                    color: chatlistPage.context.getChat(model.chatId).getColor()
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.RightButton
+                        onClicked: {
+                            if (mouse.button === Qt.RightButton)
+                                contextMenu.popup()
                         }
-                        Action {
-                            text: "Unpin chat"
-                            onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
-                        }
-                        Action {
-                            text: "Archive chat"
-                            onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 1)
-                        }
-                        Action {
-                            text: "Delete chat"
-                            onTriggered: chatlistPage.context.deleteChat(model.chatId)
+
+                        Menu {
+                            id: contextMenu
+
+                            Action {
+                                text: "Pin chat"
+                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 2)
+                            }
+                            Action {
+                                text: "Unpin chat"
+                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
+                            }
+                            Action {
+                                text: "Archive chat"
+                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 1)
+                            }
+                            Action {
+                                text: "Delete chat"
+                                onTriggered: chatlistPage.context.deleteChat(model.chatId)
+                            }
                         }
                     }
                 }
-            }
 
-            trailing: Label {
-                text: model.freshMsgCnt
-                visible: model.freshMsgCnt > 0
-                verticalAlignment: Text.AlignVCenter
+                ColumnLayout {
+                    Layout.fillWidth: true
+
+                    Label {
+                        text: chatlistPage.context.getChat(model.chatId).getName()
+                        font.weight: Font.Bold
+                        Layout.fillWidth: true
+                    }
+                    Label {
+                        text: model.username
+                        font: Kirigami.Theme.smallFont
+                        Layout.fillWidth: true
+                    }
+                }
+
+                Label {
+                    text: model.freshMsgCnt
+                    visible: model.freshMsgCnt > 0
+
+                    // Align label in the center of a badge.
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+
+                    // Make sure badge is not too narrow.
+                    Layout.minimumWidth: height
+
+                    background: Rectangle {
+                        color: Kirigami.Theme.alternateBackgroundColor
+                        radius: 0.25 * height
+                    }
+                }
             }
         }
     }
