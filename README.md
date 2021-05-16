@@ -65,6 +65,7 @@ Install QtQuick and required QML modules using your system package manager.
 ### Debian
 
 Build time dependencies:
+- `qtbase5-dev`
 - `qtdeclarative5-dev` (for `/usr/lib/x86_64-linux-gnu/cmake/Qt5Quick/Qt5QuickConfig.cmake`)
 - `cmake`
 - `extra-cmake-modules`
@@ -72,8 +73,10 @@ Build time dependencies:
 
 Runtime dependencies:
 - `qml-module-qtquick-controls`
+- `qml-module-qtquick-controls2`
 - `qml-module-qtquick-dialogs` - used for account import file dialog
 - `qml-module-qtquick-layouts`
+- `qml-module-qtmultimedia`
 - `qt5-image-formats-plugins` - WebP support
 
 ### Arch Linux
