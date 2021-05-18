@@ -39,6 +39,8 @@ Kirigami.ScrollablePage {
                 if (settingsPageComponent.status == Component.Ready) {
                     let settingsPage = settingsPageComponent.createObject(chatlistPage, {context: chatlistPage.context})
                     pageStack.layers.push(settingsPage)
+                } else {
+                    console.log("Can't open Settings page")
                 }
             }
         }
