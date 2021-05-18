@@ -23,7 +23,7 @@ Kirigami.ApplicationWindow {
                 if (checked) {
                     dcAccounts.startIo()
                 } else {
-                    dcAccouts.stopIo()
+                    dcAccounts.stopIo()
                 }
             }
         }
