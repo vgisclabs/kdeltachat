@@ -56,6 +56,15 @@ DcMessage::getText()
 }
 
 QString
+DcMessage::getSubject()
+{
+    char *subject = dc_msg_get_subject(m_message);
+    QString result{subject};
+    dc_str_unref(subject);
+    return result;
+}
+
+QString
 DcMessage::getFile()
 {
     char *file = dc_msg_get_file(m_message);
@@ -73,6 +82,15 @@ DcMessage::getFilename()
     return result;
 }
 
+QString
+DcMessage::getFilemime()
+{
+    char *filemime = dc_msg_get_filemime(m_message);
+    QString result{filemime};
+    dc_str_unref(filemime);
+    return result;
+}
+
 int
 DcMessage::getWidth()
 {
@@ -83,6 +101,12 @@ int
 DcMessage::getHeight()
 {
     return dc_msg_get_height(m_message);
+}
+
+bool
+DcMessage::getShowPadlock()
+{
+    return dc_msg_get_showpadlock(m_message);
 }
 
 QString
@@ -98,6 +122,21 @@ bool
 DcMessage::isInfo()
 {
     return dc_msg_is_info(m_message);
+}
+
+QString
+DcMessage::getError()
+{
+    char *error = dc_msg_get_error(m_message);
+    QString result{error};
+    dc_str_unref(error);
+    return result;
+}
+
+bool
+DcMessage::hasHtml()
+{
+    return dc_msg_has_html(m_message);
 }
 
 QString

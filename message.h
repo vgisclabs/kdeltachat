@@ -12,6 +12,7 @@ class DcMessage : public QObject {
     Q_PROPERTY(int viewtype READ getViewtype CONSTANT)
     Q_PROPERTY(int state READ getState CONSTANT)
     Q_PROPERTY(QString text READ getText CONSTANT)
+    Q_PROPERTY(QString subject READ getSubject CONSTANT)
     Q_PROPERTY(QString file READ getFile CONSTANT)
     Q_PROPERTY(QString filename READ getFilename CONSTANT)
     Q_PROPERTY(int width READ getWidth CONSTANT)
@@ -19,6 +20,7 @@ class DcMessage : public QObject {
     Q_PROPERTY(bool isInfo READ isInfo CONSTANT)
     Q_PROPERTY(QString quotedText READ getQuotedText CONSTANT)
     Q_PROPERTY(DcMessage *quotedMessage READ getQuotedMessage CONSTANT)
+    Q_PROPERTY(bool hasHtml READ hasHtml CONSTANT)
 
     dc_msg_t *m_message{nullptr};
 public:
@@ -35,14 +37,15 @@ public:
     //Q_INVOKABLE int64_t getReceivedTimestamp();
     //Q_INVOKABLE int64_t getSortTimestamp();
     Q_INVOKABLE QString getText();
+    Q_INVOKABLE QString getSubject();
     QString getFile();
     QString getFilename();
-    //QString getFilemime();
+    QString getFilemime();
     //uint64_t getFilebytes();
     int getWidth();
     int getHeight();
     //int getDuration();
-    //bool showPadlock();
+    bool getShowPadlock();
     //uint32_t getEphemeralTimer();
     //int64_t getEphemeralTimestamp();
     //... getsummary ...
@@ -53,6 +56,8 @@ public:
     //isStarred
     //isForwarded
     bool isInfo();
+    Q_INVOKABLE QString getError();
+    bool hasHtml();
     //isIncreation
     //isSetupmessage
     Q_INVOKABLE QString getQuotedText();

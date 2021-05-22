@@ -173,6 +173,15 @@ Context::getMessageInfo(uint32_t msgId)
     return result;
 }
 
+QString
+Context::getMessageHtml(uint32_t msgId)
+{
+    char *html = dc_get_msg_html(m_context, msgId);
+    QString result{html};
+    dc_str_unref(html);
+    return result;
+}
+
 uint32_t
 Context::sendTextMessage(uint32_t chatId, QString textToSend)
 {
