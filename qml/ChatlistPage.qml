@@ -37,7 +37,7 @@ Kirigami.ScrollablePage {
             onTriggered: {
                 let settingsPageComponent = Qt.createComponent("qrc:/qml/SettingsPage.qml")
                 if (settingsPageComponent.status == Component.Ready) {
-                    let settingsPage = settingsPageComponent.createObject(chatlistPage, {context: chatlistPage.context})
+                    let settingsPage = settingsPageComponent.createObject(pageStack, {context: chatlistPage.context})
                     pageStack.layers.push(settingsPage)
                 } else {
                     console.log("Can't open Settings page")
@@ -120,7 +120,7 @@ Kirigami.ScrollablePage {
                 console.log("Depth is " + pageStack.depth)
                 let chatPageComponent = Qt.createComponent("qrc:/qml/ChatPage.qml")
                 if (chatPageComponent.status == Component.Ready) {
-                    let myPage = chatPageComponent.createObject(chatlistPage, {chatId: chatId, context: chatlistPage.context, eventEmitter: chatlistPage.eventEmitter})
+                    let myPage = chatPageComponent.createObject(pageStack, {chatId: chatId, context: chatlistPage.context, eventEmitter: chatlistPage.eventEmitter})
                     if (pageStack.depth == 1) {
                         pageStack.push(myPage)
                     } else if (pageStack.depth == 2) {
