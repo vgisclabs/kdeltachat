@@ -92,6 +92,9 @@ Install `extra-cmake-modules`(https://api.kde.org/ecm/manual/ecm-kde-modules.7.h
 WebP support:
 - `qt5-imageformats`
 
+HTML view:
+- `qt5-webengine`
+
 ### OpenSUSE
 
 OpenSUSE Leap 15.2:
