@@ -8,6 +8,7 @@
         <file>qml/SettingsPage.qml</file>
         <file>qml/Message.qml</file>
         <file>qml/ComposePane.qml</file>
+        <file>qml/HtmlViewSheet.qml</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

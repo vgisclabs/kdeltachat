@@ -17,11 +17,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(
   QT NAMES Qt6 Qt5
-  COMPONENTS Core Widgets Quick
+  COMPONENTS Core Widgets Quick WebEngine
   REQUIRED)
 find_package(
   Qt${QT_VERSION_MAJOR}
-  COMPONENTS Core Widgets Quick
+  COMPONENTS Core Widgets Quick WebEngine
   REQUIRED)
 find_package(PkgConfig REQUIRED)
 
@@ -55,7 +55,7 @@ target_compile_definitions(
 target_link_libraries(
   kdeltachat
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick
-          Qt${QT_VERSION_MAJOR}::Widgets
+  Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::WebEngine
   PRIVATE Threads::Threads
   PRIVATE KF5::Kirigami2
   PRIVATE PkgConfig::DeltaChat m dl)

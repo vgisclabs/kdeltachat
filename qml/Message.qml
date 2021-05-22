@@ -169,12 +169,29 @@ RowLayout {
                 wrapMode: Text.Wrap
                 font.pixelSize: 14
             }
-            Label {
-                Layout.fillWidth: true
-                text: messageObject.message.state == 26 ? "✓"
-                    : messageObject.message.state == 28 ? "✓✓"
-                    : messageObject.message.state == 24 ? "✗"
-                    : "";
+            Row {
+                HtmlViewSheet {
+                    id: htmlSheet
+                    subject: ""
+                    html: ""
+                }
+
+                Button {
+                    text: "Show full message"
+                    visible: messageObject.message.hasHtml
+                    onPressed: {
+                        htmlSheet.subject = messageObject.message.subject
+                        htmlSheet.html = messageObject.context.getMessageHtml(messageObject.message.id)
+                        htmlSheet.open()
+                    }
+                }
+                Label {
+                    Layout.fillWidth: true
+                    text: messageObject.message.state == 26 ? "✓"
+                        : messageObject.message.state == 28 ? "✓✓"
+                        : messageObject.message.state == 24 ? "✗"
+                        : "";
+                }
             }
         }
     }

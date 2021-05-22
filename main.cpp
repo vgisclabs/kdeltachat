@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QMetaType>
+#include <QtWebEngine>
 
 #include "accounts.h"
 #include "message.h"
@@ -13,7 +14,9 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 
+    QtWebEngine::initialize();
     QGuiApplication app(argc, argv);
 
     app.setApplicationName("KDeltaChat");
