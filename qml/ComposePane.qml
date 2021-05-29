@@ -20,6 +20,21 @@ Pane {
             placeholderText: qsTr("Message")
             wrapMode: TextArea.Wrap
             selectByMouse: true
+
+            Component.onCompleted: {
+                let draft = context.getDraft(chatId)
+                if (draft) {
+                    messageField.text = draft.text
+                }
+            }
+
+            Connections {
+                function onEditingFinished() {
+                    var msg = context.newMessage(10)
+                    msg.setText(messageField.text)
+                    context.setDraft(chatId, msg)
+                }
+            }
         }
 
         Button {

@@ -46,6 +46,13 @@ DcMessage::getState()
     return dc_msg_get_state(m_message);
 }
 
+void
+DcMessage::setText(QString text)
+{
+    QByteArray utf8Text = text.toUtf8();
+    return dc_msg_set_text(m_message, utf8Text.constData());
+}
+
 QString
 DcMessage::getText()
 {

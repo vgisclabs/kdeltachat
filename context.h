@@ -39,6 +39,8 @@ public:
     Q_INVOKABLE DcMessage *getMessage(uint32_t msgId);
     Q_INVOKABLE DcContact *getContact(uint32_t contactId);
     Q_INVOKABLE uint32_t sendTextMessage(uint32_t chatId, QString textToSend);
+    Q_INVOKABLE void setDraft(uint32_t chatId, DcMessage *message);
+    Q_INVOKABLE DcMessage *getDraft(uint32_t chatId);
     QString getBlobdir();
     Q_INVOKABLE bool setConfig(QString key, QString value);
     Q_INVOKABLE QString getConfig(QString key);
@@ -46,6 +48,7 @@ public:
     Q_INVOKABLE QString getMessageInfo(uint32_t msgId);
     Q_INVOKABLE QString getMessageHtml(uint32_t msgId);
     Q_INVOKABLE uint32_t decideOnContactRequest(uint32_t msgId, int decision);
+    Q_INVOKABLE DcMessage *newMessage(int viewtype);
 
 private:
     dc_context_t *m_context{nullptr};

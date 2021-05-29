@@ -161,13 +161,16 @@ RowLayout {
             // Message
             TextEdit {
                 Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
-                text: messageObject.message.text
                 textFormat: Text.PlainText
                 selectByMouse: true
                 readOnly: true
                 color: "black"
                 wrapMode: Text.Wrap
                 font.pixelSize: 14
+
+                Component.onCompleted: {
+                    text = messageObject.message.text
+                }
             }
             Row {
                 HtmlViewSheet {

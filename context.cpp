@@ -189,6 +189,23 @@ Context::sendTextMessage(uint32_t chatId, QString textToSend)
     return dc_send_text_msg(m_context, chatId, utf8Text.constData());
 }
 
+void
+Context::setDraft(uint32_t chatId, DcMessage *message)
+{
+    dc_set_draft(m_context, chatId, message->m_message);
+}
+
+DcMessage *
+Context::getDraft(uint32_t chatId)
+{
+    dc_msg_t *draft = dc_get_draft(m_context, chatId);
+    if (draft) {
+        return new DcMessage{draft};
+    } else {
+        return NULL;
+    }
+}
+
 bool
 Context::setChatMuteDuration(uint32_t chatId, int64_t duration)
 {
@@ -199,4 +216,11 @@ uint32_t
 Context::decideOnContactRequest(uint32_t msgId, int decision)
 {
     return dc_decide_on_contact_request(m_context, msgId, decision);
+}
+
+DcMessage *
+Context::newMessage(int viewtype)
+{
+    dc_msg_t *message = dc_msg_new(m_context, viewtype);
+    return new DcMessage{message};
 }

@@ -4,6 +4,8 @@
 
 #include <deltachat.h>
 
+class Context;
+
 class DcMessage : public QObject {
     Q_OBJECT
     Q_PROPERTY(uint32_t id READ getId CONSTANT)
@@ -11,7 +13,7 @@ class DcMessage : public QObject {
     Q_PROPERTY(uint32_t chatId READ getChatId CONSTANT)
     Q_PROPERTY(int viewtype READ getViewtype CONSTANT)
     Q_PROPERTY(int state READ getState CONSTANT)
-    Q_PROPERTY(QString text READ getText CONSTANT)
+    Q_PROPERTY(QString text READ getText WRITE setText)
     Q_PROPERTY(QString subject READ getSubject CONSTANT)
     Q_PROPERTY(QString file READ getFile CONSTANT)
     Q_PROPERTY(QString filename READ getFilename CONSTANT)
@@ -23,6 +25,8 @@ class DcMessage : public QObject {
     Q_PROPERTY(bool hasHtml READ hasHtml CONSTANT)
 
     dc_msg_t *m_message{nullptr};
+
+    friend class Context;
 public:
     explicit DcMessage(QObject *parent = nullptr);
     explicit DcMessage(dc_msg_t *msg);
@@ -36,6 +40,7 @@ public:
     //Q_INVOKABLE int64_t getTimestamp();
     //Q_INVOKABLE int64_t getReceivedTimestamp();
     //Q_INVOKABLE int64_t getSortTimestamp();
+    Q_INVOKABLE void setText(QString);
     Q_INVOKABLE QString getText();
     Q_INVOKABLE QString getSubject();
     QString getFile();
