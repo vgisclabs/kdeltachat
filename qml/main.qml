@@ -54,6 +54,16 @@ Kirigami.ApplicationWindow {
         console.log('starting')
         eventEmitter = dcAccounts.getEventEmitter()
         eventEmitter.start();
+
+        // Open selected account if there is one.
+        let selectedAccount = dcAccounts.getSelectedAccount();
+        if (selectedAccount) {
+            if (selectedAccount.isConfigured()) {
+                pageStack.replace("qrc:/qml/ChatlistPage.qml", {context: selectedAccount, eventEmitter: eventEmitter})
+            } else {
+                pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: selectedAccount, eventEmitter: eventEmitter})
+            }
+        }
     }
 
     onClosing: {
