@@ -83,6 +83,29 @@ RowLayout {
         }
 
         Component {
+            id: videoMessageView
+
+            ColumnLayout {
+                MediaPlayer {
+                    id: videoplayer
+                    source: Qt.resolvedUrl("file:" + messageObject.message.file)
+                }
+                VideoOutput {
+                    source: videoplayer
+                }
+                Label {
+                    font.bold: true
+                    text: "Video"
+                    textFormat: Text.PlainText
+                }
+                Button {
+                    text: "play"
+                    onPressed: videoplayer.play()
+                }
+            }
+        }
+
+        Component {
             id: textMessageView
 
             Label {
@@ -131,7 +154,9 @@ RowLayout {
 
             Loader {
                 sourceComponent: [20, 21, 23].includes(messageObject.message.viewtype) ? imageMessageView
-                  : [40, 41].includes(messageObject.message.viewtype) ? audioMessageView : textMessageView
+                : [40, 41].includes(messageObject.message.viewtype) ? audioMessageView
+                : [50].includes(messageObject.message.viewtype) ? videoMessageView
+                : textMessageView
             }
 
             // Quote
