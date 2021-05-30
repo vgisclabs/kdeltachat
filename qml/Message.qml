@@ -69,6 +69,7 @@ RowLayout {
                 MediaPlayer {
                     id: player
                     source: Qt.resolvedUrl("file:" + messageObject.message.file)
+                    onError: console.log("Audio MediaPlayer error: " + errorString)
                 }
                 Label {
                     font.bold: true
@@ -89,6 +90,7 @@ RowLayout {
                 MediaPlayer {
                     id: videoplayer
                     source: Qt.resolvedUrl("file:" + messageObject.message.file)
+                    onError: console.log("Video MediaPlayer error: " + errorString)
                 }
                 VideoOutput {
                     source: videoplayer
