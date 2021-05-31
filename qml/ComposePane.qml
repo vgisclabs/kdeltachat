@@ -48,6 +48,7 @@ Pane {
             onClicked: {
                 chatPage.context.sendTextMessage(chatId, messageField.text)
                 messageField.text = ""
+                context.setDraft(chatId, null)
             }
         }
     }

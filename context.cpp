@@ -192,7 +192,7 @@ Context::sendTextMessage(uint32_t chatId, QString textToSend)
 void
 Context::setDraft(uint32_t chatId, DcMessage *message)
 {
-    dc_set_draft(m_context, chatId, message->m_message);
+    dc_set_draft(m_context, chatId, message ? message->m_message : nullptr);
 }
 
 DcMessage *
