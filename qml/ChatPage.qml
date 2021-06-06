@@ -68,7 +68,7 @@ Kirigami.ScrollablePage {
         function onMessagesChanged(accountId, chatId, msgId) {
             console.log("Messages changed for chat " + chatId)
 
-            if (chatId == chatPage.chatId) {
+            if (chatId == chatPage.chatId || chatId == 0) {
                 chatPage.updateMessagelist()
             }
         }
