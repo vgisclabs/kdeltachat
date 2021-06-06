@@ -134,7 +134,9 @@ Kirigami.ScrollablePage {
                     console.log("Error loading chat page: " + chatPageComponent.errorString())
                 }
             } else if (chatId == 6) {
-                console.log("Clicked on archived chat link")
+                chatlistPage.archivedOnly = true
+                chatlist.currentIndex = -1
+                updateChatlist();
             }
         }
 
