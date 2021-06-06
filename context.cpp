@@ -56,9 +56,9 @@ Context::getInfo()
 }
 
 DcChatlist *
-Context::getChatlist()
+Context::getChatlist(int flags)
 {
-    dc_chatlist_t *chatlist = dc_get_chatlist(m_context, 0, NULL, 0);
+    dc_chatlist_t *chatlist = dc_get_chatlist(m_context, flags, NULL, 0);
     return new DcChatlist{chatlist};
 }
 

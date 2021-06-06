@@ -13,6 +13,8 @@ Kirigami.ScrollablePage {
     required property DcContext context
     required property DcAccountsEventEmitter eventEmitter
 
+    property bool archivedOnly: false
+
     Connections {
         target: chatlistPage.eventEmitter
 
@@ -51,7 +53,7 @@ Kirigami.ScrollablePage {
     }
 
     function updateChatlist() {
-        let chatlist = chatlistPage.context.getChatlist()
+        let chatlist = chatlistPage.context.getChatlist(chatlistPage.archivedOnly ? 1 : 0)
 
         // Merge new chatlist with existing one.
         // To preserve selected item, we do not simply clear and fill
