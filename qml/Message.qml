@@ -30,7 +30,11 @@ RowLayout {
         // Only try to mark fresh and noticed messages as seen to
         // avoid unnecessary database calls when viewing an already read chat.
         if ([10, 13].includes(messageObject.message.state)) {
-            messageObject.context.markseenMsgs([messageObject.message.id])
+            // Do not mark DC_CHAT_ID_DEADDROP messages as seen to
+            // avoid contact request chat disappearing from chatlist.
+            if (messageObject.chatId != 1) {
+                messageObject.context.markseenMsgs([messageObject.message.id])
+            }
         }
     }
 

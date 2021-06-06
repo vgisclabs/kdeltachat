@@ -113,10 +113,12 @@ Kirigami.ScrollablePage {
 
             var chatId = chatlistModel.get(chatlist.currentIndex).chatId
 
-            if (chatId > 9) {
-                // > DC_CHAT_ID_LAST_SPECIAL
+            if (chatId == 1 || chatId > 9) {
+                // chatId == DC_CHAT_ID_DEADDROP || chatId > DC_CHAT_ID_LAST_SPECIAL
 
-                chatlistPage.context.marknoticedChat(chatId)
+                if (chatId != 1) {
+                    chatlistPage.context.marknoticedChat(chatId)
+                }
 
                 console.log("Selected chat " + chatId)
 
