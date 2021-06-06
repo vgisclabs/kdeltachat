@@ -103,6 +103,7 @@ Kirigami.ScrollablePage {
 
         anchors.fill: parent
         model: chatlistModel
+        currentIndex: -1
 
         onCurrentItemChanged: {
             console.log("Current index is " + chatlist.currentIndex)
