@@ -172,6 +172,10 @@ Kirigami.ScrollablePage {
                                 onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 1)
                             }
                             Action {
+                                text: "Unarchive chat"
+                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
+                            }
+                            Action {
                                 text: "Delete chat"
                                 onTriggered: chatlistPage.context.deleteChat(model.chatId)
                             }
