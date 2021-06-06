@@ -87,7 +87,7 @@ Kirigami.ScrollablePage {
         id: messageListView
 
         anchors.fill: parent
-        spacing: 10
+        spacing: Kirigami.Units.largeSpacing
 
         model: messagelistModel
 
