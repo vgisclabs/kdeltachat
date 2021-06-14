@@ -45,11 +45,39 @@ Kirigami.ScrollablePage {
                     console.log("Can't open Settings page")
                 }
             }
+        },
+        Kirigami.Action {
+            text: "Contact requests"
+            onTriggered: {
+                chatlist.currentIndex = -1
+                loadChat(1)
+                console.log("Opening contact requests chat");
+            }
         }
     ]
 
     ListModel {
         id: chatlistModel
+    }
+
+    function loadChat(chatId) {
+        chatlistPage.context.marknoticedChat(chatId)
+
+        console.log("Selected chat " + chatId)
+
+        console.log("Depth is " + pageStack.depth)
+        let chatPageComponent = Qt.createComponent("qrc:/qml/ChatPage.qml")
+        if (chatPageComponent.status == Component.Ready) {
+            let myPage = chatPageComponent.createObject(pageStack, {chatId: chatId, context: chatlistPage.context, eventEmitter: chatlistPage.eventEmitter})
+            if (pageStack.depth == 1) {
+                pageStack.push(myPage)
+            } else if (pageStack.depth == 2) {
+                pageStack.currentIndex = 1
+                pageStack.replace(myPage)
+            }
+        } else if (chatPageComponent.status == Component.Error) {
+            console.log("Error loading chat page: " + chatPageComponent.errorString())
+        }
     }
 
     function updateChatlist() {
@@ -115,26 +143,8 @@ Kirigami.ScrollablePage {
 
             if (chatId == 1 || chatId > 9) {
                 // chatId == DC_CHAT_ID_DEADDROP || chatId > DC_CHAT_ID_LAST_SPECIAL
+                loadChat(chatId)
 
-                if (chatId != 1) {
-                    chatlistPage.context.marknoticedChat(chatId)
-                }
-
-                console.log("Selected chat " + chatId)
-
-                console.log("Depth is " + pageStack.depth)
-                let chatPageComponent = Qt.createComponent("qrc:/qml/ChatPage.qml")
-                if (chatPageComponent.status == Component.Ready) {
-                    let myPage = chatPageComponent.createObject(pageStack, {chatId: chatId, context: chatlistPage.context, eventEmitter: chatlistPage.eventEmitter})
-                    if (pageStack.depth == 1) {
-                        pageStack.push(myPage)
-                    } else if (pageStack.depth == 2) {
-                        pageStack.currentIndex = 1
-                        pageStack.replace(myPage)
-                    }
-                } else if (chatPageComponent.status == Component.Error) {
-                    console.log("Error loading chat page: " + chatPageComponent.errorString())
-                }
             } else if (chatId == 6) {
                 chatlistPage.archivedOnly = true
                 chatlist.currentIndex = -1
