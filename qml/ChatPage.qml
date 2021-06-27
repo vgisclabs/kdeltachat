@@ -105,6 +105,7 @@ Kirigami.ScrollablePage {
         delegate: Message {
             message: chatPage.context.getMessage(msgId)
             context: chatPage.context
+            width: ListView.view.width
         }
     }
 

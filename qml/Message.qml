@@ -18,7 +18,6 @@ RowLayout {
     readonly property DcMessage quoteMessage: message.quotedMessage
     readonly property DcContact quoteFrom: quoteMessage ? context.getContact(quoteMessage.fromId) : null
 
-    width: ListView.view.width
     layoutDirection: message.fromId == 1 ? Qt.RightToLeft : Qt.LeftToRight
 
     readonly property string overrideName: message.getOverrideSenderName()
