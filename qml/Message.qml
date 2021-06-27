@@ -67,6 +67,29 @@ RowLayout {
         }
 
         Component {
+            id: stickerMessageView
+
+            ColumnLayout {
+                Image {
+                    source: "file:" + messageObject.message.file
+                    sourceSize.width: messageObject.message.width
+                    sourceSize.height: messageObject.message.height
+                    fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+                }
+                Label {
+                    text: "STICKER"
+                }
+                Label {
+                    font.bold: true
+                    color: messageObject.message.fromId > 0 ? messageObject.from.color : "black"
+                    text: messageObject.displayName
+                    textFormat: Text.PlainText
+                }
+            }
+        }
+
+        Component {
             id: audioMessageView
 
             ColumnLayout {
@@ -155,7 +178,8 @@ RowLayout {
             id: messageContents
 
             Loader {
-                sourceComponent: [20, 21, 23].includes(messageObject.message.viewtype) ? imageMessageView
+                sourceComponent: [20, 21].includes(messageObject.message.viewtype) ? imageMessageView
+                : [23].includes(messageObject.message.viewtype) ? stickerMessageView
                 : [40, 41].includes(messageObject.message.viewtype) ? audioMessageView
                 : [50].includes(messageObject.message.viewtype) ? videoMessageView
                 : textMessageView
