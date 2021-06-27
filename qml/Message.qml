@@ -54,8 +54,8 @@ RowLayout {
                     sourceSize.width: messageObject.message.width
                     sourceSize.height: messageObject.message.height
                     fillMode: Image.PreserveAspectCrop
-                    Layout.maximumWidth: messageObject.width
-                    Layout.maximumHeight: Kirigami.Units.gridUnit * 10
+                    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
+                    Layout.maximumHeight: Kirigami.Units.gridUnit * 20
                     asynchronous: true
                 }
                 Label {
@@ -179,7 +179,7 @@ RowLayout {
                 }
                 TextEdit {
                     id: quoteTextEdit
-                    Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
+                    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
                     text: messageObject.message.quotedText ? messageObject.message.quotedText : ""
                     textFormat: Text.PlainText
                     selectByMouse: true
@@ -192,7 +192,7 @@ RowLayout {
 
             // Message
             TextEdit {
-                Layout.maximumWidth: messageObject.width > 30 ? messageObject.width - 30 : messageObject.width
+                Layout.maximumWidth: Kirigami.Units.gridUnit * 30
                 textFormat: Text.PlainText
                 selectByMouse: true
                 readOnly: true
