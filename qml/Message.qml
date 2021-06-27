@@ -191,7 +191,7 @@ RowLayout {
 
             // Message
             TextEdit {
-                Layout.maximumWidth: Kirigami.Units.gridUnit * 30
+                Layout.maximumWidth: Math.min(messageObject.width, Kirigami.Units.gridUnit * 30)
                 textFormat: Text.PlainText
                 selectByMouse: true
                 readOnly: true
