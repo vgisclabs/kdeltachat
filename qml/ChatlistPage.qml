@@ -26,6 +26,10 @@ Kirigami.ScrollablePage {
             // Reload chatlist
             updateChatlist();
         }
+        function onChatModified() {
+            // Reload chatlist
+            updateChatlist();
+        }
     }
 
     Component.onCompleted: {
