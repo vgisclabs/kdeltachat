@@ -51,6 +51,89 @@ Kirigami.Page {
 
             echoMode: TextInput.PasswordEchoOnEdit
         }
+
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: "Advanced settings"
+        }
+        TextField {
+            id: imapLoginField
+
+            Kirigami.FormData.label: "IMAP login: "
+        }
+        TextField {
+            id: imapHostnameField
+
+            Kirigami.FormData.label: "IMAP server: "
+        }
+        TextField {
+            id: imapPortField
+
+            Kirigami.FormData.label: "IMAP port: "
+        }
+
+        ListModel {
+            id: securityModel
+            ListElement { text: "Automatic"; value: 0 }
+            ListElement { text: "SSL/TLS"; value: 1 }
+            ListElement { text: "StartTLS"; value: 2 }
+            ListElement { text: "Off"; value: 3 }
+        }
+
+        ComboBox {
+            id: imapSecurity
+
+            Kirigami.FormData.label: "IMAP security: "
+
+            model: securityModel
+            textRole: "text"
+        }
+
+        TextField {
+            id: smtpLoginField
+
+            Kirigami.FormData.label: "SMTP login: "
+        }
+        TextField {
+            id: smtpPasswordField
+
+            Kirigami.FormData.label: "SMTP password: "
+
+            echoMode: TextInput.PasswordEchoOnEdit
+        }
+        TextField {
+            id: smtpHostnameField
+
+            Kirigami.FormData.label: "SMTP server: "
+        }
+        TextField {
+            id: smtpPortField
+
+            Kirigami.FormData.label: "SMTP port: "
+        }
+        ComboBox {
+            id: smtpSecurity
+
+            Kirigami.FormData.label: "SMTP security: "
+
+            model: securityModel
+            textRole: "text"
+        }
+
+        ComboBox {
+            id: certificateChecks
+
+            Kirigami.FormData.label: "Certificate checks: "
+
+            model: ListModel {
+                id: certificateChecksModel
+                ListElement { text: "Automatic"; value: 0 }
+                ListElement { text: "Strict"; value: 1 }
+                ListElement { text: "Accept invalid certificates"; value: 2 }
+            }
+            textRole: "text"
+        }
+
         ProgressBar {
             id: progressBar
             value: 0.0
@@ -62,6 +145,18 @@ Kirigami.Page {
                 configurePage.context.stopIo()
                 configurePage.context.setConfig("addr", addressField.text)
                 configurePage.context.setConfig("mail_pw", passwordField.text)
+                configurePage.context.setConfig("mail_user", imapLoginField.text)
+                configurePage.context.setConfig("mail_server", imapHostnameField.text)
+                configurePage.context.setConfig("mail_port", imapPortField.text)
+                configurePage.context.setConfig("mail_security", securityModel.get(imapSecurity.currentIndex).value)
+                configurePage.context.setConfig("send_user", smtpLoginField.text)
+                configurePage.context.setConfig("send_pw", smtpPasswordField.text)
+                configurePage.context.setConfig("send_server", smtpHostnameField.text)
+                configurePage.context.setConfig("send_port", smtpPortField.text)
+                configurePage.context.setConfig("smtp_security", securityModel.get(smtpSecurity.currentIndex).value)
+                let certificate_checks = certificateChecks.model.get(certificateChecks.currentIndex).value;
+                configurePage.context.setConfig("imap_certificate_checks", certificate_checks)
+                configurePage.context.setConfig("smtp_certificate_checks", certificate_checks)
                 configurePage.context.configure()
             }
         }
