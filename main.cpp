@@ -56,6 +56,12 @@ int main(int argc, char *argv[])
       {
         QCoreApplication::exit(-1);
       }
+
+    if (qmlRegisterSingletonType<DcNotifications>("DeltaChat", 1, 0, "DcNotifications") == -1)
+      {
+        QCoreApplication::exit(-1);
+      }
+
     qRegisterMetaType<size_t>("size_t");
     qRegisterMetaType<uint32_t>("uint32_t");
     qRegisterMetaType<QVector<uint32_t>>("QVector<uint32_t>");
