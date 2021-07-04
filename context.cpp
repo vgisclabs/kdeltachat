@@ -224,3 +224,10 @@ Context::newMessage(int viewtype)
     dc_msg_t *message = dc_msg_new(m_context, viewtype);
     return new DcMessage{message};
 }
+
+void
+Context::importBackup(QString tarfile)
+{
+    QByteArray utf8Text = tarfile.toUtf8();
+    return dc_imex(m_context, DC_IMEX_IMPORT_BACKUP, utf8Text.constData(), NULL);
+}

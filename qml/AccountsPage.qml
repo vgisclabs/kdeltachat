@@ -1,7 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.3
 import org.kde.kirigami 2.12 as Kirigami
 
 Kirigami.Page {
@@ -27,33 +26,6 @@ Kirigami.Page {
                 number: accountId,
                 title: title
             })
-        }
-    }
-
-    contextualActions: [
-        Kirigami.Action {
-            text: "Import account"
-            iconName: "document-import"
-            onTriggered: importAccountDialog.open()
-        }
-    ]
-
-    FileDialog {
-        id: importAccountDialog
-        title: "Import account"
-        folder: shortcuts.home
-        onAccepted: {
-            var url = importAccountDialog.fileUrl.toString()
-            if (url.startsWith("file://")) {
-                var filename = url.substring(7)
-                console.log("Importing " + filename)
-                var accountId = dcAccounts.importAccount(filename)
-                if (accountId == 0) {
-                    console.log("Import failed")
-                } else {
-                    console.log("Import succeeded")
-                }
-            }
         }
     }
 

@@ -22,13 +22,6 @@ DcAccounts::addAccount()
 }
 
 uint32_t
-DcAccounts::importAccount(QString tarfile)
-{
-    QByteArray utf8Text = tarfile.toUtf8();
-    return dc_accounts_import_account(m_accounts, utf8Text.constData());
-}
-
-uint32_t
 DcAccounts::migrateAccount(QString dbfile)
 {
     QByteArray utf8Text = dbfile.toUtf8();

@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import QtQml.Models 2.1
+import QtQuick.Dialogs 1.3
 import org.kde.kirigami 2.12 as Kirigami
 
 import DeltaChat 1.0
@@ -12,6 +13,28 @@ Kirigami.Page {
 
     required property DcContext context
     required property DcAccountsEventEmitter eventEmitter
+
+    contextualActions: [
+        Kirigami.Action {
+            text: "Import backup"
+            iconName: "document-import"
+            onTriggered: importBackupDialog.open()
+        }
+    ]
+
+    FileDialog {
+        id: importBackupDialog
+        title: "Import backup"
+        folder: shortcuts.home
+        onAccepted: {
+            var url = importBackupDialog.fileUrl.toString()
+            if (url.startsWith("file://")) {
+                var filename = url.substring(7)
+                console.log("Importing " + filename)
+                configurePage.context.importBackup(filename)
+            }
+        }
+    }
 
     Kirigami.FormLayout {
         anchors.fill: parent

@@ -49,6 +49,7 @@ public:
     Q_INVOKABLE QString getMessageHtml(uint32_t msgId);
     Q_INVOKABLE uint32_t decideOnContactRequest(uint32_t msgId, int decision);
     Q_INVOKABLE DcMessage *newMessage(int viewtype);
+    Q_INVOKABLE void importBackup(QString tarfile);
 
 private:
     dc_context_t *m_context{nullptr};

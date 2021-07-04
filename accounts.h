@@ -14,7 +14,6 @@ public:
     ~DcAccounts();
 
     Q_INVOKABLE uint32_t addAccount();
-    Q_INVOKABLE uint32_t importAccount(QString tarfile);
     Q_INVOKABLE uint32_t migrateAccount(QString dbfile);
     Q_INVOKABLE bool removeAccount(uint32_t accountId);
     Q_INVOKABLE QVariantList getAll();
