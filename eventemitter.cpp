@@ -62,9 +62,6 @@ DcAccountsEventEmitter::processEvent(DcEvent *event)
         case DC_EVENT_ERROR:
             qCritical("%s", qUtf8Printable(event->getData2Str()));
             break;
-        case DC_EVENT_ERROR_NETWORK:
-            qCritical("Network error: %s", qUtf8Printable(event->getData2Str()));
-            break;
         case DC_EVENT_ERROR_SELF_NOT_IN_GROUP:
             qCritical("Self not in group error: %s", qUtf8Printable(event->getData2Str()));
             break;
