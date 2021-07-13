@@ -51,6 +51,7 @@ public:
 signals:
     void chatModified(uint32_t accountId, int chatId);
     void configureProgress(uint32_t accountId, int progress, QString comment);
+    void connectivityChanged(uint32_t accountId);
     void incomingMessage(uint32_t accountId, int chatId, int msgId);
     void messagesChanged(uint32_t accountId, int chatId, int msgId);
     void messagesNoticed(uint32_t accountId, int chatId);

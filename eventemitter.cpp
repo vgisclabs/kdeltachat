@@ -84,6 +84,9 @@ DcAccountsEventEmitter::processEvent(DcEvent *event)
                                    event->getData1Int(),
                                    event->getData2Str());
             break;
+        case DC_EVENT_CONNECTIVITY_CHANGED:
+            emit connectivityChanged(event->getAccountId());
+            break;
         default:
             std::cout << "Not processing " << event->getId() << std::endl;
     }
