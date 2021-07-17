@@ -95,6 +95,9 @@ WebP support:
 HTML view:
 - `qt5-webengine`
 
+Media player:
+- `qt5-multimedia`
+
 ### OpenSUSE
 
 OpenSUSE Leap 15.2:
