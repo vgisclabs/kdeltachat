@@ -133,12 +133,17 @@ new one. Start IO in the main menu to connect.
 
 # Troubleshooting
 
-## Buttons have no icons
+## Button icons are replaced with black rectangles
 
 On Debian/Ubuntu, run `apt purge libqt5quick5-gles`. When `apt` offers
 to install `libqt5quick5` as a replacement, agree.
 
 Debian bugreport: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=976389
+
+## Buttons have no icons
+
+Setting `XDG_CURRENT_DESKTOP=GNOME` environment variable has been reported
+to help in this case.
 
 # License
 
