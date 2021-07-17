@@ -37,7 +37,12 @@ Kirigami.ApplicationWindow {
             Kirigami.Action {
                 text: "Switch account"
                 iconName: "system-switch-user"
-                onTriggered: pageStack.layers.push(accountsPage)
+                onTriggered: {
+                    while (pageStack.layers.depth > 1) {
+                        pageStack.layers.pop()
+                    }
+                    pageStack.layers.push(accountsPage)
+                }
             }
         ]
     }
