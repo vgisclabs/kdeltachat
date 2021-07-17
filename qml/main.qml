@@ -18,12 +18,12 @@ Kirigami.ApplicationWindow {
 
     globalDrawer: Kirigami.GlobalDrawer {
         header: Controls.Switch {
-            text: "Start IO"
+            text: "Work offline"
             onCheckedChanged: {
                 if (checked) {
-                    dcAccounts.startIo()
-                } else {
                     dcAccounts.stopIo()
+                } else {
+                    dcAccounts.startIo()
                 }
             }
         }
@@ -64,6 +64,8 @@ Kirigami.ApplicationWindow {
                 pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: selectedAccount, eventEmitter: eventEmitter})
             }
         }
+
+        dcAccounts.startIo()
     }
 
     onClosing: {
