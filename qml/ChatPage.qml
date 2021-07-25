@@ -20,7 +20,7 @@ Kirigami.ScrollablePage {
     contextualActions: [
         Kirigami.Action {
             text: "Accept contact request"
-            onTriggered: chatPage.context.unblockChat(chatPage.chatId)
+            onTriggered: chatPage.context.acceptChat(chatPage.chatId)
             visible: chatPage.chat && chatPage.chat.isContactRequest
         },
         Kirigami.Action {

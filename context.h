@@ -30,7 +30,7 @@ public:
     Q_INVOKABLE void setChatVisibility(uint32_t chatId, int visibility);
     Q_INVOKABLE void deleteChat(uint32_t chatId);
     Q_INVOKABLE void blockChat(uint32_t chatId);
-    Q_INVOKABLE void unblockChat(uint32_t chatId);
+    Q_INVOKABLE void acceptChat(uint32_t chatId);
     Q_INVOKABLE QString getChatEncrinfo(uint32_t chatId);
     Q_INVOKABLE uint32_t getChatEphemeralTimer(uint32_t chatId);
     Q_INVOKABLE DcChat *getChat(uint32_t chatId);

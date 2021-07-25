@@ -81,9 +81,9 @@ Context::blockChat(uint32_t chatId)
 }
 
 void
-Context::unblockChat(uint32_t chatId)
+Context::acceptChat(uint32_t chatId)
 {
-    dc_unblock_chat(m_context, chatId);
+    dc_accept_chat(m_context, chatId);
 }
 
 QString
