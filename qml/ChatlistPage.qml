@@ -95,7 +95,8 @@ Kirigami.ScrollablePage {
                 username: (summary.text1 != "" ? summary.text1 + ": " : "") + summary.text2,
                 avatarSource: profileImage ? "file:" + profileImage : "",
                 chatName: chat.name,
-                freshMsgCnt: chatlistPage.context.getFreshMsgCnt(chatId)
+                freshMsgCnt: chatlistPage.context.getFreshMsgCnt(chatId),
+                isContactRequest: chat.isContactRequest
             }
 
             let j;
@@ -207,8 +208,8 @@ Kirigami.ScrollablePage {
                 }
 
                 Label {
-                    text: model.freshMsgCnt
-                    visible: model.freshMsgCnt > 0
+                    text: model.isContactRequest ? "NEW" : model.freshMsgCnt
+                    visible: model.freshMsgCnt > 0 || model.isContactRequest
 
                     // Align label in the center of a badge.
                     verticalAlignment: Text.AlignVCenter
