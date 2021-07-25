@@ -17,11 +17,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(
   QT NAMES Qt6 Qt5
-  COMPONENTS Core Widgets Quick WebEngine
+  COMPONENTS Core Widgets Quick WebEngine Multimedia
   REQUIRED)
 find_package(
   Qt${QT_VERSION_MAJOR}
-  COMPONENTS Core Widgets Quick WebEngine
+  COMPONENTS Core Widgets Quick WebEngine Multimedia
   REQUIRED)
 find_package(PkgConfig REQUIRED)
 
