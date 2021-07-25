@@ -49,14 +49,6 @@ Kirigami.ScrollablePage {
                     console.log("Can't open Settings page")
                 }
             }
-        },
-        Kirigami.Action {
-            text: "Contact requests"
-            onTriggered: {
-                chatlist.currentIndex = -1
-                loadChat(1)
-                console.log("Opening contact requests chat");
-            }
         }
     ]
 
@@ -145,8 +137,8 @@ Kirigami.ScrollablePage {
 
             var chatId = chatlistModel.get(chatlist.currentIndex).chatId
 
-            if (chatId == 1 || chatId > 9) {
-                // chatId == DC_CHAT_ID_DEADDROP || chatId > DC_CHAT_ID_LAST_SPECIAL
+            if (chatId > 9) {
+                // chatId > DC_CHAT_ID_LAST_SPECIAL
                 loadChat(chatId)
 
             } else if (chatId == 6) {

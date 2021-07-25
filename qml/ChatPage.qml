@@ -15,7 +15,20 @@ Kirigami.ScrollablePage {
     required property DcAccountsEventEmitter eventEmitter
 
     required property var chatId
-    readonly property DcChat chat: context.getChat(chatId)
+    property DcChat chat: context.getChat(chatId)
+
+    contextualActions: [
+        Kirigami.Action {
+            text: "Accept contact request"
+            onTriggered: chatPage.context.unblockChat(chatPage.chatId)
+            visible: chatPage.chat && chatPage.chat.isContactRequest
+        },
+        Kirigami.Action {
+            text: "Block contact request"
+            onTriggered: chatPage.context.blockChat(chatPage.chatId)
+            visible: chatPage.chat && chatPage.chat.isContactRequest
+        }
+    ]
 
     function updateMessagelist() {
         // Reverse message list, because it is laid out from bottom to top.
@@ -57,6 +70,7 @@ Kirigami.ScrollablePage {
 
         function onChatModified() {
             console.log("CHAT MODIFIED!")
+            chatPage.chat = context.getChat(chatId)
         }
         function onIncomingMessage(accountId, chatId, msgId) {
             console.log("Incoming message for chat " + chatId)

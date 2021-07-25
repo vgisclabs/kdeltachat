@@ -54,6 +54,12 @@ DcChat::getColor()
 }
 
 bool
+DcChat::isContactRequest()
+{
+    return dc_chat_is_contact_request(m_chat);
+}
+
+bool
 DcChat::canSend()
 {
     return dc_chat_can_send(m_chat);

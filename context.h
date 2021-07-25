@@ -29,6 +29,8 @@ public:
     Q_INVOKABLE DcChatlist *getChatlist(int flags);
     Q_INVOKABLE void setChatVisibility(uint32_t chatId, int visibility);
     Q_INVOKABLE void deleteChat(uint32_t chatId);
+    Q_INVOKABLE void blockChat(uint32_t chatId);
+    Q_INVOKABLE void unblockChat(uint32_t chatId);
     Q_INVOKABLE QString getChatEncrinfo(uint32_t chatId);
     Q_INVOKABLE uint32_t getChatEphemeralTimer(uint32_t chatId);
     Q_INVOKABLE DcChat *getChat(uint32_t chatId);
@@ -47,7 +49,6 @@ public:
     Q_INVOKABLE bool setChatMuteDuration(uint32_t chatId, int64_t duration);
     Q_INVOKABLE QString getMessageInfo(uint32_t msgId);
     Q_INVOKABLE QString getMessageHtml(uint32_t msgId);
-    Q_INVOKABLE uint32_t decideOnContactRequest(uint32_t msgId, int decision);
     Q_INVOKABLE DcMessage *newMessage(int viewtype);
     Q_INVOKABLE void importBackup(QString tarfile);
 
