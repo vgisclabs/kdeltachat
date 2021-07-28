@@ -36,6 +36,20 @@ Kirigami.ScrollablePage {
         updateChatlist()
     }
 
+    mainAction: Kirigami.Action {
+        text: "New chat"
+        iconName: "list-add"
+        onTriggered: {
+            let newChatPageComponent = Qt.createComponent("qrc:/qml/NewChatPage.qml")
+            if (newChatPageComponent.status == Component.Ready) {
+                let newChatPage = newChatPageComponent.createObject(pageStack, {context: chatlistPage.context})
+                pageStack.layers.push(newChatPage)
+            } else if (newChatPageComponent.status == Component.Error) {
+                console.log("Error loading new chat page: " + newChatPageComponent.errorString())
+            }
+        }
+    }
+
     contextualActions: [
         Kirigami.Action {
             text: "Settings"

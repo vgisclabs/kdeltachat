@@ -62,6 +62,12 @@ Context::getChatlist(int flags)
     return new DcChatlist{chatlist};
 }
 
+uint32_t
+Context::createChatByContactId(uint32_t contactId)
+{
+    return dc_create_chat_by_contact_id(m_context, contactId);
+}
+
 void
 Context::setChatVisibility(uint32_t chatId, int visibility)
 {
@@ -116,6 +122,19 @@ Context::getMsgIdList(uint32_t chatId) {
         result << dc_array_get_id(msgIdArray, i);
     }
     dc_array_unref(msgIdArray);
+    return result;
+}
+
+QVariantList
+Context::getContacts(uint32_t flags, QString query)
+{
+    QVariantList result;
+    QByteArray utf8Query = query.toUtf8();
+    dc_array_t *contactsArray = dc_get_contacts(m_context, flags, utf8Query.constData());
+    for (size_t i = 0; i < dc_array_get_cnt(contactsArray); i++) {
+        result << dc_array_get_id(contactsArray, i);
+    }
+    dc_array_unref(contactsArray);
     return result;
 }
 
