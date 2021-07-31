@@ -25,9 +25,13 @@ find_package(
   REQUIRED)
 find_package(PkgConfig REQUIRED)
 
+# Runtime QML dependencies.
+#
+# Not REQUIRED to avoid failing the build if `qmlplugindump` used by
+# `ecm_find_qmlmodule` is not configured correctly.
 include(ECMQMLModules)
-ecm_find_qmlmodule(QtMultimedia 5.8 REQUIRED)
-ecm_find_qmlmodule(org.kde.kirigami 2.12 REQUIRED)
+ecm_find_qmlmodule(QtMultimedia 5.8)
+ecm_find_qmlmodule(org.kde.kirigami 2.12)
 
 # Ahead-of-Time Compilation
 #
