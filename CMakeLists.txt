@@ -17,13 +17,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(
   QT NAMES Qt6 Qt5
-  COMPONENTS Core Widgets Quick WebEngine Multimedia
+  COMPONENTS Core Widgets Quick WebEngine
   REQUIRED)
 find_package(
   Qt${QT_VERSION_MAJOR}
-  COMPONENTS Core Widgets Quick WebEngine Multimedia
+  COMPONENTS Core Widgets Quick WebEngine
   REQUIRED)
 find_package(PkgConfig REQUIRED)
+
+include(ECMQMLModules)
+ecm_find_qmlmodule(QtMultimedia 5.8 REQUIRED)
+ecm_find_qmlmodule(org.kde.kirigami 2.12 REQUIRED)
 
 # Ahead-of-Time Compilation
 #
