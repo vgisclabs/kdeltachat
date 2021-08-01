@@ -142,8 +142,13 @@ Debian bugreport: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=976389
 
 ## Buttons have no icons
 
-Setting `XDG_CURRENT_DESKTOP=GNOME` environment variable has been reported
-to help in this case.
+If you are not using KDE or another desktop environment with Qt 5 integration,
+you can install [qt5ct](https://sourceforge.net/projects/qt5ct/), configure
+icon theme for Qt 5 there and set `QT_QPA_PLATFORMTHEME=qt5ct` or
+`XDG_CURRENT_DESKTOP=qt5ct` environment variable.
+
+Setting `XDG_CURRENT_DESKTOP=GNOME` environment variable has also been reported
+to help in this case. This results in usage of Adwaita icon theme.
 
 # License
 
