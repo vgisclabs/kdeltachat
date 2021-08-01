@@ -83,11 +83,14 @@ Runtime dependencies:
 
 ### Arch Linux
 
+Install Kirigami:
+- `kirigami2`
+
 Install FileDialog:
-- `pacman -S qt5-quickcontrols`
+- `qt5-quickcontrols`
 
 Install `extra-cmake-modules`(https://api.kde.org/ecm/manual/ecm-kde-modules.7.html):
-- `pacman -S extra-cmake-modules`
+- `extra-cmake-modules`
 
 WebP support:
 - `qt5-imageformats`
