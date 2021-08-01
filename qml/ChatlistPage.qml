@@ -184,6 +184,7 @@ Kirigami.ScrollablePage {
                             id: contextMenu
 
                             Action {
+                                icon.name: "pin"
                                 text: "Pin chat"
                                 onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 2)
                             }
