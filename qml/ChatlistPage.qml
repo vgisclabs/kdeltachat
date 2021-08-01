@@ -110,7 +110,8 @@ Kirigami.ScrollablePage {
                 avatarSource: profileImage ? "file:" + profileImage : "",
                 chatName: chat.name,
                 freshMsgCnt: chatlistPage.context.getFreshMsgCnt(chatId),
-                isContactRequest: chat.isContactRequest
+                isContactRequest: chat.isContactRequest,
+                visibility: chat.visibility
             }
 
             let j;
@@ -221,6 +222,7 @@ Kirigami.ScrollablePage {
                     }
                 }
 
+
                 Label {
                     text: model.isContactRequest ? "NEW" : model.freshMsgCnt
                     visible: model.freshMsgCnt > 0 || model.isContactRequest
@@ -235,6 +237,20 @@ Kirigami.ScrollablePage {
                     background: Rectangle {
                         color: Kirigami.Theme.alternateBackgroundColor
                         radius: 0.25 * height
+                    }
+                }
+
+                // "Pinned" badge
+                Rectangle {
+                    visible: model.visibility == 2
+                    color: Kirigami.Theme.alternateBackgroundColor
+                    width: Kirigami.Units.gridUnit
+                    height: Kirigami.Units.gridUnit
+                    radius: 0.25 * height
+                    Kirigami.Icon {
+                        source: "pin"
+                        height: Kirigami.Units.gridUnit
+                        width: Kirigami.Units.gridUnit
                     }
                 }
             }

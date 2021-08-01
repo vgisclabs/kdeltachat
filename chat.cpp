@@ -70,3 +70,9 @@ DcChat::isMuted()
 {
     return dc_chat_is_muted(m_chat);
 }
+
+int
+DcChat::getVisibility()
+{
+    return dc_chat_get_visibility(m_chat);
+}

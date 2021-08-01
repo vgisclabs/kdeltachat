@@ -12,6 +12,7 @@ class DcChat : public QObject {
     Q_PROPERTY(bool isContactRequest READ isContactRequest CONSTANT)
     Q_PROPERTY(bool canSend READ canSend CONSTANT)
     Q_PROPERTY(bool muted READ isMuted CONSTANT)
+    Q_PROPERTY(int visibility READ getVisibility CONSTANT)
 
 public:
     explicit DcChat(QObject *parent = nullptr);
@@ -26,6 +27,7 @@ public:
     Q_INVOKABLE bool isContactRequest ();
     Q_INVOKABLE bool canSend();
     Q_INVOKABLE bool isMuted();
+    Q_INVOKABLE int getVisibility();
 
 private:
     dc_chat_t *m_chat{nullptr};
