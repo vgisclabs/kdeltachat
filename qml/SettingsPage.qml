@@ -21,6 +21,14 @@ Kirigami.Page {
             source: "file:" + settingsPageRoot.context.getConfig("selfavatar")
         }
 
+        TextField {
+            id: displayNameField
+
+            Kirigami.FormData.label: "Name: "
+            text: settingsPageRoot.context.getConfig("displayname")
+            onEditingFinished: settingsPageRoot.context.setConfig("displayname", text)
+        }
+
         TextArea {
             Kirigami.FormData.label: "Signature: "
 
