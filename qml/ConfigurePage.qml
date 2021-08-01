@@ -153,7 +153,7 @@ Kirigami.Page {
                 configurePage.context.setConfig("send_pw", smtpPasswordField.text)
                 configurePage.context.setConfig("send_server", smtpHostnameField.text)
                 configurePage.context.setConfig("send_port", smtpPortField.text)
-                configurePage.context.setConfig("smtp_security", securityModel.get(smtpSecurity.currentIndex).value)
+                configurePage.context.setConfig("send_security", securityModel.get(smtpSecurity.currentIndex).value)
                 let certificate_checks = certificateChecks.model.get(certificateChecks.currentIndex).value;
                 configurePage.context.setConfig("imap_certificate_checks", certificate_checks)
                 configurePage.context.setConfig("smtp_certificate_checks", certificate_checks)
