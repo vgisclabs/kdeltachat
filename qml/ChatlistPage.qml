@@ -201,6 +201,7 @@ Kirigami.ScrollablePage {
                                 onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
                             }
                             Action {
+                                icon.name: "delete"
                                 text: "Delete chat"
                                 onTriggered: chatlistPage.context.deleteChat(model.chatId)
                             }
