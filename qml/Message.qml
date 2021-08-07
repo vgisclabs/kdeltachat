@@ -53,6 +53,7 @@ RowLayout {
                     sourceSize.width: messageObject.message.width
                     sourceSize.height: messageObject.message.height
                     fillMode: Image.PreserveAspectCrop
+                    Layout.preferredWidth: messageObject.width
                     Layout.maximumWidth: Kirigami.Units.gridUnit * 30
                     Layout.maximumHeight: Kirigami.Units.gridUnit * 20
                     asynchronous: true
