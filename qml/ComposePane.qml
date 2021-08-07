@@ -48,7 +48,12 @@ Pane {
             text: qsTr("Send")
             enabled: messageField.length > 0
             onClicked: {
-                root.context.sendTextMessage(chatId, messageField.text)
+                let DC_MSG_TEXT = 10;
+
+                let msg = root.context.newMessage(DC_MSG_TEXT);
+                msg.setText(messageField.text)
+                root.context.sendMessage(root.chatId, msg)
+
                 messageField.text = ""
                 root.context.setDraft(chatId, null)
             }

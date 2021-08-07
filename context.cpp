@@ -250,6 +250,12 @@ Context::newMessage(int viewtype)
     return new DcMessage{message};
 }
 
+uint32_t
+Context::sendMessage(uint32_t chatId, DcMessage *message)
+{
+    return dc_send_msg(m_context, chatId, message->m_message);
+}
+
 void
 Context::importBackup(QString tarfile)
 {
