@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.12
 import DeltaChat 1.0
 
 Pane {
+    id: root
+
     required property DcContext context
     required property var chatId
 
@@ -22,7 +24,7 @@ Pane {
             selectByMouse: true
 
             Component.onCompleted: {
-                let draft = context.getDraft(chatId)
+                let draft = root.context.getDraft(chatId)
                 if (draft) {
                     messageField.text = draft.text
                 }
@@ -30,9 +32,9 @@ Pane {
 
             Connections {
                 function onEditingFinished() {
-                    var msg = context.newMessage(10)
+                    var msg = root.context.newMessage(10)
                     msg.setText(messageField.text)
-                    context.setDraft(chatId, msg)
+                    root.context.setDraft(chatId, msg)
                 }
             }
         }
@@ -46,9 +48,9 @@ Pane {
             text: qsTr("Send")
             enabled: messageField.length > 0
             onClicked: {
-                chatPage.context.sendTextMessage(chatId, messageField.text)
+                root.context.sendTextMessage(chatId, messageField.text)
                 messageField.text = ""
-                context.setDraft(chatId, null)
+                root.context.setDraft(chatId, null)
             }
         }
     }
