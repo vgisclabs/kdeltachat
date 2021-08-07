@@ -10,6 +10,15 @@ Pane {
     required property DcContext context
     required property var chatId
 
+    function createMessage()
+    {
+        let DC_MSG_TEXT = 10;
+
+        var msg = root.context.newMessage(DC_MSG_TEXT)
+        msg.setText(messageField.text)
+        return msg
+    }
+
     padding: 0
 
     RowLayout {
@@ -32,8 +41,7 @@ Pane {
 
             Connections {
                 function onEditingFinished() {
-                    var msg = root.context.newMessage(10)
-                    msg.setText(messageField.text)
+                    let msg = root.createMessage()
                     root.context.setDraft(chatId, msg)
                 }
             }
@@ -48,10 +56,7 @@ Pane {
             text: qsTr("Send")
             enabled: messageField.length > 0
             onClicked: {
-                let DC_MSG_TEXT = 10;
-
-                let msg = root.context.newMessage(DC_MSG_TEXT);
-                msg.setText(messageField.text)
+                let msg = root.createMessage()
                 root.context.sendMessage(root.chatId, msg)
 
                 messageField.text = ""
