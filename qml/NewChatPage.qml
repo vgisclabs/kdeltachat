@@ -6,15 +6,16 @@ import org.kde.kirigami 2.13 as Kirigami
 import DeltaChat 1.0
 
 Kirigami.ScrollablePage {
-    id: newChatPageRoot
+    id: root
 
     title: "New chat"
 
     required property DcContext context
 
     function updateContacts() {
-        let contacts = context.getContacts(0, "");
+        let contacts = context.getContacts(0, searchField.text);
 
+        contactsModel.clear()
         for (let i = 0; i < contacts.length; i++) {
             let contactId = contacts[i]
 
@@ -26,7 +27,13 @@ Kirigami.ScrollablePage {
     }
 
     Component.onCompleted: {
-        newChatPageRoot.updateContacts()
+        root.updateContacts()
+    }
+
+    header: Kirigami.SearchField {
+        id: searchField
+
+        onTextChanged: root.updateContacts()
     }
 
     ListModel {
@@ -69,8 +76,23 @@ Kirigami.ScrollablePage {
 
         Kirigami.PlaceholderMessage {
             anchors.centerIn: parent
-            visible: contactsList.count == 0
+            visible: contactsList.count == 0 && searchField.text == ""
             text: "You have no contacts in addressbook yet"
+        }
+
+        Kirigami.PlaceholderMessage {
+            anchors.centerIn: parent
+            visible: contactsList.count == 0 && searchField.text != ""
+            helpfulAction: Kirigami.Action {
+                icon.name: "list-add"
+                text: "Add contact"
+                onTriggered: {
+                    let contactId = root.context.createContact("", searchField.text)
+                    context.createChatByContactId(contactId);
+                    pageStack.layers.pop();
+                }
+            }
+            text: "Contact " + searchField.text + " is not in your address book."
         }
 
         onCurrentItemChanged: {
