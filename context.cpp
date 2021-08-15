@@ -168,6 +168,14 @@ Context::getContact(uint32_t contactId)
     return new DcContact{contact};
 }
 
+uint32_t
+Context::createContact(QString name, QString addr)
+{
+    QByteArray utf8name = name.toUtf8();
+    QByteArray utf8addr = addr.toUtf8();
+    return dc_create_contact(m_context, utf8name.constData(), utf8addr.constData());
+}
+
 QString
 Context::getBlobdir()
 {

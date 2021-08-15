@@ -42,6 +42,7 @@ public:
     Q_INVOKABLE void markseenMsgs(QVector<uint32_t> msg_ids);
     Q_INVOKABLE DcMessage *getMessage(uint32_t msgId);
     Q_INVOKABLE DcContact *getContact(uint32_t contactId);
+    Q_INVOKABLE uint32_t createContact(QString name, QString addr);
     Q_INVOKABLE uint32_t sendTextMessage(uint32_t chatId, QString textToSend);
     Q_INVOKABLE void setDraft(uint32_t chatId, DcMessage *message);
     Q_INVOKABLE DcMessage *getDraft(uint32_t chatId);
