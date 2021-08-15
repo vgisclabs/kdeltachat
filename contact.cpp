@@ -49,6 +49,15 @@ DcContact::getDisplayName()
     return result;
 }
 
+QString
+DcContact::getProfileImage()
+{
+    char *profileImage = dc_contact_get_profile_image(m_contact);
+    QString result{profileImage};
+    dc_str_unref(profileImage);
+    return result;
+}
+
 QColor
 DcContact::getColor()
 {

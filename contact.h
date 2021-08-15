@@ -22,6 +22,7 @@ public:
     QString getAddr();
     QString getName();
     QString getDisplayName();
+    Q_INVOKABLE QString getProfileImage();
     QColor getColor();
 
 private:
