@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami 2.13 as Kirigami
 
 import DeltaChat 1.0
 
@@ -40,11 +40,31 @@ Kirigami.ScrollablePage {
         model: contactsModel
         currentIndex: -1
 
-        delegate: Kirigami.BasicListItem {
+        delegate: Kirigami.AbstractListItem {
             property DcContact contact: context.getContact(model.contactId)
+            property string profileImage: contact.getProfileImage()
 
-            label: contact.displayName
-            subtitle: contact.addr
+            RowLayout {
+                Kirigami.Avatar {
+                    name: contact.displayName
+                    color: contact.color
+                    source: profileImage ? "file:" + profileImage : ""
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Label {
+                        text: contact.displayName
+                        font.weight: Font.Bold
+                        Layout.fillWidth: true
+                    }
+                    Label {
+                        text: contact.addr
+                        font: Kirigami.Theme.smallFont
+                        Layout.fillWidth: true
+                    }
+                }
+            }
         }
 
         Kirigami.PlaceholderMessage {
