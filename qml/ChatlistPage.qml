@@ -36,6 +36,12 @@ Kirigami.ScrollablePage {
         updateChatlist()
     }
 
+    header: Kirigami.SearchField {
+        id: searchField
+
+        onTextChanged: chatlistPage.updateChatlist()
+    }
+
     mainAction: Kirigami.Action {
         text: "New chat"
         iconName: "list-add"
@@ -91,7 +97,8 @@ Kirigami.ScrollablePage {
     }
 
     function updateChatlist() {
-        let chatlist = chatlistPage.context.getChatlist(chatlistPage.archivedOnly ? 1 : 0)
+        let chatlist = chatlistPage.context.getChatlist(chatlistPage.archivedOnly ? 1 : 0,
+                                                        searchField.text)
 
         // Merge new chatlist with existing one.
         // To preserve selected item, we do not simply clear and fill

@@ -56,9 +56,14 @@ Context::getInfo()
 }
 
 DcChatlist *
-Context::getChatlist(int flags)
+Context::getChatlist(int flags, QString query)
 {
-    dc_chatlist_t *chatlist = dc_get_chatlist(m_context, flags, NULL, 0);
+    QByteArray utf8Query = query.toUtf8();
+    dc_chatlist_t *chatlist = dc_get_chatlist(
+        m_context, flags,
+        query.isEmpty() ? nullptr : utf8Query.constData(),
+        0
+    );
     return new DcChatlist{chatlist};
 }
 

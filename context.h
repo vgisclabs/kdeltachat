@@ -26,7 +26,7 @@ public:
     Q_INVOKABLE void startIo();
     Q_INVOKABLE void stopIo();
     Q_INVOKABLE void maybeNetwork();
-    Q_INVOKABLE DcChatlist *getChatlist(int flags);
+    Q_INVOKABLE DcChatlist *getChatlist(int flags, QString query);
     Q_INVOKABLE uint32_t createChatByContactId(uint32_t contactId);
     Q_INVOKABLE void setChatVisibility(uint32_t chatId, int visibility);
     Q_INVOKABLE void deleteChat(uint32_t chatId);
