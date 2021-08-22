@@ -3,6 +3,7 @@
         <file>qml/main.qml</file>
         <file>qml/AccountsPage.qml</file>
         <file>qml/ChatPage.qml</file>
+        <file>qml/ChatlistItem.qml</file>
         <file>qml/ChatlistPage.qml</file>
         <file>qml/ConfigurePage.qml</file>
         <file>qml/SettingsPage.qml</file>

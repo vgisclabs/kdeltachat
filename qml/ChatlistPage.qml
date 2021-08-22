@@ -171,98 +171,17 @@ Kirigami.ScrollablePage {
             }
         }
 
-        delegate: Kirigami.AbstractListItem {
+        delegate: ChatlistItem {
+            context: chatlistPage.context
+            chatId: model.chatId
+            chatName: model.chatName
+            avatarSource: model.avatarSource
+            username: model.username
+            freshMsgCnt: model.freshMsgCnt
+            isContactRequest: model.isContactRequest
+            isPinned: model.visibility == 2
+
             width: chatlist.width
-
-            RowLayout {
-                Kirigami.Avatar {
-                    source: model.avatarSource
-                    name: model.chatName
-                    color: chatlistPage.context.getChat(model.chatId).getColor()
-                    MouseArea {
-                        anchors.fill: parent
-                        acceptedButtons: Qt.RightButton
-                        onClicked: {
-                            if (mouse.button === Qt.RightButton)
-                                contextMenu.popup()
-                        }
-
-                        Menu {
-                            id: contextMenu
-
-                            Action {
-                                icon.name: "pin"
-                                text: "Pin chat"
-                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 2)
-                            }
-                            Action {
-                                text: "Unpin chat"
-                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
-                            }
-                            Action {
-                                text: "Archive chat"
-                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 1)
-                            }
-                            Action {
-                                text: "Unarchive chat"
-                                onTriggered: chatlistPage.context.setChatVisibility(model.chatId, 0)
-                            }
-                            Action {
-                                icon.name: "delete"
-                                text: "Delete chat"
-                                onTriggered: chatlistPage.context.deleteChat(model.chatId)
-                            }
-                        }
-                    }
-                }
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-
-                    Label {
-                        text: chatlistPage.context.getChat(model.chatId).getName()
-                        font.weight: Font.Bold
-                        Layout.fillWidth: true
-                    }
-                    Label {
-                        text: model.username
-                        font: Kirigami.Theme.smallFont
-                        Layout.fillWidth: true
-                    }
-                }
-
-
-                Label {
-                    text: model.isContactRequest ? "NEW" : model.freshMsgCnt
-                    visible: model.freshMsgCnt > 0 || model.isContactRequest
-
-                    // Align label in the center of a badge.
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-
-                    // Make sure badge is not too narrow.
-                    Layout.minimumWidth: height
-
-                    background: Rectangle {
-                        color: Kirigami.Theme.alternateBackgroundColor
-                        radius: 0.25 * height
-                    }
-                }
-
-                // "Pinned" badge
-                Rectangle {
-                    visible: model.visibility == 2
-                    color: Kirigami.Theme.alternateBackgroundColor
-                    width: Kirigami.Units.gridUnit
-                    height: Kirigami.Units.gridUnit
-                    radius: 0.25 * height
-                    Kirigami.Icon {
-                        source: "pin"
-                        height: Kirigami.Units.gridUnit
-                        width: Kirigami.Units.gridUnit
-                    }
-                }
-            }
         }
     }
 }
