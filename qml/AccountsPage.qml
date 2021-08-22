@@ -62,41 +62,42 @@ Kirigami.Page {
         id: accountsListView
         anchors.fill: parent
         model: accountsModel
+        currentIndex: -1
 
-        delegate: RowLayout {
+        delegate: Kirigami.AbstractListItem {
             width: accountsListView.width
 
-            Label {
-                Layout.fillWidth: true
-                text: model.title
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+            onClicked: {
+               while (pageStack.depth > 1) {
+                   pageStack.pop()
+               }
+               dcAccounts.selectAccount(model.number)
+               let context = dcAccounts.getSelectedAccount()
+               if (context.isConfigured()) {
+                   pageStack.replace("qrc:/qml/ChatlistPage.qml", {context: context, eventEmitter: eventEmitter})
+               } else {
+                   pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: context, eventEmitter: eventEmitter})
+               }
+               pageStack.layers.pop()
             }
 
-            Button {
-                text: "Select"
-                onClicked: {
-                   while (pageStack.depth > 1) {
-                       pageStack.pop()
-                   }
-                   dcAccounts.selectAccount(model.number)
-                   let context = dcAccounts.getSelectedAccount()
-                   if (context.isConfigured()) {
-                       pageStack.replace("qrc:/qml/ChatlistPage.qml", {context: context, eventEmitter: eventEmitter})
-                   } else {
-                       pageStack.replace("qrc:/qml/ConfigurePage.qml", {context: context, eventEmitter: eventEmitter})
-                   }
-                   pageStack.layers.pop()
+            RowLayout {
+                Label {
+                    Layout.fillWidth: true
+                    text: model.title
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                 }
-             }
 
-             Button {
-                 text: "Delete"
-                 onClicked: {
-                     dcAccounts.removeAccount(model.number)
-                     accountsModel.remove(model.index)
-                 }
-             }
+                Button {
+                    icon.name: "delete"
+                    text: "Delete"
+                    onClicked: {
+                        dcAccounts.removeAccount(model.number)
+                        accountsModel.remove(model.index)
+                    }
+                }
+            }
         }
     }
 
