@@ -76,6 +76,18 @@ Kirigami.ScrollablePage {
         id: chatlistModel
     }
 
+    function chatClicked(chatId) {
+        if (chatId > 9) {
+            // chatId > DC_CHAT_ID_LAST_SPECIAL
+            loadChat(chatId)
+
+        } else if (chatId == 6) {
+            chatlistPage.archivedOnly = true
+            chatlist.currentIndex = -1
+            updateChatlist();
+        }
+    }
+
     function loadChat(chatId) {
         chatlistPage.context.marknoticedChat(chatId)
 
@@ -150,26 +162,6 @@ Kirigami.ScrollablePage {
 
         anchors.fill: parent
         model: chatlistModel
-        currentIndex: -1
-
-        onCurrentItemChanged: {
-            console.log("Current index is " + chatlist.currentIndex)
-            if (currentIndex == -1) {
-                return;
-            }
-
-            var chatId = chatlistModel.get(chatlist.currentIndex).chatId
-
-            if (chatId > 9) {
-                // chatId > DC_CHAT_ID_LAST_SPECIAL
-                loadChat(chatId)
-
-            } else if (chatId == 6) {
-                chatlistPage.archivedOnly = true
-                chatlist.currentIndex = -1
-                updateChatlist();
-            }
-        }
 
         delegate: ChatlistItem {
             context: chatlistPage.context
@@ -182,6 +174,7 @@ Kirigami.ScrollablePage {
             isPinned: model.visibility == 2
 
             width: chatlist.width
+            onClicked: chatClicked(model.chatId)
         }
     }
 }
