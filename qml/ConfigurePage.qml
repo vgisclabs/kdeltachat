@@ -9,7 +9,7 @@ import DeltaChat 1.0
 
 Kirigami.Page {
     title: qsTr("Configure account")
-    id: configurePage
+    id: root
 
     required property DcContext context
     required property DcAccountsEventEmitter eventEmitter
@@ -31,7 +31,7 @@ Kirigami.Page {
             if (url.startsWith("file://")) {
                 var filename = url.substring(7)
                 console.log("Importing " + filename)
-                configurePage.context.importBackup(filename)
+                root.context.importBackup(filename)
             }
         }
     }
@@ -142,28 +142,28 @@ Kirigami.Page {
             text: "Login"
             onClicked: {
                 console.log("Login")
-                configurePage.context.stopIo()
-                configurePage.context.setConfig("addr", addressField.text)
-                configurePage.context.setConfig("mail_pw", passwordField.text)
-                configurePage.context.setConfig("mail_user", imapLoginField.text)
-                configurePage.context.setConfig("mail_server", imapHostnameField.text)
-                configurePage.context.setConfig("mail_port", imapPortField.text)
-                configurePage.context.setConfig("mail_security", securityModel.get(imapSecurity.currentIndex).value)
-                configurePage.context.setConfig("send_user", smtpLoginField.text)
-                configurePage.context.setConfig("send_pw", smtpPasswordField.text)
-                configurePage.context.setConfig("send_server", smtpHostnameField.text)
-                configurePage.context.setConfig("send_port", smtpPortField.text)
-                configurePage.context.setConfig("send_security", securityModel.get(smtpSecurity.currentIndex).value)
+                root.context.stopIo()
+                root.context.setConfig("addr", addressField.text)
+                root.context.setConfig("mail_pw", passwordField.text)
+                root.context.setConfig("mail_user", imapLoginField.text)
+                root.context.setConfig("mail_server", imapHostnameField.text)
+                root.context.setConfig("mail_port", imapPortField.text)
+                root.context.setConfig("mail_security", securityModel.get(imapSecurity.currentIndex).value)
+                root.context.setConfig("send_user", smtpLoginField.text)
+                root.context.setConfig("send_pw", smtpPasswordField.text)
+                root.context.setConfig("send_server", smtpHostnameField.text)
+                root.context.setConfig("send_port", smtpPortField.text)
+                root.context.setConfig("send_security", securityModel.get(smtpSecurity.currentIndex).value)
                 let certificate_checks = certificateChecks.model.get(certificateChecks.currentIndex).value;
-                configurePage.context.setConfig("imap_certificate_checks", certificate_checks)
-                configurePage.context.setConfig("smtp_certificate_checks", certificate_checks)
-                configurePage.context.configure()
+                root.context.setConfig("imap_certificate_checks", certificate_checks)
+                root.context.setConfig("smtp_certificate_checks", certificate_checks)
+                root.context.configure()
             }
         }
     }
 
     Connections {
-        target: configurePage.eventEmitter
+        target: root.eventEmitter
         function onConfigureProgress(accountId, progress, comment) {
             progressBar.value = progress / 1000.0
         }
