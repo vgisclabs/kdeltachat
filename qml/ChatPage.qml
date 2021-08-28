@@ -17,19 +17,6 @@ Kirigami.ScrollablePage {
     required property var chatId
     property DcChat chat: context.getChat(chatId)
 
-    contextualActions: [
-        Kirigami.Action {
-            text: "Accept contact request"
-            onTriggered: chatPage.context.acceptChat(chatPage.chatId)
-            visible: chatPage.chat && chatPage.chat.isContactRequest
-        },
-        Kirigami.Action {
-            text: "Block contact request"
-            onTriggered: chatPage.context.blockChat(chatPage.chatId)
-            visible: chatPage.chat && chatPage.chat.isContactRequest
-        }
-    ]
-
     function updateMessagelist() {
         // Reverse message list, because it is laid out from bottom to top.
         let messagelist = context.getMsgIdList(chatId).reverse()
@@ -126,8 +113,8 @@ Kirigami.ScrollablePage {
     footer: ComposePane {
         context: chatPage.context
         chatId: chatPage.chatId
+        chat: chatPage.chat
 
         Layout.fillWidth: true
-        visible: chatPage.chat && chatPage.chat.canSend
     }
 }

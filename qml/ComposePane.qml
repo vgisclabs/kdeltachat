@@ -9,6 +9,10 @@ Pane {
 
     required property DcContext context
     required property var chatId
+    required property var chat
+
+    property bool canSend: root.chat && root.chat.canSend
+    property bool isContactRequest: root.chat && root.chat.isContactRequest
 
     function createMessage()
     {
@@ -26,6 +30,7 @@ Pane {
 
         TextArea {
             id: messageField
+            visible: root.canSend
 
             Layout.fillWidth: true
             placeholderText: qsTr("Message")
@@ -49,6 +54,7 @@ Pane {
 
         Button {
             id: sendButton
+            visible: root.canSend
 
             Layout.alignment: Qt.AlignBottom
 
@@ -62,6 +68,26 @@ Pane {
                 messageField.text = ""
                 root.context.setDraft(chatId, null)
             }
+        }
+
+        Button {
+            Layout.alignment: Qt.AlignBottom
+            Layout.fillWidth: true
+
+            text: "Accept"
+            onClicked: root.context.acceptChat(root.chatId)
+            visible: root.isContactRequest
+            icon.name: "call-start"
+        }
+
+        Button {
+            Layout.alignment: Qt.AlignBottom
+            Layout.fillWidth: true
+
+            text: "Block"
+            onClicked: root.context.acceptChat(root.chatId)
+            visible: root.isContactRequest
+            icon.name: "call-stop"
         }
     }
 }
