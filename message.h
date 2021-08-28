@@ -21,6 +21,8 @@ class DcMessage : public QObject {
     Q_PROPERTY(QString filename READ getFilename CONSTANT)
     Q_PROPERTY(int width READ getWidth CONSTANT)
     Q_PROPERTY(int height READ getHeight CONSTANT)
+    Q_PROPERTY(bool showPadlock READ getShowPadlock CONSTANT)
+    Q_PROPERTY(bool isBot READ getIsBot CONSTANT)
     Q_PROPERTY(bool isInfo READ isInfo CONSTANT)
     Q_PROPERTY(QString quotedText READ getQuotedText CONSTANT)
     Q_PROPERTY(DcMessage *quotedMessage READ getQuotedMessage CONSTANT)
@@ -53,6 +55,7 @@ public:
     int getHeight();
     //int getDuration();
     bool getShowPadlock();
+    bool getIsBot();
     //uint32_t getEphemeralTimer();
     //int64_t getEphemeralTimestamp();
     //... getsummary ...

@@ -122,6 +122,12 @@ DcMessage::getShowPadlock()
     return dc_msg_get_showpadlock(m_message);
 }
 
+bool
+DcMessage::getIsBot()
+{
+    return dc_msg_is_bot(m_message);
+}
+
 QString
 DcMessage::getOverrideSenderName()
 {

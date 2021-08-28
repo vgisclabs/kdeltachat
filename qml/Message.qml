@@ -200,7 +200,9 @@ RowLayout {
                     text = messageObject.message.text
                 }
             }
-            Row {
+            RowLayout {
+                Layout.alignment: Qt.AlignRight
+
                 HtmlViewSheet {
                     id: htmlSheet
                     subject: ""
@@ -216,8 +218,23 @@ RowLayout {
                         htmlSheet.open()
                     }
                 }
+
+                Kirigami.Icon {
+                    source: "computer"
+                    visible: messageObject.message.isBot
+                    Layout.preferredHeight: Kirigami.Units.gridUnit
+                    Layout.preferredWidth: Kirigami.Units.gridUnit
+                }
+
+                Kirigami.Icon {
+                    source: messageObject.message.showPadlock ? "lock" : "unlock"
+                    Layout.preferredHeight: Kirigami.Units.gridUnit
+                    Layout.preferredWidth: Kirigami.Units.gridUnit
+                }
+
                 Label {
-                    Layout.fillWidth: true
+                    font.pixelSize: 14
+                    color: Kirigami.Theme.disabledTextColor
                     text: Qt.formatDateTime(messageObject.message.timestamp, "dd. MMM yyyy, hh:mm")
                         + (messageObject.message.state == 26 ? "✓"
                         : messageObject.message.state == 28 ? "✓✓"
