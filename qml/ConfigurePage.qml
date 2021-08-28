@@ -166,10 +166,16 @@ Kirigami.Page {
         target: root.eventEmitter
         function onConfigureProgress(accountId, progress, comment) {
             progressBar.value = progress / 1000.0
+            if (progress == 1000) {
+                root.context.startIo()
+            }
         }
 
         function onImexProgress(accountId, progress) {
             progressBar.value = progress / 1000.0
+            if (progress == 1000) {
+                root.context.startIo()
+            }
         }
     }
 }
