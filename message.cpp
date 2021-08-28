@@ -46,6 +46,12 @@ DcMessage::getState()
     return dc_msg_get_state(m_message);
 }
 
+QDateTime
+DcMessage::getTimestamp()
+{
+    return QDateTime::fromSecsSinceEpoch (dc_msg_get_timestamp(m_message), Qt::UTC);
+}
+
 void
 DcMessage::setText(QString text)
 {

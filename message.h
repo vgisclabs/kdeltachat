@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QDateTime>
 #include <QObject>
 
 #include <deltachat.h>
@@ -13,6 +14,7 @@ class DcMessage : public QObject {
     Q_PROPERTY(uint32_t chatId READ getChatId CONSTANT)
     Q_PROPERTY(int viewtype READ getViewtype CONSTANT)
     Q_PROPERTY(int state READ getState CONSTANT)
+    Q_PROPERTY(QDateTime timestamp READ getTimestamp CONSTANT)
     Q_PROPERTY(QString text READ getText WRITE setText)
     Q_PROPERTY(QString subject READ getSubject CONSTANT)
     Q_PROPERTY(QString file READ getFile CONSTANT)
@@ -37,7 +39,7 @@ public:
     Q_INVOKABLE uint32_t getChatId();
     Q_INVOKABLE int getViewtype();
     Q_INVOKABLE int getState();
-    //Q_INVOKABLE int64_t getTimestamp();
+    Q_INVOKABLE QDateTime getTimestamp();
     //Q_INVOKABLE int64_t getReceivedTimestamp();
     //Q_INVOKABLE int64_t getSortTimestamp();
     Q_INVOKABLE void setText(QString);

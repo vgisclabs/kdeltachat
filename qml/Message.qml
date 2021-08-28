@@ -218,10 +218,11 @@ RowLayout {
                 }
                 Label {
                     Layout.fillWidth: true
-                    text: messageObject.message.state == 26 ? "✓"
+                    text: Qt.formatDateTime(messageObject.message.timestamp, "dd. MMM yyyy, hh:mm")
+                        + (messageObject.message.state == 26 ? "✓"
                         : messageObject.message.state == 28 ? "✓✓"
                         : messageObject.message.state == 24 ? "✗"
-                        : "";
+                        : "");
                 }
             }
         }
