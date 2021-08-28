@@ -167,5 +167,9 @@ Kirigami.Page {
         function onConfigureProgress(accountId, progress, comment) {
             progressBar.value = progress / 1000.0
         }
+
+        function onImexProgress(accountId, progress) {
+            progressBar.value = progress / 1000.0
+        }
     }
 }

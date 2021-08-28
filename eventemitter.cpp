@@ -84,6 +84,10 @@ DcAccountsEventEmitter::processEvent(DcEvent *event)
                                    event->getData1Int(),
                                    event->getData2Str());
             break;
+        case DC_EVENT_IMEX_PROGRESS:
+            emit imexProgress(event->getAccountId(),
+                              event->getData1Int());
+            break;
         default:
             std::cout << "Not processing " << event->getId() << std::endl;
     }
