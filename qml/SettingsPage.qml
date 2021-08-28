@@ -78,5 +78,19 @@ Kirigami.Page {
             checked: settingsPageRoot.context.getConfig("mvbox_move") == "1"
             onToggled: settingsPageRoot.context.setConfig("mvbox_move", checked ? "1" : "0")
         }
+
+        ComboBox {
+            Kirigami.FormData.label: "Show classic emails: "
+
+            model: ListModel {
+                id: certificateChecksModel
+                ListElement { text: "No, chats only" }
+                ListElement { text: "For accepted contacts" }
+                ListElement { text: "All" }
+            }
+            textRole: "text"
+            currentIndex: settingsPageRoot.context.getConfig("show_emails")
+            onActivated: settingsPageRoot.context.setConfig("show_emails", currentIndex)
+        }
     }
 }
