@@ -57,14 +57,15 @@ Kirigami.ApplicationWindow {
 
     Component.onCompleted: {
         console.log('starting')
-        eventEmitter = dcAccounts.getEventEmitter()
-        eventEmitter.start();
 
         // Create an account if there is none.
         if (dcAccounts.getSelectedAccount() == null) {
             console.log("Adding first account");
             dcAccounts.addAccount();
         }
+
+        eventEmitter = dcAccounts.getEventEmitter()
+        eventEmitter.start();
 
         // Open selected account if there is one.
         let selectedAccount = dcAccounts.getSelectedAccount();
