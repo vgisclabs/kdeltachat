@@ -8,29 +8,10 @@ KDeltaChat build depends on
 [libdeltachat](https://github.com/deltachat/deltachat-core-rust/),
 Kirigami framework and several QML modules.
 
-## kdesrc-build
+## libdeltachat
 
-It's recommended to build KDeltaChat with [kdesrc-build](https://kdesrc-build.kde.org/).
-This allows to avoid installing `libdeltachat` system-wide and use
-upstream Kirigami instead of usually outdated packaged versions.
-
-Install it with:
-```
-mkdir -p ~/kde/src
-cd ~/kde/src
-git clone https://invent.kde.org/sdk/kdesrc-build.git
-cd kdesrc-build
-./kdesrc-build-setup
-./kdesrc-build kirigami
-```
-
-Run
-```
-source ~/.config/kde-env-master.sh
-```
-in your shell to enter `kdesrc-build` environment.
-
-## Rust
+`libdeltachat` is not packaged for most distributions, so the easiest
+way is to install it system-wide from the source.
 
 Building `libdeltachat` requires Rust.
 Install it from https://rustup.rs/ with
@@ -38,22 +19,11 @@ Install it from https://rustup.rs/ with
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
 ```
 
-## libdeltachat
-
-If you are using [`kdesrc-build`](https://kdesrc-build.kde.org/),
-add module into `~/.kdesrc-buildrc` as follows
-```
-module deltachat
-   repository https://github.com/deltachat/deltachat-core-rust.git
-end module
-```
-Then build `libdeltachat` with `kdesrc-build deltachat`.
-
-Alternatively, if you are not using `kdesrc-build`, install `libdeltachat` system-wide:
+Then, clone the source, build `libdeltachat` and install it:
 ```
 $ git clone https://github.com/deltachat/deltachat-core-rust.git
 $ cd deltachat-core-rust
-$ cmake -B build .
+$ cmake -B build . -DCMAKE_INSTALL_PREFIX=/usr
 $ cmake --build build
 $ sudo cmake --install build
 ```
@@ -116,10 +86,8 @@ zypper install -y libqt5-qtbase-devel libQt5QuickControls2-devel libqt5-quickcon
 
 ## Kirigami
 
-Build Kirigami with `kdesrc-build kirigami`.
-
-Alternatively, if you are not using `kdesrc-build`, install system package for Kirigami,
-such as `kirigami2-dev` on Debian or Ubuntu, `kirigami2` on Arch Linux or `kirigami2-devel` on OpenSUSE.
+Install system package for Kirigami, such as `kirigami2-dev` on Debian
+or Ubuntu, `kirigami2` on Arch Linux or `kirigami2-devel` on OpenSUSE.
 
 # Building
 
@@ -133,6 +101,41 @@ cmake --build build
 
 Run `build/kdeltachat`. Import existing account from backup or setup a
 new one. Start IO in the main menu to connect.
+
+# Using kdesrc-build
+
+If your distribution does not package recent enough versions of the
+Kirigami framework, or you don't want to install `libdeltachat`
+system-wide, you can use [kdesrc-build](https://kdesrc-build.kde.org/).
+
+Install it with:
+```
+mkdir -p ~/kde/src
+cd ~/kde/src
+git clone https://invent.kde.org/sdk/kdesrc-build.git
+cd kdesrc-build
+./kdesrc-build-setup
+./kdesrc-build kirigami
+```
+
+Run
+```
+source ~/.config/kde-env-master.sh
+```
+in your shell to enter `kdesrc-build` environment.
+
+To build `libdeltachat` with `kdesrc-build`,
+add module into `~/.kdesrc-buildrc` as follows
+```
+module deltachat
+   repository https://github.com/deltachat/deltachat-core-rust.git
+end module
+```
+Then build `libdeltachat` with `kdesrc-build deltachat`.
+
+Build Kirigami with `kdesrc-build kirigami`.
+
+Then build `kdeltachat` as described above.
 
 # Troubleshooting
 
