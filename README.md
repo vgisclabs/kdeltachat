@@ -100,7 +100,7 @@ cmake --build build
 # Running
 
 Run `build/kdeltachat`. Import existing account from backup or setup a
-new one. Start IO in the main menu to connect.
+new one.
 
 # Using kdesrc-build
 
