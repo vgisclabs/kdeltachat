@@ -5,7 +5,7 @@ import org.kde.kirigami 2.12 as Kirigami
 
 import DeltaChat 1.0
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     id: settingsPageRoot
 
     title: "Settings"
@@ -13,8 +13,6 @@ Kirigami.Page {
     required property DcContext context
 
     Kirigami.FormLayout {
-        anchors.fill: parent
-
         Image {
             Kirigami.FormData.label: "Avatar: "
 
