@@ -200,6 +200,17 @@ RowLayout {
                     text = messageObject.message.text
                 }
             }
+
+            Button {
+                text: "Show full message"
+                visible: messageObject.message.hasHtml
+                onPressed: {
+                    htmlSheet.subject = messageObject.message.subject
+                    htmlSheet.html = messageObject.context.getMessageHtml(messageObject.message.id)
+                    htmlSheet.open()
+                }
+            }
+
             RowLayout {
                 Layout.alignment: Qt.AlignRight
 
@@ -209,15 +220,6 @@ RowLayout {
                     html: ""
                 }
 
-                Button {
-                    text: "Show full message"
-                    visible: messageObject.message.hasHtml
-                    onPressed: {
-                        htmlSheet.subject = messageObject.message.subject
-                        htmlSheet.html = messageObject.context.getMessageHtml(messageObject.message.id)
-                        htmlSheet.open()
-                    }
-                }
 
                 Kirigami.Icon {
                     source: "computer"
