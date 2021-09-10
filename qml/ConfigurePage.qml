@@ -7,7 +7,7 @@ import org.kde.kirigami 2.12 as Kirigami
 
 import DeltaChat 1.0
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     title: qsTr("Configure account")
     id: root
 
@@ -22,23 +22,7 @@ Kirigami.Page {
         }
     ]
 
-    FileDialog {
-        id: importBackupDialog
-        title: "Import backup"
-        folder: shortcuts.home
-        onAccepted: {
-            var url = importBackupDialog.fileUrl.toString()
-            if (url.startsWith("file://")) {
-                var filename = url.substring(7)
-                console.log("Importing " + filename)
-                root.context.importBackup(filename)
-            }
-        }
-    }
-
     Kirigami.FormLayout {
-        anchors.fill: parent
-
         TextField {
             id: addressField
 
@@ -160,21 +144,35 @@ Kirigami.Page {
                 root.context.configure()
             }
         }
-    }
 
-    Connections {
-        target: root.eventEmitter
-        function onConfigureProgress(accountId, progress, comment) {
-            progressBar.value = progress / 1000.0
-            if (progress == 1000) {
-                root.context.startIo()
+        FileDialog {
+            id: importBackupDialog
+            title: "Import backup"
+            folder: shortcuts.home
+            onAccepted: {
+                var url = importBackupDialog.fileUrl.toString()
+                if (url.startsWith("file://")) {
+                    var filename = url.substring(7)
+                    console.log("Importing " + filename)
+                    root.context.importBackup(filename)
+                }
             }
         }
 
-        function onImexProgress(accountId, progress) {
-            progressBar.value = progress / 1000.0
-            if (progress == 1000) {
-                root.context.startIo()
+        Connections {
+            target: root.eventEmitter
+            function onConfigureProgress(accountId, progress, comment) {
+                progressBar.value = progress / 1000.0
+                if (progress == 1000) {
+                    root.context.startIo()
+                }
+            }
+
+            function onImexProgress(accountId, progress) {
+                progressBar.value = progress / 1000.0
+                if (progress == 1000) {
+                    root.context.startIo()
+                }
             }
         }
     }
