@@ -118,6 +118,28 @@ Kirigami.ScrollablePage {
             textRole: "text"
         }
 
+        Switch {
+            id: socks5Enabled
+            text: "SOCKS5 enabled"
+        }
+        TextField {
+            id: socks5Host
+            Kirigami.FormData.label: "SOCKS5 host: "
+        }
+        TextField {
+            id: socks5Port
+            Kirigami.FormData.label: "SOCKS5 port: "
+        }
+        TextField {
+            id: socks5Username
+            Kirigami.FormData.label: "SOCKS5 username: "
+        }
+        TextField {
+            id: socks5Password
+            Kirigami.FormData.label: "Password: "
+            echoMode: TextInput.PasswordEchoOnEdit
+        }
+
         ProgressBar {
             id: progressBar
             value: 0.0
@@ -141,6 +163,11 @@ Kirigami.ScrollablePage {
                 let certificate_checks = certificateChecks.model.get(certificateChecks.currentIndex).value;
                 root.context.setConfig("imap_certificate_checks", certificate_checks)
                 root.context.setConfig("smtp_certificate_checks", certificate_checks)
+                root.context.setConfig("socks5_enabled", socks5Enabled.checked ? "1" : "0")
+                root.context.setConfig("socks5_host", socks5Host.text)
+                root.context.setConfig("socks5_port", socks5Port.text)
+                root.context.setConfig("socks5_user", socks5Username.text)
+                root.context.setConfig("socks5_password", socks5Password.text)
                 root.context.configure()
             }
         }

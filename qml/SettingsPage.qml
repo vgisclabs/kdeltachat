@@ -90,5 +90,36 @@ Kirigami.ScrollablePage {
             currentIndex: root.context.getConfig("show_emails")
             onActivated: root.context.setConfig("show_emails", currentIndex)
         }
+
+        Switch {
+            text: "SOCKS5 enabled"
+            checked: settingsPageRoot.context.getConfig("socks5_enabled") == "1"
+            onToggled: settingsPageRoot.context.setConfig("socks5_enabled", checked ? "1" : "0")
+        }
+
+        TextField {
+            Kirigami.FormData.label: "SOCKS5 host: "
+            text: settingsPageRoot.context.getConfig("socks5_host")
+            onEditingFinished: settingsPageRoot.context.setConfig("socks5_host", text)
+        }
+
+        TextField {
+            Kirigami.FormData.label: "SOCKS5 port: "
+            text: settingsPageRoot.context.getConfig("socks5_port")
+            onEditingFinished: settingsPageRoot.context.setConfig("socks5_port", text)
+        }
+
+        TextField {
+            Kirigami.FormData.label: "SOCKS5 username: "
+            text: settingsPageRoot.context.getConfig("socks5_user")
+            onEditingFinished: settingsPageRoot.context.setConfig("socks5_user", text)
+        }
+
+        TextField {
+            Kirigami.FormData.label: "SOCKS5 password: "
+            echoMode: TextInput.PasswordEchoOnEdit
+            text: settingsPageRoot.context.getConfig("socks5_password")
+            onEditingFinished: settingsPageRoot.context.setConfig("socks5_password", text)
+        }
     }
 }
