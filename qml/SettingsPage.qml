@@ -1,21 +1,19 @@
+import DeltaChat 1.0
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import org.kde.kirigami 2.12 as Kirigami
 
-import DeltaChat 1.0
-
 Kirigami.ScrollablePage {
     id: root
 
-    title: "Settings"
-
     required property DcContext context
+
+    title: "Settings"
 
     Kirigami.FormLayout {
         Image {
             Kirigami.FormData.label: "Avatar: "
-
             source: "file:" + root.context.getConfig("selfavatar")
         }
 
@@ -29,7 +27,6 @@ Kirigami.ScrollablePage {
 
         TextArea {
             Kirigami.FormData.label: "Signature: "
-
             text: root.context.getConfig("selfstatus")
             onEditingFinished: root.context.setConfig("selfstatus", text)
             selectByMouse: true
@@ -79,16 +76,27 @@ Kirigami.ScrollablePage {
 
         ComboBox {
             Kirigami.FormData.label: "Show classic emails: "
-
-            model: ListModel {
-                id: certificateChecksModel
-                ListElement { text: "No, chats only" }
-                ListElement { text: "For accepted contacts" }
-                ListElement { text: "All" }
-            }
             textRole: "text"
             currentIndex: root.context.getConfig("show_emails")
             onActivated: root.context.setConfig("show_emails", currentIndex)
+
+            model: ListModel {
+                id: certificateChecksModel
+
+                ListElement {
+                    text: "No, chats only"
+                }
+
+                ListElement {
+                    text: "For accepted contacts"
+                }
+
+                ListElement {
+                    text: "All"
+                }
+
+            }
+
         }
 
         Switch {
@@ -121,5 +129,7 @@ Kirigami.ScrollablePage {
             text: settingsPageRoot.context.getConfig("socks5_password")
             onEditingFinished: settingsPageRoot.context.setConfig("socks5_password", text)
         }
+
     }
+
 }
