@@ -10,12 +10,18 @@ Pane {
     required property DcContext context
     required property var chatId
     required property var chat
+    property var attachFileUrl: ""
     property bool canSend: root.chat && root.chat.canSend
     property bool isContactRequest: root.chat && root.chat.isContactRequest
 
     function createMessage() {
         let DC_MSG_TEXT = 10;
-        var msg = root.context.newMessage(DC_MSG_TEXT);
+        let DC_MSG_FILE = 60;
+
+        if (attachFileUrl.length > 0)
+            var msg = root.context.newMessage(DC_MSG_FILE);
+        else
+            var msg = root.context.newMessage(DC_MSG_TEXT);
         msg.setText(messageField.text);
         return msg;
     }
@@ -30,8 +36,8 @@ Pane {
         onAccepted: {
             var url = attachFileDialog.fileUrl.toString()
             if (url.startsWith("file://")) {
-                var filename = url.substring(7)
-                console.log("Attaching " + filename)
+                attachFileUrl = url.substring(7)
+                console.log("Attaching " + attachFileUrl)
             }
         }
     }
@@ -83,10 +89,15 @@ Pane {
             Layout.alignment: Qt.AlignBottom
             icon.name: "document-send"
             text: qsTr("Send")
-            enabled: messageField.length > 0
+            enabled: messageField.length > 0 | attachFileUrl.length > 0
             onClicked: {
                 let msg = root.createMessage();
-                root.context.sendMessage(root.chatId, msg);
+                if (attachFileUrl.length > 0)
+                    root.context.sendMessage(root.chatId, msg, attachFileUrl)
+                else
+                    root.context.sendMessage(root.chatId, msg, "")
+
+                attachFileUrl = "";
                 messageField.text = "";
                 root.context.setDraft(chatId, null);
             }

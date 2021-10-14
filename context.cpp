@@ -1,4 +1,7 @@
 #include "context.h"
+#include <strings.h>
+#include <QTextStream>
+#include <QFile>
 
 Context::Context(QObject *parent)
     : QObject(parent)
@@ -264,8 +267,20 @@ Context::newMessage(int viewtype)
 }
 
 uint32_t
-Context::sendMessage(uint32_t chatId, DcMessage *message)
+Context::sendMessage(uint32_t chatId, DcMessage *message, QString attachment)
 {
+    QByteArray utf8attachFilename = attachment.toUtf8();
+    if(strlen(utf8attachFilename.constData()) > 0){
+        dc_msg_set_file(message->m_message, utf8attachFilename.constData(), NULL);
+
+        QString ImgBlobPath;
+        QTextStream (&ImgBlobPath) << dc_get_blobdir(m_context) << "/" << dc_msg_get_filename(message->m_message);
+
+        printf("\nPush it into blob dir :%s\n", ImgBlobPath.toUtf8().constData());
+        QFile::copy(attachment, ImgBlobPath.toUtf8().constData());
+        dc_msg_set_file(message->m_message, ImgBlobPath.toUtf8().constData(), NULL);
+    }
+    dc_prepare_msg(m_context, chatId, message->m_message);
     return dc_send_msg(m_context, chatId, message->m_message);
 }
 
