@@ -1,6 +1,7 @@
 import DeltaChat 1.0
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Dialogs 1.3
 import QtQuick.Layouts 1.12
 import org.kde.kirigami 2.12 as Kirigami
 
@@ -13,8 +14,33 @@ Kirigami.ScrollablePage {
 
     Kirigami.FormLayout {
         Image {
+            id: pfp
             Kirigami.FormData.label: "Avatar: "
             source: "file:" + root.context.getConfig("selfavatar")
+        }
+
+        FileDialog{
+            id: changePfpDialog
+            folder: shortcuts.pictures
+            nameFilters: [ "Image files (*.jpg *.png *.gif)" ]
+            onAccepted: {
+                var url = changePfpDialog.fileUrl.toString();
+                if (url.startsWith("file://") && url.length > 0) {
+                    var filename = url.substring(7);
+                    console.log("Set avatar to : " + filename)
+                    root.context.setConfig("selfavatar", filename)
+                    pfp.source = "file:" + root.context.getConfig("selfavatar")
+                }
+            }
+
+        }
+
+        Button {
+            id: changePfpBtn
+            text: "Change avatar"
+            icon.name: "avatar-default"
+            hoverEnabled: true
+            onClicked: changePfpDialog.open()
         }
 
         TextField {
