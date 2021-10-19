@@ -42,6 +42,7 @@ Kirigami.ScrollablePage {
             text: "Change avatar"
             icon.name: "avatar-default"
             hoverEnabled: true
+            anchors.horizontalCenter: pfp.horizontalCenter
             onClicked: changePfpDialog.open()
         }
 
