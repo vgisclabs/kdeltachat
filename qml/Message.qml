@@ -82,6 +82,7 @@ RowLayout {
 
                     source: Qt.resolvedUrl("file:" + root.message.file)
                     onError: console.log("Audio MediaPlayer error: " + errorString)
+                    onPlaybackStateChanged: playbackState == 1 ? audioBtn.text = "pause" : audioBtn.text = "play"
                 }
 
                 Label {
@@ -91,8 +92,10 @@ RowLayout {
                 }
 
                 Button {
+                    id: audioBtn
+
                     text: "play"
-                    onPressed: player.play()
+                    onPressed: player.playbackState == 1 ? player.pause() : player.play()
                 }
 
             }
