@@ -163,6 +163,19 @@ RowLayout {
         }
 
         Component {
+            id: anyFileView
+
+            ColumnLayout {
+                Label {
+                    font.bold: true
+                    text: "File - " + root.message.filename
+                }
+
+            }
+
+        }
+
+        Component {
             id: textMessageView
 
             Label {
@@ -216,6 +229,7 @@ RowLayout {
                 sourceComponent: [20, 21, 23].includes(root.message.viewtype) ? imageMessageView
                 : [40, 41].includes(root.message.viewtype) ? audioMessageView
                 : [50].includes(root.message.viewtype) ? videoMessageView
+                : [60].includes(root.message.viewtype) ? anyFileView
                 : textMessageView
             }
 
