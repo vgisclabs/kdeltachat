@@ -12,6 +12,8 @@ RowLayout {
 
     property DcMessage message
     property DcContext context
+    property var saveAsUrl: ""
+    property var saveSuccess: false
     readonly property DcContact from: context.getContact(message.fromId)
     readonly property DcMessage quoteMessage: message.quotedMessage
     readonly property DcContact quoteFrom: quoteMessage ? context.getContact(quoteMessage.fromId) : null
@@ -30,6 +32,49 @@ RowLayout {
             if (root.chatId != 1)
                 root.context.markseenMsgs([root.message.id]);
 
+        }
+    }
+
+    Popup {
+        id: saveAsPopup
+
+        modal: true
+        focus: true
+        anchors.centerIn: parent
+        width: 400
+        height: 100
+        padding: 10
+        onClosed: saveAsUrl = ""
+        contentChildren: [
+            Text {
+                text: saveSuccess == true ? "Success !" : "Failure !"
+                bottomPadding: 10
+                font.bold: true
+                font.pixelSize: 14
+            },
+            Text {
+                text: saveSuccess == true ? "The file has been saved locally at <br><b>" + saveAsUrl + "</b>" : "An error was detected. Maybe you<br>dont have enough permissions to copy the file to <br><b>" + saveAsUrl + "</b>"
+                topPadding: 20
+                leftPadding: 10
+                bottomPadding: 20
+            }
+        ]
+    }
+
+    FileDialog {
+        id: saveAsDialog
+
+        title: "Save attachment `" + root.message.filename + "` as ..."
+        folder: shortcuts.home
+        selectFolder: false
+        selectExisting: false
+        onAccepted: {
+            var url = saveAsDialog.fileUrl.toString();
+            if (url.startsWith("file://")) {
+                saveAsUrl = url.substring(7);
+                saveSuccess = root.message.saveAttach(saveAsUrl);
+                saveAsPopup.open();
+            }
         }
     }
 
@@ -171,6 +216,12 @@ RowLayout {
                     text: "File - " + root.message.filename
                 }
 
+                Button {
+                    icon.name: "document-save-as"
+                    text: "Save attachment"
+                    onClicked: saveAsDialog.open()
+                }
+
             }
 
         }
@@ -213,9 +264,22 @@ RowLayout {
             Menu {
                 id: contextMenu
 
+                Component.onCompleted: {
+                    if (!root.message.filename.length > 0)
+                        contextMenu.removeAction(saveAsContext);
+
+                }
+
                 Action {
                     text: "Info"
                     onTriggered: messageDialog.open()
+                }
+
+                Action {
+                    id: saveAsContext
+
+                    text: "Save attachment as ..."
+                    onTriggered: saveAsDialog.open()
                 }
 
             }

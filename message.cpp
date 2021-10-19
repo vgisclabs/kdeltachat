@@ -52,6 +52,24 @@ DcMessage::getTimestamp()
     return QDateTime::fromSecsSinceEpoch (dc_msg_get_timestamp(m_message), Qt::UTC);
 }
 
+bool
+DcMessage::saveAttach(QString dest) {
+    if (!dest.isNull()) {
+        char *file = dc_msg_get_file(m_message);
+        QString fileUrl{file};
+        dc_str_unref(file);
+
+        // We need to replace, so we delete the file first.
+        if (QFile::exists(dest)) {
+            if (!QFile::remove(dest))
+                return false;
+        }
+        return QFile::copy(fileUrl, dest);
+    } else {
+        return false;
+    }
+}
+
 void
 DcMessage::setText(QString text)
 {
