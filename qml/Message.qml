@@ -93,6 +93,7 @@ RowLayout {
                 }
 
                 Label {
+                    padding: 5
                     font.bold: true
                     color: root.message.fromId > 0 ? root.from.color : "black"
                     text: root.displayName
@@ -116,6 +117,7 @@ RowLayout {
                 }
 
                 Label {
+                    padding: 5
                     font.bold: true
                     text: "Audio - " + root.message.filename
                     textFormat: Text.PlainText
@@ -183,6 +185,7 @@ RowLayout {
                 }
 
                 Label {
+                    padding: 5
                     font.bold: true
                     text: "Video - " + root.message.filename
                     textFormat: Text.PlainText
@@ -197,11 +200,13 @@ RowLayout {
 
             ColumnLayout {
                 Label {
+                    padding: 5
                     font.bold: true
                     text: "File - " + root.message.filename
                 }
 
                 Button {
+                    padding: 5
                     icon.name: "document-save-as"
                     text: "Save attachment"
                     onClicked: saveAsDialog.open()
@@ -215,6 +220,7 @@ RowLayout {
             id: textMessageView
 
             Label {
+                padding: 5
                 font.bold: true
                 color: root.message.fromId > 0 ? root.from.color : "black"
                 text: root.displayName
@@ -319,6 +325,7 @@ RowLayout {
                 color: "black"
                 wrapMode: Text.Wrap
                 font.pixelSize: 14
+                padding: 5
                 Component.onCompleted: {
                     text = root.message.text;
                 }
