@@ -86,7 +86,7 @@ RowLayout {
 
                 Label {
                     font.bold: true
-                    text: "Audio"
+                    text: "Audio - " + root.message.filename
                     textFormat: Text.PlainText
                 }
 
@@ -116,7 +116,7 @@ RowLayout {
 
                 Label {
                     font.bold: true
-                    text: "Video"
+                    text: "Video - " + root.message.filename
                     textFormat: Text.PlainText
                 }
 
