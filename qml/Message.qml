@@ -53,6 +53,13 @@ RowLayout {
                     Layout.maximumWidth: Kirigami.Units.gridUnit * 30
                     Layout.maximumHeight: Kirigami.Units.gridUnit * 20
                     asynchronous: true
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: Qt.openUrlExternally("file:" + root.message.file)
+                    }
+
                 }
 
                 Label {
