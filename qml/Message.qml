@@ -110,22 +110,52 @@ RowLayout {
                     id: videoplayer
 
                     source: Qt.resolvedUrl("file:" + root.message.file)
+                    autoPlay: true
+                    muted: true
                     onError: console.log("Video MediaPlayer error: " + errorString)
+                    onStatusChanged: {
+                        // Reset the video to the first frame when it is finished.
+                        //
+                        // We also autoplay the muted video and pause
+                        // immediately when it is loaded to display the first
+                        // frame as a thumbnail.  Qt 5.13 introduced the
+                        // VideoPlayer.flushMode allowing to display the first
+                        // frame when the video is stopped, but it still does
+                        // not allow to display the first frame when the video
+                        // is loaded for the first time.
+                        // See discussion at https://bugreports.qt.io/browse/QTBUG-37301
+
+                        if (status == MediaPlayer.Buffered || status == MediaPlayer.EndOfMedia) {
+                            pause();
+                            seek(-1);
+                        }
+                    }
                 }
 
                 VideoOutput {
+                    Layout.preferredWidth: root.width
+                    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
+                    Layout.maximumHeight: Kirigami.Units.gridUnit * 20
                     source: videoplayer
+
+                    MouseArea {
+                        cursorShape: Qt.PointingHandCursor
+                        anchors.fill: parent
+                        onClicked: {
+                            videoplayer.muted = false;
+                            if (videoplayer.playbackState == 1)
+                                videoplayer.pause();
+                            else
+                                videoplayer.play();
+                        }
+                    }
+
                 }
 
                 Label {
                     font.bold: true
                     text: "Video - " + root.message.filename
                     textFormat: Text.PlainText
-                }
-
-                Button {
-                    text: "play"
-                    onPressed: videoplayer.play()
                 }
 
             }
