@@ -53,9 +53,17 @@ RowLayout {
                     Layout.maximumWidth: Kirigami.Units.gridUnit * 30
                     Layout.maximumHeight: Kirigami.Units.gridUnit * 20
                     asynchronous: true
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: Qt.openUrlExternally("file:" + root.message.file)
+                    }
+
                 }
 
                 Label {
+                    padding: 5
                     font.bold: true
                     color: root.message.fromId > 0 ? root.from.color : "black"
                     text: root.displayName
@@ -75,17 +83,21 @@ RowLayout {
 
                     source: Qt.resolvedUrl("file:" + root.message.file)
                     onError: console.log("Audio MediaPlayer error: " + errorString)
+                    onPlaybackStateChanged: playbackState == 1 ? audioBtn.text = "pause" : audioBtn.text = "play"
                 }
 
                 Label {
+                    padding: 5
                     font.bold: true
-                    text: "Audio"
+                    text: "Audio - " + root.message.filename
                     textFormat: Text.PlainText
                 }
 
                 Button {
+                    id: audioBtn
+
                     text: "play"
-                    onPressed: player.play()
+                    onPressed: player.playbackState == 1 ? player.pause() : player.play()
                 }
 
             }
@@ -100,22 +112,69 @@ RowLayout {
                     id: videoplayer
 
                     source: Qt.resolvedUrl("file:" + root.message.file)
+                    autoPlay: true
+                    autoLoad: false
+                    muted: true
                     onError: console.log("Video MediaPlayer error: " + errorString)
+                    // Credit to https://stackoverflow.com/questions/65909975/show-video-preview-thumbnail-of-video-using-qml for video thumbnail with Qt ver < Qt5.15
+                    onStatusChanged: {
+                        if (status == MediaPlayer.Buffered) {
+                            pause();
+                            seek(-1);
+                        }
+                        if (status == 7) {
+                            pause();
+                            seek(-1);
+                        }
+                    }
                 }
 
                 VideoOutput {
+                    Layout.preferredWidth: root.width
+                    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
+                    Layout.maximumHeight: Kirigami.Units.gridUnit * 20
                     source: videoplayer
+
+                    MouseArea {
+                        cursorShape: Qt.PointingHandCursor
+                        anchors.fill: parent
+                        onClicked: {
+                            videoplayer.muted = false;
+                            if (videoplayer.playbackState == 1)
+                                videoplayer.pause();
+                            else
+                                videoplayer.play();
+                        }
+                    }
+
                 }
 
                 Label {
+                    padding: 5
                     font.bold: true
-                    text: "Video"
+                    text: "Video - " + root.message.filename
                     textFormat: Text.PlainText
                 }
 
+            }
+
+        }
+
+        Component {
+            id: anyFileView
+
+            ColumnLayout {
+                Label {
+                    padding: 5
+                    font.bold: true
+                    text: "File - " + root.message.filename
+                }
+
                 Button {
-                    text: "play"
-                    onPressed: videoplayer.play()
+                    padding: 5
+                    icon.name: "document-save-as"
+                    text: "Save attachment"
+                    onClicked: console.log("dummy")
                 }
 
             }
@@ -126,6 +185,7 @@ RowLayout {
             id: textMessageView
 
             Label {
+                padding: 5
                 font.bold: true
                 color: root.message.fromId > 0 ? root.from.color : "black"
                 text: root.displayName
@@ -176,6 +236,7 @@ RowLayout {
                 sourceComponent: [20, 21, 23].includes(root.message.viewtype) ? imageMessageView
                 : [40, 41].includes(root.message.viewtype) ? audioMessageView
                 : [50].includes(root.message.viewtype) ? videoMessageView
+                : [60].includes(root.message.viewtype) ? anyFileView
                 : textMessageView
             }
 
@@ -216,6 +277,7 @@ RowLayout {
                 color: "black"
                 wrapMode: Text.Wrap
                 font.pixelSize: 14
+                padding: 5
                 Component.onCompleted: {
                     text = root.message.text;
                 }
