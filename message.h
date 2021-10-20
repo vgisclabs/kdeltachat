@@ -2,6 +2,7 @@
 
 #include <QDateTime>
 #include <QObject>
+#include <QFile>
 
 #include <deltachat.h>
 
@@ -44,6 +45,7 @@ public:
     Q_INVOKABLE QDateTime getTimestamp();
     //Q_INVOKABLE int64_t getReceivedTimestamp();
     //Q_INVOKABLE int64_t getSortTimestamp();
+    Q_INVOKABLE bool saveAttach(QString);
     Q_INVOKABLE void setText(QString);
     Q_INVOKABLE void setFile(QString);
     Q_INVOKABLE QString getText();
