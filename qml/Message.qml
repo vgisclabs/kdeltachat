@@ -128,7 +128,12 @@ RowLayout {
 
                     source: Qt.resolvedUrl("file:" + root.message.file)
                     onError: console.log("Audio MediaPlayer error: " + errorString)
-                    onPlaybackStateChanged: playbackState == 1 ? audioBtn.text = "pause" : audioBtn.text = "play"
+                    onPlaybackStateChanged: {
+                        if (playbackState == 1)
+                            audioBtn.text = "\u23F8 pause";
+                        else
+                            audioBtn.text = "\u25B6 play";
+                    }
                 }
 
                 Label {
@@ -141,8 +146,13 @@ RowLayout {
                 Button {
                     id: audioBtn
 
-                    text: "play"
-                    onPressed: player.playbackState == 1 ? player.pause() : player.play()
+                    text: "\u25B6 play"
+                    onPressed: {
+                        if (player.playbackState == 1)
+                            player.pause();
+                        else
+                            player.play();
+                    }
                 }
 
             }
@@ -217,8 +227,7 @@ RowLayout {
 
                 Button {
                     padding: 5
-                    icon.name: "document-save-as"
-                    text: "Save attachment"
+                    text: "<h1>\u2B07</h1> Save attachment"
                     onClicked: saveAsDialog.open()
                 }
 

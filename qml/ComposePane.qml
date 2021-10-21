@@ -51,6 +51,9 @@ Pane {
 
             visible: root.canSend
             text: attachFileUrl.length > 0 ? qsTr("Detach") : qsTr("Attach")
+            hoverEnabled: true
+            ToolTip.visible: hovered
+            ToolTip.text: attachFileUrl.length > 0 ? "Ctrl+O<br>Attached file is <b>" + attachFileUrl + "</b>" : "Ctrl+O"
             Layout.alignment: Qt.AlignBottom
             icon.name: "mail-attachment"
             onClicked: {
@@ -59,6 +62,12 @@ Pane {
                 else
                     attachFileDialog.open();
             }
+
+            action: Action {
+                shortcut: "Ctrl+O"
+                onTriggered: attachButton.click()
+            }
+
         }
 
         TextArea {
@@ -89,6 +98,9 @@ Pane {
         Button {
             id: sendButton
 
+            hoverEnabled: true
+            ToolTip.visible: hovered
+            ToolTip.text: "Ctrl+S"
             visible: root.canSend
             Layout.alignment: Qt.AlignBottom
             icon.name: "document-send"
@@ -101,6 +113,16 @@ Pane {
                 messageField.text = "";
                 root.context.setDraft(chatId, null);
             }
+
+            action: Action {
+                shortcut: "Ctrl+S"
+                onTriggered: {
+                    if (sendButton.enabled == true)
+                        sendButton.click();
+
+                }
+            }
+
         }
 
         Button {

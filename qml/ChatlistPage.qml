@@ -94,7 +94,9 @@ Kirigami.ScrollablePage {
     contextualActions: [
         Kirigami.Action {
             text: "Settings"
-            iconName: "configure"
+            tooltip: "Shift+Tab"
+            iconName: "system-run"
+            shortcut: "Shift+Tab"
             onTriggered: {
                 let settingsPageComponent = Qt.createComponent("qrc:/qml/SettingsPage.qml");
                 if (settingsPageComponent.status == Component.Ready) {
@@ -162,6 +164,8 @@ Kirigami.ScrollablePage {
     mainAction: Kirigami.Action {
         text: "New chat"
         iconName: "list-add"
+        shortcut: "Ctrl+N"
+        tooltip: "Ctrl+N"
         onTriggered: {
             let newChatPageComponent = Qt.createComponent("qrc:/qml/NewChatPage.qml");
             if (newChatPageComponent.status == Component.Ready) {
