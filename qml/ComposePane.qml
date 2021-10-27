@@ -1,8 +1,8 @@
 import DeltaChat 1.0
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.3
+import QtQuick.Layouts 1.12
 
 Pane {
     id: root
@@ -17,13 +17,12 @@ Pane {
     function createMessage() {
         let DC_MSG_TEXT = 10;
         let DC_MSG_FILE = 60;
-
         if (attachFileUrl.length > 0) {
             var msg = root.context.newMessage(DC_MSG_FILE);
-            msg.setFile(attachFileUrl)
-        } else
+            msg.setFile(attachFileUrl);
+        } else {
             var msg = root.context.newMessage(DC_MSG_TEXT);
-
+        }
         msg.setText(messageField.text);
         return msg;
     }
@@ -32,14 +31,14 @@ Pane {
 
     FileDialog {
         id: attachFileDialog
+
         title: "Attach"
         folder: shortcuts.home
-
         onAccepted: {
-            var url = attachFileDialog.fileUrl.toString()
+            var url = attachFileDialog.fileUrl.toString();
             if (url.startsWith("file://")) {
-                attachFileUrl = url.substring(7)
-                console.log("Attaching " + attachFileUrl)
+                attachFileUrl = url.substring(7);
+                console.log("Attaching " + attachFileUrl);
             }
         }
     }
@@ -49,19 +48,16 @@ Pane {
 
         Button {
             id: attachButton
+
             visible: root.canSend
             text: attachFileUrl.length > 0 ? qsTr("Detach") : qsTr("Attach")
-
             Layout.alignment: Qt.AlignBottom
-
             icon.name: "mail-attachment"
-
             onClicked: {
-                if (attachFileUrl.length > 0) {
-                    attachFileUrl = ""
-                } else {
-                    attachFileDialog.open()
-                }
+                if (attachFileUrl.length > 0)
+                    attachFileUrl = "";
+                else
+                    attachFileDialog.open();
             }
         }
 
@@ -100,8 +96,7 @@ Pane {
             enabled: messageField.length > 0 | attachFileUrl.length > 0
             onClicked: {
                 let msg = root.createMessage();
-                root.context.sendMessage(root.chatId, msg)
-
+                root.context.sendMessage(root.chatId, msg);
                 attachFileUrl = "";
                 messageField.text = "";
                 root.context.setDraft(chatId, null);

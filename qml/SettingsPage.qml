@@ -15,28 +15,30 @@ Kirigami.ScrollablePage {
     Kirigami.FormLayout {
         Image {
             id: pfp
+
             Kirigami.FormData.label: "Avatar: "
             source: "file:" + root.context.getConfig("selfavatar")
         }
 
-        FileDialog{
+        FileDialog {
             id: changePfpDialog
+
             folder: shortcuts.pictures
-            nameFilters: [ "Image files (*.jpg *.png *.gif)" ]
+            nameFilters: ["Image files (*.jpg *.png *.gif)"]
             onAccepted: {
                 var url = changePfpDialog.fileUrl.toString();
                 if (url.startsWith("file://") && url.length > 0) {
                     var filename = url.substring(7);
-                    console.log("Set avatar to : " + filename)
-                    root.context.setConfig("selfavatar", filename)
-                    pfp.source = "file:" + root.context.getConfig("selfavatar")
+                    console.log("Set avatar to : " + filename);
+                    root.context.setConfig("selfavatar", filename);
+                    pfp.source = "file:" + root.context.getConfig("selfavatar");
                 }
             }
-
         }
 
         Button {
             id: changePfpBtn
+
             text: "Change avatar"
             icon.name: "avatar-default"
             hoverEnabled: true
