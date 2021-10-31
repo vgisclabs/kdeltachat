@@ -171,6 +171,11 @@ Kirigami.ApplicationWindow {
                 tooltip: "F1"
                 iconName: "preferences-desktop-keyboard"
                 onTriggered: helpPopup.open()
+            },
+            Kirigami.Action {
+                text: "Quit"
+                tooltip: "Ctrl+Q"
+                onTriggered: root.close()
             }
         ]
 
