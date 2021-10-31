@@ -29,6 +29,28 @@ Pane {
 
     padding: 0
 
+    Shortcut {
+        sequence: "Ctrl+S"
+        onActivated: {
+            if (sendButton.enabled) {
+                sendButton.focus = true;
+                sendButton.clicked();
+                sendButton.focus = false;
+            }
+        }
+    }
+
+    Shortcut {
+        sequence: "Ctrl+O"
+        onActivated: {
+            if (attachButton.enabled) {
+                attachButton.focus = true;
+                attachButton.clicked();
+                attachButton.focus = false;
+            }
+        }
+    }
+
     FileDialog {
         id: attachFileDialog
 

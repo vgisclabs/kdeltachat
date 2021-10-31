@@ -86,6 +86,13 @@ Kirigami.ScrollablePage {
          * item height from the height of currently visible messages.
          */
         verticalLayoutDirection: ListView.BottomToTop
+        ScrollBar.vertical: ScrollBar {
+            wheelEnabled: true
+            hoverEnabled: true
+            background: Rectangle {
+                opacity: hovered ? 1 : 0.0
+            }
+        }
 
         delegate: Message {
             message: root.context.getMessage(msgId)

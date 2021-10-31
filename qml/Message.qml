@@ -12,8 +12,13 @@ RowLayout {
 
     property DcMessage message
     property DcContext context
-    property var saveAsUrl: ""
-    property var saveSuccess: false
+    property string saveAsUrl: ""
+    property bool saveSuccess: false
+    readonly property string attachFile: "file:" + root.message.fileReadOnly
+    readonly property string attachFn: root.message.filename
+    readonly property int maxW: Kirigami.Units.gridUnit * 30
+    readonly property int maxH: Kirigami.Units.gridUnit * 20
+
     readonly property DcContact from: context.getContact(message.fromId)
     readonly property DcMessage quoteMessage: message.quotedMessage
     readonly property DcContact quoteFrom: quoteMessage ? context.getContact(quoteMessage.fromId) : null
@@ -64,7 +69,7 @@ RowLayout {
     FileDialog {
         id: saveAsDialog
 
-        title: "Save attachment `" + root.message.filename + "` as ..."
+        title: "Save attachment `" + attachFn + "` as ..."
         folder: shortcuts.home
         selectFolder: false
         selectExisting: false
@@ -89,30 +94,26 @@ RowLayout {
             id: imageMessageView
 
             ColumnLayout {
+                Loader {
+                    sourceComponent: textMessageView
+                }
+
                 Image {
-                    source: "file:" + root.message.file
+                    source: attachFile
                     sourceSize.width: root.message.width
                     sourceSize.height: root.message.height
                     fillMode: Image.PreserveAspectCrop
                     Layout.preferredWidth: root.width
-                    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
-                    Layout.maximumHeight: Kirigami.Units.gridUnit * 20
+                    Layout.maximumWidth: maxW
+                    Layout.maximumHeight: maxH
                     asynchronous: true
 
                     MouseArea {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: Qt.openUrlExternally("file:" + root.message.file)
+                        onClicked: Qt.openUrlExternally(attachFile)
                     }
 
-                }
-
-                Label {
-                    padding: 5
-                    font.bold: true
-                    color: root.message.fromId > 0 ? root.from.color : "black"
-                    text: root.displayName
-                    textFormat: Text.PlainText
                 }
 
             }
@@ -123,10 +124,14 @@ RowLayout {
             id: audioMessageView
 
             ColumnLayout {
+                Loader {
+                    sourceComponent: textMessageView
+                }
+
                 MediaPlayer {
                     id: player
 
-                    source: Qt.resolvedUrl("file:" + root.message.file)
+                    source: attachFile
                     onError: console.log("Audio MediaPlayer error: " + errorString)
                     onPlaybackStateChanged: {
                         if (playbackState == 1)
@@ -139,7 +144,7 @@ RowLayout {
                 Label {
                     padding: 5
                     font.bold: true
-                    text: "Audio - " + root.message.filename
+                    text: "Audio - " + attachFn
                     textFormat: Text.PlainText
                 }
 
@@ -163,15 +168,19 @@ RowLayout {
             id: videoMessageView
 
             ColumnLayout {
+                Loader {
+                    sourceComponent: textMessageView
+                }
+
                 MediaPlayer {
                     id: videoplayer
 
-                    source: Qt.resolvedUrl("file:" + root.message.file)
                     autoPlay: true
-                    autoLoad: false
+                    autoLoad: true
                     muted: true
+                    source: Qt.resolvedUrl(attachFile)
                     onError: console.log("Video MediaPlayer error: " + errorString)
-                    // Credit to https://stackoverflow.com/questions/65909975/show-video-preview-thumbnail-of-video-using-qml for video thumbnail with Qt ver < Qt5.15
+                    // Credit to stackoverflow.com/questions/65909975/show-video-preview-thumbnail-of-video-using-qml for video thumbnail with Qt ver < Qt5.15
                     onStatusChanged: {
                         if (status == MediaPlayer.Buffered) {
                             pause();
@@ -186,8 +195,9 @@ RowLayout {
 
                 VideoOutput {
                     Layout.preferredWidth: root.width
-                    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
-                    Layout.maximumHeight: Kirigami.Units.gridUnit * 20
+                    Layout.preferredHeight: root.height
+                    Layout.maximumWidth: maxW
+                    Layout.maximumHeight: maxH
                     source: videoplayer
 
                     MouseArea {
@@ -207,8 +217,35 @@ RowLayout {
                 Label {
                     padding: 5
                     font.bold: true
-                    text: "Video - " + root.message.filename
+                    text: "Video - " + attachFn
                     textFormat: Text.PlainText
+                }
+
+            }
+
+        }
+
+        Component {
+            id: gifView
+
+            ColumnLayout {
+                Loader {
+                    sourceComponent: textMessageView
+                }
+
+                AnimatedImage {
+                    source: Qt.resolvedUrl(attachFile)
+                    fillMode: Image.PreserveAspectFit
+                    Layout.maximumWidth: maxW
+                    Layout.maximumHeight: maxH
+                    asynchronous: true
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: Qt.openUrlExternally("file:" + root.message.file)
+                    }
+
                 }
 
             }
@@ -219,10 +256,14 @@ RowLayout {
             id: anyFileView
 
             ColumnLayout {
+                Loader {
+                    sourceComponent: textMessageView
+                }
+
                 Label {
                     padding: 5
                     font.bold: true
-                    text: "File - " + root.message.filename
+                    text: "File - " + attachFn
                 }
 
                 Button {
@@ -235,6 +276,7 @@ RowLayout {
 
         }
 
+        // This is what show the display name in top of every messages
         Component {
             id: textMessageView
 
@@ -275,7 +317,7 @@ RowLayout {
                 id: contextMenu
 
                 Component.onCompleted: {
-                    if (!root.message.filename.length > 0)
+                    if (!attachFn.length > 0)
                         contextMenu.removeAction(saveAsContext);
 
                 }
@@ -300,7 +342,8 @@ RowLayout {
             id: messageContents
 
             Loader {
-                sourceComponent: [20, 21, 23].includes(root.message.viewtype) ? imageMessageView
+                sourceComponent: [20, 23].includes(root.message.viewtype) ? imageMessageView
+                : [21].includes(root.message.viewtype) ? gifView
                 : [40, 41].includes(root.message.viewtype) ? audioMessageView
                 : [50].includes(root.message.viewtype) ? videoMessageView
                 : [60].includes(root.message.viewtype) ? anyFileView
@@ -322,8 +365,7 @@ RowLayout {
 
                 TextEdit {
                     id: quoteTextEdit
-
-                    Layout.maximumWidth: Kirigami.Units.gridUnit * 30
+                    Layout.maximumWidth: maxW
                     text: root.message.quotedText ? root.message.quotedText : ""
                     textFormat: Text.PlainText
                     selectByMouse: true
@@ -337,7 +379,7 @@ RowLayout {
 
             // Message
             TextEdit {
-                Layout.maximumWidth: Math.min(root.width, Kirigami.Units.gridUnit * 30)
+                Layout.maximumWidth: Math.min(root.width, maxW)
                 textFormat: Text.PlainText
                 selectByMouse: true
                 readOnly: true
