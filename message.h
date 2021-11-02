@@ -21,6 +21,7 @@ class DcMessage : public QObject {
     Q_PROPERTY(QString file READ getFile WRITE setFile)
     Q_PROPERTY(QString fileReadOnly READ getFile CONSTANT)
     Q_PROPERTY(QString filename READ getFilename CONSTANT)
+    Q_PROPERTY(QString videochatUrl READ getVideochatUrl CONSTANT)
     Q_PROPERTY(int width READ getWidth CONSTANT)
     Q_PROPERTY(int height READ getHeight CONSTANT)
     Q_PROPERTY(bool showPadlock READ getShowPadlock CONSTANT)
@@ -52,6 +53,7 @@ public:
     Q_INVOKABLE QString getText();
     Q_INVOKABLE QString getSubject();
     QString getFile();
+    QString getVideochatUrl();
     QString getFilename();
     QString getFilemime();
     //uint64_t getFilebytes();

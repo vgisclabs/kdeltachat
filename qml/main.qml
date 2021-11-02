@@ -135,7 +135,7 @@ Kirigami.ApplicationWindow {
                 font.pixelSize: 14
             },
             Text {
-                text: "<b>F1</b>: Displays this" + "<br><b>F2</b>: Work on/offline" + "<br><b>F5</b>: Network check" + "<br><b>Shift+S</b>: Account settings" + "<br><b>Alt+C</b>: Clear search" + "<br><b>Alt+Tab</b>: Switch accounts" + "<br><b>Ctrl+F</b>: Search contacts" + "<br><b>Ctrl+N</b>: New chat" + "<br><b>Ctrl+S</b>: Send message" + "<br><b>Ctrl+Tab</b>: Show sidebar" + "<br><b>Ctrl+Q</b>: Quit"
+                text: "<b>F1</b>: Displays this" + "<br><b>F2</b>: Work on/offline" + "<br><b>F5</b>: Network check" + "<br><b>Shift+Tab</b>: Account settings" + "<br><b>Alt+C</b>: Clear search" + "<br><b>Alt+Tab</b>: Switch accounts" + "<br><b>Ctrl+F</b>: Search contacts" + "<br><b>Ctrl+N</b>: New chat" + "<br><b>Ctrl+S</b>: Send message" + "<br><b>Ctrl+Tab</b>: Show sidebar" + "<br><b>Ctrl+Q</b>: Quit"
                 topPadding: 20
                 leftPadding: 10
                 bottomPadding: 20

@@ -84,12 +84,6 @@ Pane {
                 else
                     attachFileDialog.open();
             }
-
-            action: Action {
-                shortcut: "Ctrl+O"
-                onTriggered: attachButton.click()
-            }
-
         }
 
         TextArea {
@@ -129,22 +123,14 @@ Pane {
             text: qsTr("Send")
             enabled: messageField.length > 0 | attachFileUrl.length > 0
             onClicked: {
+                sendButton.down = true;
                 let msg = root.createMessage();
                 root.context.sendMessage(root.chatId, msg);
+                sendButton.down = false;
                 attachFileUrl = "";
                 messageField.text = "";
                 root.context.setDraft(chatId, null);
             }
-
-            action: Action {
-                shortcut: "Ctrl+S"
-                onTriggered: {
-                    if (sendButton.enabled == true)
-                        sendButton.click();
-
-                }
-            }
-
         }
 
         Button {

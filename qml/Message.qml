@@ -276,6 +276,28 @@ RowLayout {
 
         }
 
+        Component {
+            id: videoChatView
+            ColumnLayout {
+                Loader {
+                    sourceComponent: textMessageView
+                }
+                
+                Button {
+                    text: "Join conference call"
+                    icon.name: "call-start"
+                    Layout.preferredWidth: root.width
+                    Layout.maximumWidth: root.width
+                    hoverEnabled: true
+                    ToolTip.visible: hovered
+                    ToolTip.text: "<u>"+root.message.videochatUrl+"</u>"
+                    //Layout.leftMargin: 30
+                    //Layout.rightMargin: 30
+                    onClicked: Qt.openUrlExternally(root.message.videochatUrl)
+                }
+            }
+        }
+
         // This is what show the display name in top of every messages
         Component {
             id: textMessageView
@@ -347,6 +369,7 @@ RowLayout {
                 : [40, 41].includes(root.message.viewtype) ? audioMessageView
                 : [50].includes(root.message.viewtype) ? videoMessageView
                 : [60].includes(root.message.viewtype) ? anyFileView
+                : [70].includes(root.message.viewtype) ? videoChatView
                 : textMessageView
             }
 

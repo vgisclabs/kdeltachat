@@ -130,6 +130,12 @@ DcMessage::getFilemime()
     return result;
 }
 
+QString
+DcMessage::getVideochatUrl()
+{
+    return dc_msg_get_videochat_url(m_message);
+}
+
 int
 DcMessage::getWidth()
 {
