@@ -85,6 +85,7 @@ Kirigami.AbstractListItem {
 
         }
 
+        // Contact request / new messages count badge
         Label {
             text: root.isContactRequest ? "NEW" : root.freshMsgCnt
             visible: root.freshMsgCnt > 0 || root.isContactRequest
@@ -101,20 +102,13 @@ Kirigami.AbstractListItem {
 
         }
 
-        // "Pinned" badge
-        Rectangle {
+        // Pinned message badge
+        Label {
             visible: root.isPinned
-            color: Kirigami.Theme.alternateBackgroundColor
-            width: Kirigami.Units.gridUnit
-            height: Kirigami.Units.gridUnit
-            radius: 0.25 * height
-
-            Kirigami.Icon {
-                source: "pin"
-                height: Kirigami.Units.gridUnit
-                width: Kirigami.Units.gridUnit
-            }
-
+            text: "📌"
+            font.pixelSize: 20
+            rightPadding: 15
+            bottomPadding: 15
         }
 
     }

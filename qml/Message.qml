@@ -291,8 +291,6 @@ RowLayout {
                     hoverEnabled: true
                     ToolTip.visible: hovered
                     ToolTip.text: "<u>"+root.message.videochatUrl+"</u>"
-                    //Layout.leftMargin: 30
-                    //Layout.rightMargin: 30
                     onClicked: Qt.openUrlExternally(root.message.videochatUrl)
                 }
             }
