@@ -29,28 +29,6 @@ Pane {
 
     padding: 0
 
-    Shortcut {
-        sequence: "Ctrl+S"
-        onActivated: {
-            if (sendButton.enabled) {
-                sendButton.focus = true;
-                sendButton.clicked();
-                sendButton.focus = false;
-            }
-        }
-    }
-
-    Shortcut {
-        sequence: "Ctrl+O"
-        onActivated: {
-            if (attachButton.enabled) {
-                attachButton.focus = true;
-                attachButton.clicked();
-                attachButton.focus = false;
-            }
-        }
-    }
-
     FileDialog {
         id: attachFileDialog
 
@@ -70,7 +48,16 @@ Pane {
 
         Button {
             id: attachButton
-
+            action: Action {
+                shortcut: "Ctrl+O"
+                onTriggered: {
+                    if (attachButton.enabled) {
+                        root.focus = true;
+                        attachButton.focus = true;
+                        attachButton.clicked();
+                    }
+                }
+            }
             visible: root.canSend
             text: attachFileUrl.length > 0 ? qsTr("Detach") : qsTr("Attach")
             hoverEnabled: true
@@ -110,10 +97,30 @@ Pane {
             }
 
         }
+        
+        Button {
+            id: sendVChatUrl
+            hoverEnabled: true
+            ToolTip.visible: hovered
+            ToolTip.text: "Send videochat invitation"
+            text: "📞"
+            font.pixelSize: 20
+        }
 
         Button {
             id: sendButton
-
+            action: Action {
+                shortcut: "Ctrl+S"
+                onTriggered:{
+                    if (sendButton.enabled) {
+                        root.focus = true;
+                        focus = true;
+                        down = true;
+                        clicked();
+                        down = false;
+                    }
+                }
+            }
             hoverEnabled: true
             ToolTip.visible: hovered
             ToolTip.text: "Ctrl+S"
@@ -123,10 +130,8 @@ Pane {
             text: qsTr("Send")
             enabled: messageField.length > 0 | attachFileUrl.length > 0
             onClicked: {
-                sendButton.down = true;
                 let msg = root.createMessage();
                 root.context.sendMessage(root.chatId, msg);
-                sendButton.down = false;
                 attachFileUrl = "";
                 messageField.text = "";
                 root.context.setDraft(chatId, null);
