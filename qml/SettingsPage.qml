@@ -61,6 +61,13 @@ Kirigami.ScrollablePage {
             selectByMouse: true
         }
 
+        TextArea {
+            Kirigami.FormData.label: "Videochat instance: "
+            text: root.context.getConfig("webrtc_instance")
+            onEditingFinished: root.context.setConfig("webrtc_instance", text)
+            selectByMouse: true
+        }
+
         Switch {
             text: "Prefer end-to-end encryption"
             checked: root.context.getConfig("e2ee_enabled") == "1"

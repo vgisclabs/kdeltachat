@@ -13,6 +13,7 @@ Pane {
     property var attachFileUrl: ""
     property bool canSend: root.chat && root.chat.canSend
     property bool isContactRequest: root.chat && root.chat.isContactRequest
+    readonly property string vChatUrl: root.context.getConfig("webrtc_instance")
 
     function createMessage() {
         let DC_MSG_TEXT = 10;
@@ -100,24 +101,32 @@ Pane {
         
         Button {
             id: sendVChatUrl
+            enabled: vChatUrl.length > 0 ? true : false
             hoverEnabled: true
             ToolTip.visible: hovered
             ToolTip.text: "Send videochat invitation"
             text: "📞"
+            Layout.preferredWidth: attachButton.width / 2
+            Layout.alignment: Qt.AlignBottom
             font.pixelSize: 20
+            onClicked: {
+                if(vChatUrl.length > 0)
+                    root.context.sendVChatInv(chatId);
+            }
         }
 
         Button {
             id: sendButton
-            action: Action {
+            action: Kirigami.Action {
+                checked: false
                 shortcut: "Ctrl+S"
                 onTriggered:{
                     if (sendButton.enabled) {
                         root.focus = true;
-                        focus = true;
-                        down = true;
-                        clicked();
-                        down = false;
+                        sendButton.focus = true;
+                        sendButton.down = true;
+                        sendButton.clicked();
+                        sendButton.down = false;
                     }
                 }
             }

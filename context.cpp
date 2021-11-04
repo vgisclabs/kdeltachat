@@ -272,6 +272,12 @@ Context::sendMessage(uint32_t chatId, DcMessage *message)
     return dc_send_msg(m_context, chatId, message->m_message);
 }
 
+uint32_t
+Context::sendVChatInv(uint32_t chatId)
+{
+    return dc_send_videochat_invitation(m_context, chatId);
+}
+
 void
 Context::importBackup(QString tarfile)
 {

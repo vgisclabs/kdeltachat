@@ -162,7 +162,8 @@ Kirigami.ApplicationWindow {
                 tooltip: "Alt+Tab"
                 iconName: "system-users"
                 onTriggered: {
-                    while (pageStack.layers.depth > 1)pageStack.layers.pop()
+                    while (pageStack.layers.depth > 1)
+                        pageStack.layers.pop();
                     pageStack.layers.push(accountsPage);
                 }
             },
