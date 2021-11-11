@@ -102,6 +102,7 @@ Pane {
         Button {
             id: sendVChatUrl
             enabled: vChatUrl.length > 0 ? true : false
+            visible: root.isContactRequest ? false : true
             hoverEnabled: true
             ToolTip.visible: hovered
             ToolTip.text: "Send videochat invitation"
@@ -160,7 +161,7 @@ Pane {
             Layout.alignment: Qt.AlignBottom
             Layout.fillWidth: true
             text: "Block"
-            onClicked: root.context.acceptChat(root.chatId)
+            onClicked: root.context.blockChat(root.chatId)
             visible: root.isContactRequest
             icon.name: "call-stop"
         }
