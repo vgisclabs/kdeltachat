@@ -82,7 +82,7 @@ RowLayout {
 
                     source: Qt.resolvedUrl("file:" + root.message.file)
                     onError: console.log("Audio MediaPlayer error: " + errorString)
-                    onPlaybackStateChanged: playbackState == 1 ? audioBtn.text = "pause" : audioBtn.text = "play"
+                    onPlaybackStateChanged: playbackState == MediaPlayer.PlayingState ? audioBtn.text = "pause" : audioBtn.text = "play"
                 }
 
                 Label {
@@ -95,7 +95,7 @@ RowLayout {
                     id: audioBtn
 
                     text: "play"
-                    onPressed: player.playbackState == 1 ? player.pause() : player.play()
+                    onPressed: player.playbackState == MediaPlayer.PlayingState ? player.pause() : player.play()
                 }
 
             }
@@ -143,7 +143,7 @@ RowLayout {
                         anchors.fill: parent
                         onClicked: {
                             videoplayer.muted = false;
-                            if (videoplayer.playbackState == 1)
+                            if (videoplayer.playbackState == MediaPlayer.PlayingState)
                                 videoplayer.pause();
                             else
                                 videoplayer.play();
