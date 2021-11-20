@@ -37,6 +37,8 @@ public:
     Q_INVOKABLE DcChat *getChat(uint32_t chatId);
     Q_INVOKABLE QVariantList getContacts(uint32_t flags, QString query);
     Q_INVOKABLE QVariantList getMsgIdList(uint32_t chatId);
+    Q_INVOKABLE QVariantMap getBlockedContacts();
+    Q_INVOKABLE void blockContact(uint32_t contactId, uint32_t blockMode);
     Q_INVOKABLE int getFreshMsgCnt(uint32_t chatId);
     Q_INVOKABLE void marknoticedChat(uint32_t chatId);
     Q_INVOKABLE void markseenMsgs(QVector<uint32_t> msg_ids);

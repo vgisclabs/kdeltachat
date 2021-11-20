@@ -36,6 +36,15 @@ Kirigami.AbstractListItem {
                     id: contextMenu
 
                     Action {
+                        text: "Block chat"
+                        onTriggered: {
+                            root.context.blockChat(root.chatId)
+                            updateChatlist()
+                        }
+
+                    }
+
+                    Action {
                         icon.name: "pin"
                         text: "Pin chat"
                         onTriggered: root.context.setChatVisibility(root.chatId, 2)

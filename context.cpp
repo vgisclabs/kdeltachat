@@ -100,6 +100,34 @@ Context::acceptChat(uint32_t chatId)
     dc_accept_chat(m_context, chatId);
 }
 
+void
+Context::blockContact(uint32_t contactId, uint32_t blockMode)
+{
+    dc_block_contact(m_context, contactId, blockMode);
+}
+
+QVariantMap
+Context::getBlockedContacts()
+{
+    QVariantMap blockList;
+    uint32_t CID;
+    char *addr;
+    dc_contact_t *contact;
+    dc_array_t *blockedContacts = dc_get_blocked_contacts(m_context);
+    size_t max = dc_array_get_cnt(blockedContacts);
+
+    for (size_t i = 0; i < max; i++) {
+        CID = dc_array_get_id(blockedContacts, i);
+        contact = dc_get_contact(m_context, CID);
+        addr = dc_contact_get_addr(contact);
+        blockList.insert(addr, CID);
+        dc_contact_unref(contact);
+        dc_str_unref(addr);
+    }
+    dc_array_unref(blockedContacts);
+    return blockList;
+}
+
 QString
 Context::getChatEncrinfo(uint32_t chatId)
 {

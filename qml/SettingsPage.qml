@@ -9,6 +9,7 @@ Kirigami.ScrollablePage {
     id: root
 
     required property DcContext context
+    property int bannedListHeight: 0
 
     title: "Settings"
 
@@ -18,6 +19,10 @@ Kirigami.ScrollablePage {
 
             Kirigami.FormData.label: "Avatar: "
             source: "file:" + root.context.getConfig("selfavatar")
+        }
+
+        ListModel {
+            id: bannedList
         }
 
         FileDialog {
@@ -42,7 +47,7 @@ Kirigami.ScrollablePage {
             text: "Change avatar"
             icon.name: "avatar-default"
             hoverEnabled: true
-            anchors.horizontalCenter: pfp.horizontalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
             onClicked: changePfpDialog.open()
         }
 
@@ -110,8 +115,64 @@ Kirigami.ScrollablePage {
             onToggled: root.context.setConfig("mvbox_move", checked ? "1" : "0")
         }
 
+        Button {
+          id: blockedUsers
+          text: "View blocked users"
+          icon.name: "avatar-default"
+          hoverEnabled: true
+          anchors.horizontalCenter: parent.horizontalCenter
+          onClicked: {
+              bannedList.clear()
+              let banListObj = root.context.getBlockedContacts()
+              for (var addr in banListObj){
+                  let chatId = banListObj[addr]
+                  console.log("Chat ID " + chatId + " is " + addr)
+                  bannedList.append({"email": addr, "bannedContactId": chatId});
+              }
+              bannedListHeight = 0
+          }
+        }
+       
+        Rectangle {
+            id: listContainer
+            height: bannedListHeight
+            Layout.preferredHeight: height
+            radius: 10
+            data: ListView {
+                id: blocked
+                currentIndex: -1
+                anchors.fill: parent
+                model: bannedList
+                delegate: RowLayout {
+
+                    Button {
+                        id: unblockBtn
+                        text: "X"
+                        ToolTip.text: "Click to unblock"
+                        ToolTip.visible: hovered
+                        hoverEnabled: true
+                        onClicked: { 
+                            root.context.blockContact(bannedContactId, 0);
+                            console.log("Unblocking " + email + "(contact id "+ bannedContactId + ")")
+                            blockedUsers.clicked();
+                            updateChatlist()
+                        }
+                    }
+
+                    TextEdit {
+                        selectByMouse: true
+                        readOnly: true
+                        text: email
+                        padding: 4
+                    }
+                    Component.onCompleted: bannedListHeight += height
+               }
+            }
+        }
+
         ComboBox {
             Kirigami.FormData.label: "Show classic emails: "
+            Layout.preferredWidth: 250
             textRole: "text"
             currentIndex: root.context.getConfig("show_emails")
             onActivated: root.context.setConfig("show_emails", currentIndex)

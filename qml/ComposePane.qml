@@ -3,18 +3,18 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.3
 import QtQuick.Layouts 1.12
+import org.kde.kirigami 2.12 as Kirigami
 
 Pane {
     id: root
-
     required property DcContext context
     required property var chatId
     required property var chat
     property var attachFileUrl: ""
+    property bool isContactBlocked: false
     property bool canSend: root.chat && root.chat.canSend
     property bool isContactRequest: root.chat && root.chat.isContactRequest
     readonly property string vChatUrl: root.context.getConfig("webrtc_instance")
-
     function createMessage() {
         let DC_MSG_TEXT = 10;
         let DC_MSG_FILE = 60;
@@ -102,7 +102,7 @@ Pane {
         Button {
             id: sendVChatUrl
             enabled: vChatUrl.length > 0 ? true : false
-            visible: root.isContactRequest ? false : true
+            visible: root.canSend
             hoverEnabled: true
             ToolTip.visible: hovered
             ToolTip.text: "Send videochat invitation"
@@ -149,23 +149,47 @@ Pane {
         }
 
         Button {
+            id: acceptCBtn
             Layout.alignment: Qt.AlignBottom
             Layout.fillWidth: true
             text: "Accept"
-            onClicked: root.context.acceptChat(root.chatId)
+            onClicked: {
+                root.context.acceptChat(root.chatId);
+                root.isContactBlocked = 0;
+            }
             visible: root.isContactRequest
             icon.name: "call-start"
         }
 
         Button {
+            id: blockCBtn
             Layout.alignment: Qt.AlignBottom
             Layout.fillWidth: true
             text: "Block"
-            onClicked: root.context.blockChat(root.chatId)
+            onClicked: {
+                root.context.blockChat(root.chatId)
+                updateChatlist();
+                acceptCBtn.visible = false;
+                blockCBtn.visible = false;
+                root.isContactBlocked = true;
+            }
             visible: root.isContactRequest
             icon.name: "call-stop"
         }
 
+        
+        TextEdit {
+            selectByMouse: true
+            readOnly: true
+            text: "This contact has been blocked.<br>You can see who you've blocked <br>in 'Settings' > 'View blocked users'"
+            font.bold: true
+            textFormat: TextEdit.RichText
+            visible: root.isContactBlocked
+            Layout.preferredWidth: root.width
+            Layout.maximumWidth: root.width
+            horizontalAlignment: TextEdit.AlignHCenter
+            padding: Kirigami.Units.largeSpacing
+        }
     }
 
 }

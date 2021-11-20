@@ -84,6 +84,7 @@ RowLayout {
     }
 
     Rectangle {
+        id: msgRect
         Layout.leftMargin: Kirigami.Units.largeSpacing
         Layout.preferredWidth: messageContents.width
         Layout.preferredHeight: messageContents.height
@@ -447,6 +448,7 @@ RowLayout {
                 }
 
                 Label {
+                    padding: Kirigami.Units.largeSpacing
                     font.pixelSize: 14
                     color: Kirigami.Theme.disabledTextColor
                     text: Qt.formatDateTime(root.message.timestamp, "dd. MMM yyyy, hh:mm")
