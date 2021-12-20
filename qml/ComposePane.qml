@@ -82,6 +82,20 @@ Pane {
             placeholderText: qsTr("Message")
             wrapMode: TextArea.Wrap
             selectByMouse: true
+            Keys.onReturnPressed: {
+                if (event.key === Qt.Key_Return) {
+                    if (event.modifiers & (Qt.ControlModifier | Qt.ShiftModifier)){
+                        messageField.append("");
+                    } else {
+                        if(sendButton.enabled){
+                            sendButton.clicked();
+                            dcAccounts.startIo();
+                            event.accepted = true;
+                        }
+                    }
+                }
+            }
+
             Component.onCompleted: {
                 let draft = root.context.getDraft(chatId);
                 if (draft)
@@ -118,22 +132,9 @@ Pane {
 
         Button {
             id: sendButton
-            action: Kirigami.Action {
-                checked: false
-                shortcut: "Ctrl+S"
-                onTriggered:{
-                    if (sendButton.enabled) {
-                        root.focus = true;
-                        sendButton.focus = true;
-                        sendButton.down = true;
-                        sendButton.clicked();
-                        sendButton.down = false;
-                    }
-                }
-            }
             hoverEnabled: true
             ToolTip.visible: hovered
-            ToolTip.text: "Ctrl+S"
+            ToolTip.text: "Press Enter"
             visible: root.canSend
             Layout.alignment: Qt.AlignBottom
             icon.name: "document-send"
@@ -145,6 +146,7 @@ Pane {
                 attachFileUrl = "";
                 messageField.text = "";
                 root.context.setDraft(chatId, null);
+                messageField.forceActiveFocus();
             }
         }
 
@@ -192,4 +194,7 @@ Pane {
         }
     }
 
+    Component.onCompleted : {
+        messageField.forceActiveFocus();
+    }
 }

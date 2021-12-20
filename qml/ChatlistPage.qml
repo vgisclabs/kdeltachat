@@ -89,6 +89,7 @@ Kirigami.ScrollablePage {
 
     title: qsTr("Chats")
     Component.onCompleted: {
+        dcAccounts.startIo();
         updateChatlist();
     }
     contextualActions: [

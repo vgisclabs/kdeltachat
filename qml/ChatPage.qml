@@ -54,10 +54,8 @@ Kirigami.ScrollablePage {
         }
 
         function onIncomingMessage(accountId, chatId, msgId) {
+            updateMessagelist();
             console.log("Incoming message for chat " + chatId);
-            if (chatId == root.chatId)
-                root.updateMessagelist();
-
         }
 
         function onMessagesChanged(accountId, chatId, msgId) {
