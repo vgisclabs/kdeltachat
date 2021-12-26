@@ -35,30 +35,13 @@ RowLayout {
         }
     }
 
-    Popup {
-        id: saveAsPopup
+    MessageDialog {
+        id: saveFailureDialog
 
-        modal: true
-        focus: true
-        anchors.centerIn: parent
-        width: 400
-        height: 100
-        padding: 10
-        onClosed: saveAsUrl = ""
-        contentChildren: [
-            Text {
-                text: saveSuccess == true ? "Success !" : "Failure !"
-                bottomPadding: 10
-                font.bold: true
-                font.pixelSize: 14
-            },
-            Text {
-                text: saveSuccess == true ? "The file has been saved locally at <br><b>" + saveAsUrl + "</b>" : "An error was detected. Maybe you<br>dont have enough permissions to copy the file to <br><b>" + saveAsUrl + "</b>"
-                topPadding: 20
-                leftPadding: 10
-                bottomPadding: 20
-            }
-        ]
+        title: "Failed to save attacment"
+        text: "Failed to save file " + saveAsUrl
+        onAccepted: {
+        }
     }
 
     FileDialog {
@@ -73,7 +56,9 @@ RowLayout {
             if (url.startsWith("file://")) {
                 saveAsUrl = url.substring(7);
                 saveSuccess = root.message.saveAttach(saveAsUrl);
-                saveAsPopup.open();
+                if (!saveSuccess) {
+                    saveFailureDialog.open()
+                }
             }
         }
     }
