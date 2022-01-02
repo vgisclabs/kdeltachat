@@ -74,21 +74,9 @@ Kirigami.ScrollablePage {
         }
 
         Switch {
-            text: "Watch Inbox"
-            checked: root.context.getConfig("inbox_watch") == "1"
-            onToggled: root.context.setConfig("inbox_watch", checked ? "1" : "0")
-        }
-
-        Switch {
             text: "Watch Sent"
             checked: root.context.getConfig("sentbox_watch") == "1"
             onToggled: root.context.setConfig("sentbox_watch", checked ? "1" : "0")
-        }
-
-        Switch {
-            text: "Watch DeltaChat"
-            checked: root.context.getConfig("mvbox_watch") == "1"
-            onToggled: root.context.setConfig("mvbox_watch", checked ? "1" : "0")
         }
 
         Switch {
