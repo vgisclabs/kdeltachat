@@ -29,7 +29,7 @@ find_package(PkgConfig REQUIRED)
 #
 # Not REQUIRED to avoid failing the build if `qmlplugindump` used by
 # `ecm_find_qmlmodule` is not configured correctly.
-include(ECMQMLModules)
+include(ECMFindQmlModule)
 ecm_find_qmlmodule(QtMultimedia 5.8)
 ecm_find_qmlmodule(org.kde.kirigami 2.12)
 
