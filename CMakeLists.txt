@@ -49,6 +49,7 @@ add_executable(
   contact.cpp
   chat.cpp
   eventemitter.cpp
+  eventloopthread.cpp
   lot.cpp
   dcevent.cpp
   ${KDELTACHAT_QML_QRC})

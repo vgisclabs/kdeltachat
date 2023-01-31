@@ -1,5 +1,7 @@
 #include "eventemitter.h"
 
+#include <iostream>
+
 DcAccountsEventEmitter::DcAccountsEventEmitter(QObject *parent)
     : QObject{parent}
 {
