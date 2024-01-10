@@ -7,7 +7,8 @@ DcAccounts::DcAccounts(QObject *parent)
   : QObject(parent)
 {
     QString path = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/db";
-    m_accounts = dc_accounts_new("Qt", path.toUtf8().constData());
+    const int writeable = true;
+    m_accounts = dc_accounts_new(path.toUtf8().constData(), writeable);
 }
 
 DcAccounts::~DcAccounts()
