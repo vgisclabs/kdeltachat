@@ -69,11 +69,11 @@ Kirigami.ScrollablePage {
 
         }
 
-        delegate: Kirigami.AbstractListItem {
+        delegate: ItemDelegate {
             property DcContact contact: context.getContact(model.contactId)
             property string profileImage: contact.getProfileImage()
 
-            RowLayout {
+            contentItem: RowLayout {
                 Kirigami.Avatar {
                     name: contact.displayName
                     color: contact.color

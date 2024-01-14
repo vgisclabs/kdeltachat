@@ -5,7 +5,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import org.kde.kirigami 2.13 as Kirigami
 
-Kirigami.AbstractListItem {
+ItemDelegate {
     id: root
 
     property DcContext context
@@ -17,7 +17,7 @@ Kirigami.AbstractListItem {
     property bool isContactRequest
     property bool isPinned
 
-    RowLayout {
+    contentItem: RowLayout {
         Kirigami.Avatar {
             source: root.avatarSource
             name: root.chatName

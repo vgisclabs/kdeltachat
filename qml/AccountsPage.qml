@@ -40,7 +40,7 @@ Kirigami.Page {
         model: accountsModel
         currentIndex: -1
 
-        delegate: Kirigami.AbstractListItem {
+        delegate: ItemDelegate {
             width: accountsListView.width
             onClicked: {
                 while (pageStack.depth > 1)
@@ -61,7 +61,7 @@ Kirigami.Page {
                 pageStack.layers.pop();
             }
 
-            RowLayout {
+            contentItem: RowLayout {
                 Label {
                     Layout.fillWidth: true
                     text: model.title
